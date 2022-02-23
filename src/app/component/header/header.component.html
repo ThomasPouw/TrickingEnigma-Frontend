@@ -1,0 +1,12 @@
+<div class="header">
+  <div *ngFor="let location in Destinations">
+    {{location}}
+    {{Destinations.length}}
+    <div *ngIf="location === Located.Top || Located.Both">
+      <div class="header_button">
+        {{location.ShowName}}
+      </div>
+    </div>
+
+  </div>
+</div>

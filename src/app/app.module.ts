@@ -4,23 +4,31 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 
 import { AppComponent } from './app.component';
-import { GamePageComponent } from './component/game-page/game-page.component';
+import { GamePageComponent } from './view/game-page/game-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TableComponent } from './Parts/table/table.component';
-import { GameBoardComponent } from './Game/game-board/game-board.component';
+import { TableComponent } from './component/table/table.component';
+import { UserPageComponent } from './view/user-page/user-page.component';
+import { AdminPageComponent } from './view/admin-page/admin-page.component';
+import {RouterModule} from "@angular/router";
+import {URLrouterModule} from "./Route/router-module/URLrouter.module";
+import { HeaderComponent } from './component/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GamePageComponent,
     TableComponent,
-    GameBoardComponent
+    UserPageComponent,
+    AdminPageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     MatTabsModule,
     BrowserAnimationsModule,
-    MatTableModule
+    MatTableModule,
+    RouterModule,
+    URLrouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

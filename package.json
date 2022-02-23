@@ -20,10 +20,10 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
-    "bump.js": "^1.0.3",
+    "@ngqp/core": "^13.0.0",
+    "@ngrx/store": "^13.0.2",
     "pixi-bump": "^1.0.2",
     "pixi-plugin-bump": "^1.1.8",
-    "pixi.js": "^6.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

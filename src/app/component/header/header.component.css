@@ -1,0 +1,14 @@
+.header {
+  position: absolute;
+  color: black;
+  height: 10%;
+  width: 100%;
+}
+.header_button {
+  color: gray;
+  height: 50%;
+  width: 10%;
+  float: right;
+}
+
+/*# sourceMappingURL=header.component.css.map */

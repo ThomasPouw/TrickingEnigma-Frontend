@@ -3,7 +3,7 @@ import {Graphics, Container} from "pixi.js";
 import "pixi-plugin-bump";
 
 export class GamePiece {
-  hitdetection(ControlledSprite: Graphics, Collision: Container): boolean{
+  hitDetection(ControlledSprite: Graphics, Collision: Container): boolean{
     let B = new PIXI.extras.Bump();
     let Con: Container = Collision;
     Con.removeChild(ControlledSprite)

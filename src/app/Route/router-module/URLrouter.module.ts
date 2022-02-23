@@ -1,11 +1,10 @@
 import {NgModule} from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {destinations} from "../router-destinations";
 
 const routes: Routes = [];
 
-function arrayMaker(): Routes {
+function route(): Routes {
   destinations.forEach(value => {
     routes.push({path: value.Path, component: value.Component})
   })
@@ -14,7 +13,7 @@ function arrayMaker(): Routes {
 @NgModule({
   declarations: [],
   imports: [
-    RouterModule.forRoot(arrayMaker())
+    RouterModule.forRoot(route())
   ],
   exports: [RouterModule]
 

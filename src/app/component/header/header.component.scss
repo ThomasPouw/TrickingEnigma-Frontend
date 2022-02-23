@@ -1,0 +1,12 @@
+.header{
+  position: absolute;
+  color: black;
+  height: 10%;
+  width: 100%;
+  &_button{
+    color: gray;
+    height: 50%;
+    width: 10%;
+    float: right;
+  }
+}
