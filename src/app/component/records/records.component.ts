@@ -1,21 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
-export interface Records {
-  position: number;
-  course?: string;
-  name: string;
-  time: string;
-  turns?: number;
-  nationality?: string;
-}
+import { Component, OnInit } from '@angular/core';
+import {Records} from "../table/table.component";
 @Component({
-  selector: 'app-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: 'app-records',
+  templateUrl: './records.component.html',
+  styleUrls: ['./records.component.scss']
 })
-export class TableComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'course', 'time'];
-  constructor() { }
+export class RecordsComponent implements OnInit {
+  Showrecord: boolean;
+  constructor() {
+    this.Showrecord = true
+  }
   getData(recordType?: string, userID?: string, nationality?: string): Records[] {
+    console.log(recordType);
     switch (recordType){
       case("1"):
         return [{position: 1, name: 'Hydrogen', course: "Hasta La Vista station", time: '1:56'},
@@ -35,6 +31,4 @@ export class TableComponent implements OnInit {
   }
   ngOnInit(): void {
   }
-  @Input("RecordType") dataSource: Records[] = []
 }
-

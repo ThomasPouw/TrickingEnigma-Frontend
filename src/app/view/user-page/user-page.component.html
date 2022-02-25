@@ -1,3 +1,44 @@
-<div>
+<div class="container">
+  <p>Test :)</p>
+  <div class="container" style="background-color: aqua">
+    UserName:
+    <mat-form-field [style.fontSize]="12" appearance="fill">
+      <mat-label>UserName</mat-label>
+      <textarea matInput
+        cdkTextareaAutosize>
+      </textarea>
+    </mat-form-field><br/>
+    Password:
+    <mat-form-field [style.fontSize]="12" appearance="fill">
+      <mat-label>Password</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize>
+      </textarea>
+    </mat-form-field>
+  </div>
+  <div class="container" style="background-color: aqua; height: 300px">
+    <div>
+      <app-records></app-records>
+    </div>
+  </div>
+  <div class="container" style="background-color: aqua">
+    UserName:
+    <mat-form-field [style.fontSize]="12" appearance="fill">
+      <mat-label>Autosize textarea</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize>
+      </textarea>
+    </mat-form-field><br/>
+    Password:
+    <mat-form-field [style.fontSize]="12" appearance="fill">
+      <mat-label>Autosize textarea</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize>
+      </textarea>
+    </mat-form-field>
+  </div>
   <p>Test :)</p>
 </div>

@@ -3,14 +3,14 @@ import {destinations} from "../../Route/router-destinations";
 import {Located} from "../../Route/located";
 
 @Component({
-  selector: 'app-Header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  selector: 'app-side-bar',
+  templateUrl: './side-bar.component.html',
+  styleUrls: ['./side-bar.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class SideBarComponent implements OnInit {
   Destinations = destinations;
   Located = Located;
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
   }

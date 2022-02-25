@@ -1,11 +1,11 @@
 <div class="header">
-  <div *ngFor="let location in Destinations">
-    {{location}}
-    {{Destinations.length}}
-    <div *ngIf="location === Located.Top || Located.Both">
-      <div class="header_button">
-        {{location.ShowName}}
-      </div>
+  <div *ngFor="let location of Destinations">
+    <div *ngIf="location.Located === Located.Top || Located.Both">
+        <a routerLink={{location.Path}}>
+          <div class="header_button">
+            {{location.ShowName}}
+          </div>
+        </a>
     </div>
 
   </div>

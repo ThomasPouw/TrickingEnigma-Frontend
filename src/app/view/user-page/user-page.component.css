@@ -1,0 +1,10 @@
+.container {
+  width: 90%;
+  margin: 5%;
+  background-color: blue;
+  height: auto;
+  border-radius: 1%;
+  position: relative;
+}
+
+/*# sourceMappingURL=user-page.component.css.map */

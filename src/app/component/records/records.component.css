@@ -1,0 +1,19 @@
+.line {
+  float: right;
+  margin-left: 2%;
+  margin-right: 3%;
+}
+
+.table {
+  float: left;
+  margin-left: 3%;
+  margin-right: 2%;
+}
+
+.line, .table {
+  width: 45%;
+  height: auto;
+  background-color: aqua;
+}
+
+/*# sourceMappingURL=records.component.css.map */

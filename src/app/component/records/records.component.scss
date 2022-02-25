@@ -1,0 +1,17 @@
+.line{
+    float: right;
+  @extend %container;
+  margin-left: 2%;
+  margin-right: 3%;
+}
+.table{
+  float: left;
+  @extend %container;
+  margin-left: 3%;
+  margin-right: 2%;
+}
+%container{
+  width: 45%;
+  height: auto;
+  background-color: aqua;
+}

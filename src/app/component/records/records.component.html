@@ -1,0 +1,27 @@
+<div class="record-button" (click)="Showrecord = !Showrecord">Records</div>
+<div *ngIf="Showrecord">
+    <mat-tab-group>
+      <mat-tab label="World Record">
+        <div class="table">
+          <app-table></app-table>
+        </div>
+      </mat-tab>
+      <mat-tab label="Record of the Week">
+        test
+        <div class="table">
+          <app-table></app-table>
+          <app-line-chart></app-line-chart>
+        </div>
+      </mat-tab>
+      <mat-tab label="National Record">
+        <div class="table">
+          <app-table></app-table>
+          <app-line-chart></app-line-chart>
+        </div>
+        <div class="line">
+          <app-table></app-table>
+          <app-line-chart></app-line-chart>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+</div>
