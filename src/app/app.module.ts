@@ -24,6 +24,13 @@ import { GameBoardComponent } from './component/game-board/game-board.component'
 import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { LineChartComponent } from './component/line-chart/line-chart.component';
 import { FooterComponent } from './component/footer/footer.component';
+import {StoreModule} from "@ngrx/store";
+
+
+//NGRX store
+import {RecordsModule} from "./Store/Modules/records.module";
+import {EffectsModule} from "@ngrx/effects";
+import {RecordEffects} from "./Store/Effects/records.effects";
 
 @NgModule({
   declarations: [
@@ -51,6 +58,9 @@ import { FooterComponent } from './component/footer/footer.component';
     MatInputModule,
     NgxEchartsModule.forRoot({
       echarts}),
+    StoreModule.forRoot({}),
+    RecordsModule,
+    EffectsModule.forRoot([RecordEffects])
   ],
   exports: [
     MatInputModule,

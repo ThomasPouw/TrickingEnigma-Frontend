@@ -1,4 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {Record} from "../../Store/Reducers/records.reducer";
+import {Store} from "@ngrx/store";
 export interface Records {
   position: number;
   course?: string;
@@ -13,8 +16,12 @@ export interface Records {
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  record$: Observable<Record[]> = this.store.select(state => state.records);
   displayedColumns: string[] = ['position', 'name', 'course', 'time'];
-  constructor() { }
+  constructor(private store: Store<{ records: Record[] }>) {}
+  ngOnInit() {
+    this.store.dispatch({ type: '[record Component] WorldRecords' });
+  }
   getData(recordType?: string, userID?: string, nationality?: string): Records[] {
     switch (recordType){
       case("1"):
@@ -32,8 +39,6 @@ export class TableComponent implements OnInit {
       default:
         return [{position: 1, name: 'Hydrogen', course: "Hasta La Vista station", time: '1:56'}]
     }
-  }
-  ngOnInit(): void {
   }
   @Input("RecordType") dataSource: Records[] = []
 }

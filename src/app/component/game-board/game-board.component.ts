@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./game-board.component.scss']
 })
 export class GameBoardComponent implements OnInit {
-  time: number = 56;
+  time: number = 0;
   interval: any;
   start: boolean = false;
   TimeCounter: string= "0:00";
@@ -20,7 +20,7 @@ counter(start: boolean): void{
       this.interval = setInterval(() => {
         this.time++;
         this.TimeCounter = (Math.floor(this.time/60)) +":"+ ('0' + (this.time % 60)).slice(-2)
-      },100);
+      },1000);
     }
     else{
       this.start = start;
