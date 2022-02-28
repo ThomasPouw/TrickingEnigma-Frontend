@@ -1,5 +1,4 @@
 import {createAction, props} from "@ngrx/store";
-import {Record} from "../Reducers/records.reducer";
 
 export const NewestRecords = createAction('[record Component] NewestRecords');
 export const WorldRecords = createAction('[record Component] WorldRecords');
@@ -8,9 +7,10 @@ export const NationalRecords = createAction(
   props<{nationality: string}>()
 );
 export const UserRecords = createAction(
-  '[record Component] UserRecords',
+  '[User Component] UserRecords',
   props<{userID: string}>()
 );
+export const UserRecord = createAction('[record Component] User Record');
 export const RecordsSuccess = createAction('[record Component] Loaded Records Succesfully',
   (records: any) => records);
 //

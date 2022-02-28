@@ -1,18 +1,40 @@
 import {Injectable} from "@angular/core";
-import {map, mergeMap, catchError, exhaustMap} from 'rxjs/operators';
+import {map, catchError, exhaustMap} from 'rxjs/operators';
 import {of} from "rxjs";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {RecordService} from "../Service/record.service";
-import {RecordsError, RecordsSuccess, WorldRecords} from "../Actions/records.actions";
+import * as RecordActions from "../Actions/records.actions";
 @Injectable()
 export class RecordEffects{
   loadRecords$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(WorldRecords),
+      ofType(RecordActions.WorldRecords),
       exhaustMap(() =>
-        this.recordService.GetAll().pipe(
-          map(records => RecordsSuccess(records)),
-          catchError(() => of({ type: RecordsError}))
+        this.recordService.GetAllRecords().pipe(
+          map(records => RecordActions.RecordsSuccess(records)),
+          catchError(() => of({ type: RecordActions.RecordsError}))
+        )
+      )
+    )
+  );
+  loadUserRecord$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RecordActions.UserRecord),
+      exhaustMap(() =>
+        this.recordService.GetUserRecord().pipe(
+          map(record => RecordActions.RecordsSuccess(record)),
+          catchError(() => of({ type: RecordActions.RecordsError}))
+        )
+      )
+    )
+  );
+  loadUserRecords$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(RecordActions.UserRecords),
+      exhaustMap(() =>
+        this.recordService.GetUserRecord().pipe(
+          map(record => RecordActions.RecordsSuccess(record)),
+          catchError(() => of({ type: RecordActions.RecordsError}))
         )
       )
     )

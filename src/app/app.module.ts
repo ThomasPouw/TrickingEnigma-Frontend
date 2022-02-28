@@ -31,6 +31,12 @@ import {StoreModule} from "@ngrx/store";
 import {RecordsModule} from "./Store/Modules/records.module";
 import {EffectsModule} from "@ngrx/effects";
 import {RecordEffects} from "./Store/Effects/records.effects";
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,7 @@ import {RecordEffects} from "./Store/Effects/records.effects";
     GameBoardComponent,
     SideBarComponent,
     LineChartComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,7 +66,13 @@ import {RecordEffects} from "./Store/Effects/records.effects";
       echarts}),
     StoreModule.forRoot({}),
     RecordsModule,
-    EffectsModule.forRoot([RecordEffects])
+    EffectsModule.forRoot([RecordEffects]),
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule
   ],
   exports: [
     MatInputModule,
