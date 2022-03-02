@@ -8,33 +8,33 @@ import * as RecordActions from "../Actions/records.actions";
 export class RecordEffects{
   loadRecords$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RecordActions.WorldRecords),
+      ofType(RecordActions.LOAD_WORLDRECORDS),
       exhaustMap(() =>
         this.recordService.GetAllRecords().pipe(
-          map(records => RecordActions.RecordsSuccess(records)),
-          catchError(() => of({ type: RecordActions.RecordsError}))
+          map(records => new RecordActions.Record_SuccessAction(records)),
+          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
         )
       )
     )
   );
   loadUserRecord$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RecordActions.UserRecord),
+      ofType(RecordActions.LOAD_USER_RECORD),
       exhaustMap(() =>
         this.recordService.GetUserRecord().pipe(
-          map(record => RecordActions.RecordsSuccess(record)),
-          catchError(() => of({ type: RecordActions.RecordsError}))
+          map(record => new RecordActions.Record_SuccessAction(record)),
+          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
         )
       )
     )
   );
   loadUserRecords$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RecordActions.UserRecords),
+      ofType(RecordActions.LOAD_USER_RECORDS),
       exhaustMap(() =>
         this.recordService.GetUserRecord().pipe(
-          map(record => RecordActions.RecordsSuccess(record)),
-          catchError(() => of({ type: RecordActions.RecordsError}))
+          map(records => new RecordActions.Record_SuccessAction(records)),
+          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
         )
       )
     )

@@ -1,13 +1,6 @@
 import {Action, createReducer, on} from "@ngrx/store";
-import {
-  NationalRecords,
-  NewestRecords,
-  RecordsError,
-  RecordsSuccess,
-  UserRecords,
-  WorldRecords
-} from "../Actions/records.actions";
-export interface Record {
+import * as RecordAction from "../Actions/records.actions";
+export interface TrackRecord{
   position?: number;
   courseName?: string;
   name: string;
@@ -15,27 +8,34 @@ export interface Record {
   turns: number;
   nationality: string;
 }
-export interface RecordState {
-  records: Record[],
-  record: Record
+export interface State {
+  trackRecords: [],
+  trackRecord: TrackRecord | undefined
 }
 
-export const initialState: RecordState = {
-  records: [],
-  record: {name: "", time: "", nationality: "", turns: 0}
+export const initialState: State = {
+  trackRecords: [],
+  trackRecord: undefined
 };
-const _recordReducer = createReducer(
-  initialState,
-  on(NewestRecords, (state: any) => state),
-  on(NationalRecords, (state: any) => state),
-  on(WorldRecords, (state: any) => state),
-  on(UserRecords, (state: any) => state),
-  on(RecordsSuccess, (state: any) => state),
-  on(RecordsError, (state: any) => state)
-);
 
-
-export function recordReducer(state: RecordState, action: Action) {
-  return _recordReducer(state, action);
+export function recordReducer(state = initialState, action: RecordAction.Actions) {
+  switch (action.type) {
+    case RecordAction.RECORD_SUCCESS: {
+      return {
+        ...state,
+        trackRecords: action.payload,
+        trackRecord: undefined,
+        }
+      }
+    case RecordAction.LOAD_WORLDRECORDS:{
+      return {
+        ...state,
+        trackRecords: action.payload,
+        trackRecord: undefined,
+        }
+      }
+    default:
+      return state
+    }
 }
 export const recordFeatureKey = 'record';

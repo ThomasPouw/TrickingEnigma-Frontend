@@ -1,17 +1,58 @@
-import {createAction, props} from "@ngrx/store";
+import {Action, createAction, props} from "@ngrx/store";
+import {TrackRecord} from "../Reducers/records.reducer";
 
-export const NewestRecords = createAction('[record Component] NewestRecords');
-export const WorldRecords = createAction('[record Component] WorldRecords');
-export const NationalRecords = createAction(
-  '[record Component] NationalRecords',
-  props<{nationality: string}>()
-);
-export const UserRecords = createAction(
-  '[User Component] UserRecords',
-  props<{userID: string}>()
-);
-export const UserRecord = createAction('[record Component] User Record');
-export const RecordsSuccess = createAction('[record Component] Loaded Records Succesfully',
-  (records: any) => records);
-//
-export const RecordsError = createAction('[record Component] Loaded Records Error');
+export const ADD_RECORD =      '[Record] Add Record';
+export const LOAD_WORLDRECORDS =      '[Record] Load WorldRecords';
+export const LOAD_USER_RECORD =       '[Record] Load User Record';
+export const LOAD_USER_RECORDS =       '[Record] Load User Records';
+export const LOAD_NATIONALRECORD =    '[Record] Load National Record';
+export const LOAD_PUZZLERECORDS =     '[Record] Load Puzzle Record';
+export const RECORD_SUCCESS =    '[Record] Records/Record successfully delivered';
+export const RECORD_FAIL =     '[Record] Records/Record failed to deliver';
+
+export class Load_WorldRecordsAction implements Action {
+  readonly type = LOAD_WORLDRECORDS;
+
+  constructor(public payload: TrackRecord[]) { }
+}
+
+export class Load_User_RecordAction implements Action {
+  readonly type = LOAD_USER_RECORD;
+
+  constructor(public payload: TrackRecord) { }
+}
+export class Load_User_RecordsAction implements Action {
+  readonly type = LOAD_USER_RECORD;
+
+  constructor(public payload: TrackRecord[]) { }
+}
+
+export class Load_NationalRecordAction implements Action {
+  readonly type = LOAD_NATIONALRECORD;
+
+  constructor(public payload: TrackRecord[]) { }
+}
+
+export class Load_PuzzleRecordAction implements Action {
+  readonly type = LOAD_PUZZLERECORDS;
+
+  constructor(public payload: TrackRecord[]) { }
+}
+export class Record_SuccessAction implements Action {
+  readonly type = RECORD_SUCCESS;
+
+  constructor(public payload: TrackRecord[] | TrackRecord) { }
+}
+export class Record_FailAction implements Action {
+  readonly type = RECORD_FAIL;
+
+  constructor() { }
+}
+export type Actions
+  = Load_NationalRecordAction
+  | Load_User_RecordAction
+  | Load_User_RecordsAction
+  | Load_PuzzleRecordAction
+  | Load_WorldRecordsAction
+  | Record_SuccessAction
+  | Record_FailAction;
