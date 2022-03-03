@@ -9,26 +9,37 @@ export interface TrackRecord{
   nationality: string;
 }
 export interface State {
-  trackRecords: [],
+  trackRecords: TrackRecord[],
   trackRecord: TrackRecord | undefined
+  error: any
 }
 
 export const initialState: State = {
   trackRecords: [],
-  trackRecord: undefined
+  trackRecord: undefined,
+  error: ""
 };
 
-export function recordReducer(state = initialState, action: RecordAction.Actions) {
+export function reducer(state= initialState, action: RecordAction.Actions): State {
   switch (action.type) {
-    case RecordAction.RECORD_SUCCESS: {
+    case RecordAction.RECORDS_SUCCESS: {
       return {
         ...state,
         trackRecords: action.payload,
         trackRecord: undefined,
+        error: ""
         }
       }
-    case RecordAction.LOAD_WORLDRECORDS:{
+    case RecordAction.RECORD_SUCCESS: {
       return {
+        ...state,
+        trackRecords: [],
+        trackRecord: action.payload,
+        error: ""
+      }
+    }
+    case RecordAction.LOAD_WORLDRECORDS:{
+      return <State>{
         ...state,
         trackRecords: action.payload,
         trackRecord: undefined,
@@ -39,3 +50,5 @@ export function recordReducer(state = initialState, action: RecordAction.Actions
     }
 }
 export const recordFeatureKey = 'record';
+
+export const getRecords= (State: State) => State.trackRecords;

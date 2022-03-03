@@ -11,7 +11,7 @@ export class RecordEffects{
       ofType(RecordActions.LOAD_WORLDRECORDS),
       exhaustMap(() =>
         this.recordService.GetAllRecords().pipe(
-          map(records => new RecordActions.Record_SuccessAction(records)),
+          map(records => new RecordActions.Records_SuccessAction(records)),
           catchError(() => of({ type: RecordActions.RECORD_FAIL}))
         )
       )
@@ -32,8 +32,8 @@ export class RecordEffects{
     this.actions$.pipe(
       ofType(RecordActions.LOAD_USER_RECORDS),
       exhaustMap(() =>
-        this.recordService.GetUserRecord().pipe(
-          map(records => new RecordActions.Record_SuccessAction(records)),
+        this.recordService.GetUserRecords().pipe(
+          map(records => new RecordActions.Records_SuccessAction(records)),
           catchError(() => of({ type: RecordActions.RECORD_FAIL}))
         )
       )

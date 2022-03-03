@@ -4,7 +4,7 @@ import * as fromRecord from '../Reducers/records.reducer';
 
 @NgModule({
   imports: [
-    StoreModule.forFeature(fromRecord.recordFeatureKey, fromRecord.recordReducer)
+    StoreModule.forFeature(fromRecord.recordFeatureKey, fromRecord.reducer)
   ],
 })
 export class RecordsModule {}
