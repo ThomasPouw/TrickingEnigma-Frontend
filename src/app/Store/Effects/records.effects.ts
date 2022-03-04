@@ -12,7 +12,7 @@ export class RecordEffects{
       exhaustMap(() =>
         this.recordService.GetAllRecords().pipe(
           map(records => new RecordActions.Records_SuccessAction(records)),
-          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
+          catchError((error) => of(new RecordActions.Record_FailAction(error)))
         )
       )
     )
@@ -23,7 +23,7 @@ export class RecordEffects{
       exhaustMap(() =>
         this.recordService.GetUserRecord().pipe(
           map(record => new RecordActions.Record_SuccessAction(record)),
-          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
+          catchError((error) => of(new RecordActions.Record_FailAction(error)))
         )
       )
     )
@@ -34,18 +34,11 @@ export class RecordEffects{
       exhaustMap(() =>
         this.recordService.GetUserRecords().pipe(
           map(records => new RecordActions.Records_SuccessAction(records)),
-          catchError(() => of({ type: RecordActions.RECORD_FAIL}))
+          catchError((error) => of(new RecordActions.Record_FailAction(error)))
         )
       )
     )
   );
-  //ofType('[record Component] WorldRecords'),
-  //       mergeMap(() => this.moviesService.getAll()
-  //         .pipe(
-  //           map(records => ({ type: '[record Component] Loaded Records Succesfully', payload: records })),
-  //           catchError(() => of({ type: '[record Component] Movies Loaded Error' }))
-  //         )
-  //       )
   constructor(
     private actions$: Actions,
     private recordService: RecordService

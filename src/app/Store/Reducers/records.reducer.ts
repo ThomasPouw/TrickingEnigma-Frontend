@@ -1,5 +1,5 @@
-import {Action, createReducer, on} from "@ngrx/store";
-import * as RecordAction from "../Actions/records.actions";
+import * as record from "../Actions/records.actions";
+
 export interface TrackRecord{
   position?: number;
   courseName?: string;
@@ -9,28 +9,33 @@ export interface TrackRecord{
   nationality: string;
 }
 export interface State {
-  trackRecords: TrackRecord[],
-  trackRecord: TrackRecord | undefined
-  error: any
+  trackRecords: TrackRecord[];
+  trackRecord: TrackRecord | undefined;
+  error: any;
 }
-
-export const initialState: State = {
+const initialState: State = {
   trackRecords: [],
   trackRecord: undefined,
   error: ""
 };
 
-export function reducer(state= initialState, action: RecordAction.Actions): State {
+export function reducer(state= initialState, action: record.Actions): State {
   switch (action.type) {
-    case RecordAction.RECORDS_SUCCESS: {
+    case record.LOAD_WORLDRECORDS: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
       return {
         ...state,
         trackRecords: action.payload,
         trackRecord: undefined,
         error: ""
-        }
       }
-    case RecordAction.RECORD_SUCCESS: {
+    }
+    case record.LOAD_USER_RECORD: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
       return {
         ...state,
         trackRecords: [],
@@ -38,17 +43,76 @@ export function reducer(state= initialState, action: RecordAction.Actions): Stat
         error: ""
       }
     }
-    case RecordAction.LOAD_WORLDRECORDS:{
-      return <State>{
+    case record.LOAD_USER_RECORDS: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
+      return {
         ...state,
         trackRecords: action.payload,
         trackRecord: undefined,
-        }
+        error: ""
       }
-    default:
-      return state
     }
+    case record.LOAD_PUZZLERECORDS: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
+      return {
+        ...state,
+        trackRecords: action.payload,
+        trackRecord: undefined,
+        error: ""
+      }
+    }
+    case record.LOAD_NATIONALRECORD: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
+      return {
+        ...state,
+        trackRecords: action.payload,
+        trackRecord: undefined,
+        error: ""
+      }
+    }
+    case record.RECORDS_SUCCESS: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
+      return {
+        ...state,
+        trackRecords: action.payload,
+        trackRecord: undefined,
+        error: ""
+      }
+    }
+    case record.RECORD_SUCCESS: {
+      console.log(initialState)
+      console.log(action.payload)
+      console.log(state)
+      return {
+        ...state,
+        trackRecords: [],
+        trackRecord: action.payload,
+        error: ""
+      }
+    }
+    case record.RECORD_FAIL: {
+      console.log(initialState);
+      return {
+        ...state,
+        trackRecords: [],
+        trackRecord: undefined,
+        error: action.payload,
+      }
+    }
+    default: {
+      return state;
+    }
+  }
+  return state;
 }
-export const recordFeatureKey = 'record';
+export const recordFeatureKey = 'TrackRecord';
 
-export const getRecords= (State: State) => State.trackRecords;
+export const getRecords= (state: State) => state;

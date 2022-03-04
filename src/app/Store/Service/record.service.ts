@@ -15,6 +15,7 @@ export class RecordService {
   ]}
   constructor() { }
   GetAllRecords(): Observable<TrackRecord[]>{
+    console.log("test")
     return new Observable(subscriber => subscriber.next(this.CHANGELATER()));
   }
   GetUserRecords(): Observable<TrackRecord[]>{

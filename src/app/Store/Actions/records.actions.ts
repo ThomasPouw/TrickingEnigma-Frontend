@@ -1,7 +1,7 @@
-import {Action, createAction, props} from "@ngrx/store";
+import {Action} from "@ngrx/store";
 import {TrackRecord} from "../Reducers/records.reducer";
 
-export const ADD_RECORD =      '[Record] Add Record';
+//export const ADD_RECORD =      '[Record] Add Record';
 export const LOAD_WORLDRECORDS =      '[Record] Load WorldRecords';
 export const LOAD_USER_RECORD =       '[Record] Load User Record';
 export const LOAD_USER_RECORDS =       '[Record] Load User Records';
@@ -23,7 +23,7 @@ export class Load_User_RecordAction implements Action {
   constructor(public payload: TrackRecord) { }
 }
 export class Load_User_RecordsAction implements Action {
-  readonly type = LOAD_USER_RECORD;
+  readonly type = LOAD_USER_RECORDS;
 
   constructor(public payload: TrackRecord[]) { }
 }
@@ -36,23 +36,19 @@ export class Load_NationalRecordAction implements Action {
 
 export class Load_PuzzleRecordAction implements Action {
   readonly type = LOAD_PUZZLERECORDS;
-
   constructor(public payload: TrackRecord[]) { }
 }
 export class Record_SuccessAction implements Action {
   readonly type = RECORD_SUCCESS;
-
   constructor(public payload: TrackRecord) { }
 }
 export class Records_SuccessAction implements Action {
   readonly type = RECORDS_SUCCESS;
-
   constructor(public payload: TrackRecord[]) { }
 }
 export class Record_FailAction implements Action {
   readonly type = RECORD_FAIL;
-
-  constructor() { }
+  constructor(public payload: string) { }
 }
 export type Actions
   = Load_NationalRecordAction
@@ -60,6 +56,6 @@ export type Actions
   | Load_User_RecordsAction
   | Load_PuzzleRecordAction
   | Load_WorldRecordsAction
+  | Record_FailAction
   | Record_SuccessAction
-  | Records_SuccessAction
-  | Record_FailAction;
+  | Records_SuccessAction;

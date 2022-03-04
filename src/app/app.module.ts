@@ -28,7 +28,6 @@ import {StoreModule} from "@ngrx/store";
 
 
 //NGRX store
-import {RecordsModule} from "./Store/Modules/records.module";
 import {EffectsModule} from "@ngrx/effects";
 import {RecordEffects} from "./Store/Effects/records.effects";
 import { LayoutModule } from '@angular/cdk/layout';
@@ -67,8 +66,7 @@ import {reducer} from "./Store/Reducers";
     MatInputModule,
     NgxEchartsModule.forRoot({
       echarts}),
-    StoreModule.forRoot(reducer),
-    RecordsModule,
+    StoreModule.forRoot({reducer}),
     EffectsModule.forRoot([RecordEffects]),
     LayoutModule,
     MatToolbarModule,
