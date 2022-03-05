@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as PIXI from 'pixi.js'
+import {backGround} from "./background/background";
 
 @Component({
   selector: 'app-game-board',
@@ -12,14 +13,20 @@ export class GameBoardComponent implements OnInit {
   start: boolean = false;
   TimeCounter: string= "0:00";
   private app: PIXI.Application = new PIXI.Application({
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: 2000,
+    height: 800,
+    backgroundColor: 0x1099bb
   });
   constructor() { }
 
   ngOnInit(): void {
+    //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
     console.log(this.app)
-    document.body.appendChild(this.app.view)
+    let screen = document.getElementById("board");
+    if(screen !== null){
+      screen.appendChild(this.app.view)
+    }
+    this.app.stage.addChild(new backGround(50))
   }
 counter(start: boolean): void{
     if(start){

@@ -1,14 +1,12 @@
 import * as PIXI from 'pixi.js'
 export class backGround extends PIXI.Graphics{
-  private space = 20;
-  constructor() {
+  constructor(Width: number) {
     super();
-
-    this.beginFill(0x222222);
-    var width = 20;
+    let width: number = Width;
+    this.beginFill(0x808080);
     for (let i = 0; i < width * width; i++) {
-      this.drawRect(0, i * this.space, width * width * width, 1);
-      this.drawRect(i * this.space, 0, 1, width * width * width);
+      this.drawRect(0, i * width, width * width * width, 1);
+      this.drawRect(i * width, 0, 1, width * width * width);
     }
     this.endFill();
   }
