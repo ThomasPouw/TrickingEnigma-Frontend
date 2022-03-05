@@ -1,10 +1,11 @@
 import {createSelector} from "@ngrx/store";
-import {getRecords, TrackRecord} from "../Reducers/records.reducer";
+import {getRecordFeatureState, TrackRecord} from "../Reducers/records.reducer";
 import {State} from "../Reducers";
 
-export const getAllRecords =
-  createSelector(getRecords, (state): TrackRecord[]=> {
-    console.log(state)
-      return state && state.trackRecords;
-    }
-  );
+export const getAllRecords = createSelector(getRecordFeatureState, (state: State) => test(state));
+export const getUserRecord = createSelector(getRecordFeatureState, (state: State) => state.trackRecords.trackRecord);
+
+function test(state: State): TrackRecord[]{
+  console.log(state)
+  return state.trackRecords.trackRecords
+}

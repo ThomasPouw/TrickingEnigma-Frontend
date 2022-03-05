@@ -9,9 +9,9 @@ import {TrackRecord} from "../Reducers/records.reducer";
 })
 export class RecordService {
   CHANGELATER(): TrackRecord[] {
-    return [{name: "test", time: "1:00", nationality: "Dutch", turns: 0},
-    {name: "test22", time: "1:20", nationality: "Dutch", turns: 3},
-    {name: "test2", time: "1:02", nationality: "Dutch", turns: 4},
+    return [{userName: "test", time: "1:00", nationality: "Dutch", turns: 0},
+    {userName: "test22", time: "1:20", nationality: "Dutch", turns: 3},
+    {userName: "test2", time: "1:02", nationality: "Dutch", turns: 4},
   ]}
   constructor() { }
   GetAllRecords(): Observable<TrackRecord[]>{

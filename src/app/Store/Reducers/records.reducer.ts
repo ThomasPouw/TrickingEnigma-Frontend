@@ -1,21 +1,23 @@
 import * as record from "../Actions/records.actions";
+import {createFeatureSelector} from "@ngrx/store";
+import {State as AllState} from "../Reducers"
 
 export interface TrackRecord{
   position?: number;
   courseName?: string;
-  name: string;
+  userName: string;
   time: string;
   turns: number;
-  nationality: string;
+  nationality?: string;
 }
 export interface State {
   trackRecords: TrackRecord[];
-  trackRecord: TrackRecord | undefined;
+  trackRecord: TrackRecord;
   error: any;
 }
 const initialState: State = {
   trackRecords: [],
-  trackRecord: undefined,
+  trackRecord: {userName: "",time: "", turns: 42},
   error: ""
 };
 
@@ -28,7 +30,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: action.payload,
-        trackRecord: undefined,
         error: ""
       }
     }
@@ -38,7 +39,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       console.log(state)
       return {
         ...state,
-        trackRecords: [],
         trackRecord: action.payload,
         error: ""
       }
@@ -50,7 +50,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: action.payload,
-        trackRecord: undefined,
         error: ""
       }
     }
@@ -61,7 +60,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: action.payload,
-        trackRecord: undefined,
         error: ""
       }
     }
@@ -72,7 +70,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: action.payload,
-        trackRecord: undefined,
         error: ""
       }
     }
@@ -83,7 +80,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: action.payload,
-        trackRecord: undefined,
         error: ""
       }
     }
@@ -93,7 +89,6 @@ export function reducer(state= initialState, action: record.Actions): State {
       console.log(state)
       return {
         ...state,
-        trackRecords: [],
         trackRecord: action.payload,
         error: ""
       }
@@ -103,7 +98,7 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: [],
-        trackRecord: undefined,
+        trackRecord: {userName: "",time: "", turns: 42},
         error: action.payload,
       }
     }
@@ -115,4 +110,8 @@ export function reducer(state= initialState, action: record.Actions): State {
 }
 export const recordFeatureKey = 'TrackRecord';
 
-export const getRecords= (state: State) => state;
+export const getRecords= (state: State) => state.trackRecords;
+export const getRecord= (state: State) => state.trackRecord;
+export const getError= (state: State) => state.error;
+
+export const getRecordFeatureState = createFeatureSelector<AllState>('trackRecords')
