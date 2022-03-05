@@ -24,9 +24,8 @@ const initialState: State = {
 export function reducer(state= initialState, action: record.Actions): State {
   switch (action.type) {
     case record.LOAD_WORLDRECORDS: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecords: action.payload,
@@ -34,9 +33,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.LOAD_USER_RECORD: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecord: action.payload,
@@ -44,9 +42,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.LOAD_USER_RECORDS: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecords: action.payload,
@@ -54,9 +51,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.LOAD_PUZZLERECORDS: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecords: action.payload,
@@ -64,9 +60,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.LOAD_NATIONALRECORD: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecords: action.payload,
@@ -74,9 +69,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.RECORDS_SUCCESS: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecords: action.payload,
@@ -84,9 +78,8 @@ export function reducer(state= initialState, action: record.Actions): State {
       }
     }
     case record.RECORD_SUCCESS: {
-      console.log(initialState)
-      console.log(action.payload)
       console.log(state)
+      console.log(action.payload)
       return {
         ...state,
         trackRecord: action.payload,

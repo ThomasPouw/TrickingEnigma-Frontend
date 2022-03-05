@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as PIXI from 'pixi.js'
 
 @Component({
   selector: 'app-game-board',
@@ -10,9 +11,15 @@ export class GameBoardComponent implements OnInit {
   interval: any;
   start: boolean = false;
   TimeCounter: string= "0:00";
+  private app: PIXI.Application = new PIXI.Application({
+    width: window.innerWidth,
+    height: window.innerHeight
+  });
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.app)
+    document.body.appendChild(this.app.view)
   }
 counter(start: boolean): void{
     if(start){
