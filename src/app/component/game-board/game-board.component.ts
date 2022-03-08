@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as PIXI from 'pixi.js'
 import {backGround} from "./background/background";
+import {Pieces} from "./Pieces/pieces";
+import {sprite_Piece} from "./Sprites/Sprite-Piece";
 
 @Component({
   selector: 'app-game-board',
@@ -12,21 +14,26 @@ export class GameBoardComponent implements OnInit {
   interval: any;
   start: boolean = false;
   TimeCounter: string= "0:00";
-  private app: PIXI.Application = new PIXI.Application({
-    width: 2000,
-    height: 800,
-    backgroundColor: 0x1099bb
-  });
   constructor() { }
 
   ngOnInit(): void {
+    let horizonalAmount: number = 20
+    let VerticalAmount: number = 10
     //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
-    console.log(this.app)
     let screen = document.getElementById("board");
+
     if(screen !== null){
-      screen.appendChild(this.app.view)
+    const app: PIXI.Application= new PIXI.Application({
+        width: screen.offsetWidth,
+        height: (screen.offsetWidth/ horizonalAmount)* VerticalAmount,
+        backgroundColor: 0x1099bb
+      });
+    console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
+      screen.appendChild(app.view)
+      new Pieces(screen.offsetWidth/ horizonalAmount , app.stage)
+      new sprite_Piece(app, (screen.offsetWidth/ horizonalAmount))
+      app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
     }
-    this.app.stage.addChild(new backGround(50))
   }
 counter(start: boolean): void{
     if(start){

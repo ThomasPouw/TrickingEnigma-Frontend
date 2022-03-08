@@ -107,4 +107,4 @@ export const getRecords= (state: State) => state.trackRecords;
 export const getRecord= (state: State) => state.trackRecord;
 export const getError= (state: State) => state.error;
 
-export const getRecordFeatureState = createFeatureSelector<AllState>('trackRecords')
+export const getRecordFeatureState = createFeatureSelector<AllState>('reducer')
