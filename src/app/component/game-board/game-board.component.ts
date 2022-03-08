@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as PIXI from 'pixi.js'
 import {backGround} from "./background/background";
-import {Pieces} from "./Pieces/pieces";
-import {sprite_Piece} from "./Sprites/Sprite-Piece";
+import {Pieces} from "./Sprites/Pieces";
 
 @Component({
   selector: 'app-game-board',
@@ -30,8 +29,7 @@ export class GameBoardComponent implements OnInit {
       });
     console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
       screen.appendChild(app.view)
-      new Pieces(screen.offsetWidth/ horizonalAmount , app.stage)
-      new sprite_Piece(app, (screen.offsetWidth/ horizonalAmount))
+      new Pieces(app, (screen.offsetWidth/ horizonalAmount))
       app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
     }
   }
