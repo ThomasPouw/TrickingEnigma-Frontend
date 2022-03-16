@@ -24,6 +24,7 @@
     "@ngrx/effects": "^13.0.2",
     "@ngrx/store": "^13.0.2",
     "@types/offscreencanvas": "^2019.6.4",
+    "axios": "^0.26.1",
     "echarts": "^5.3.0",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-echarts": "^8.0.1",

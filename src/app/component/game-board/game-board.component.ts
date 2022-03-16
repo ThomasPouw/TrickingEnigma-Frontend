@@ -9,6 +9,7 @@ import {Pieces} from "./Sprites/Pieces";
   styleUrls: ['./game-board.component.scss']
 })
 export class GameBoardComponent implements OnInit {
+  public static turnCount: number = 0;
   time: number = 0;
   interval: any;
   start: boolean = false;
@@ -48,6 +49,6 @@ counter(start: boolean): void{
   }
 
   turnCount(): number {
-    return 35;
+    return GameBoardComponent.turnCount
   }
 }

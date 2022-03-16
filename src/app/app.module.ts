@@ -25,6 +25,7 @@ import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { LineChartComponent } from './component/line-chart/line-chart.component';
 import { FooterComponent } from './component/footer/footer.component';
 import {StoreModule} from "@ngrx/store";
+import { HttpClientModule } from '@angular/common/http';
 
 
 //NGRX store
@@ -55,6 +56,7 @@ import {reducer} from "./Store/Reducers";
     FooterComponent,
   ],
   imports: [
+
     BrowserModule,
     MatTabsModule,
     BrowserAnimationsModule,
@@ -73,7 +75,8 @@ import {reducer} from "./Store/Reducers";
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    HttpClientModule
   ],
   exports: [
     MatInputModule,
