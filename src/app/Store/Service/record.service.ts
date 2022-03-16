@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {TrackRecord} from "../Reducers/records.reducer";
 import {map} from "rxjs/operators";
+import {TrackRecord} from "../Model/TrackRecord";
 
 @Injectable({
   providedIn: 'root'

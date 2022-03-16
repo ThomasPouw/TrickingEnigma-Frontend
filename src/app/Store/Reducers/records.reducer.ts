@@ -1,15 +1,8 @@
 import * as record from "../Actions/records.actions";
 import {createFeatureSelector} from "@ngrx/store";
 import {State as AllState} from "../Reducers"
+import {TrackRecord} from "../Model/TrackRecord";
 
-export interface TrackRecord{
-  position?: number;
-  courseName?: string;
-  userName: string;
-  time: string;
-  turns: number;
-  nationality?: string;
-}
 export interface State {
   trackRecords: TrackRecord[];
   trackRecord: TrackRecord;

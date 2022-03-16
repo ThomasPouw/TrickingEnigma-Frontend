@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
 import {getUserRecord} from "../../Store/Selector/records.selector";
-import {TrackRecord} from "../../Store/Reducers/records.reducer";
 import * as fromRecord from "../../Store/Actions/records.actions";
+import {TrackRecord} from "../../Store/Model/TrackRecord";
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',

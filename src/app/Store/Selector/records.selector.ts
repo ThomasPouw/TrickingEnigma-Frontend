@@ -1,5 +1,5 @@
 import {createSelector} from "@ngrx/store";
-import {getRecordFeatureState, TrackRecord} from "../Reducers/records.reducer";
+import {getRecordFeatureState} from "../Reducers/records.reducer";
 import {State} from "../Reducers";
 
 export const getAllRecords = createSelector(getRecordFeatureState, (state: State) => state.trackRecords.trackRecords);

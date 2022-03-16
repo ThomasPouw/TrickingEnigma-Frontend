@@ -1,5 +1,5 @@
 import {Action} from "@ngrx/store";
-import {TrackRecord} from "../Reducers/records.reducer";
+import {TrackRecord} from "../Model/TrackRecord";
 
 //export const ADD_RECORD =      '[Record] Add Record';
 export const LOAD_WORLDRECORDS =      '[Record] Load WorldRecords';

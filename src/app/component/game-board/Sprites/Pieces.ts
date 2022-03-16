@@ -10,6 +10,7 @@ interface Sprite {
   assetLocation: string,
   side: PieceDirection,
   collection: string,
+  hitbox: number[],
 }
 export class Pieces extends Pixi.Sprite{
   private dragging: any;
@@ -19,15 +20,15 @@ export class Pieces extends Pixi.Sprite{
   constructor(App: Pixi.Application, Space: number) {
     super()
     this.SpriteMaker(App, Space, [
-      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End"},
-      {X: 3, Y: 0, assetLocation:'assets/L-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 0, Y: 1, assetLocation:'assets/U-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 0, Y: 0, assetLocation:'assets/T-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 4, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.North, collection: "Sprite"},
-      {X: 2, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.West, collection: "Sprite"},
+      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End", hitbox: [0,2,1,2,1,4,2,4,2,5,0,5]},
+      {X: 3, Y: 0, assetLocation:'assets/L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [3,2,4,2,4,3,5,3,5,4,3,4]},
+      {X: 0, Y: 1, assetLocation:'assets/U-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [6,2,7,2,7,3,8,3,8,4,7,4,7,5,6,5]}, // [16,2,19,2,19,4,18,4,18,3,17,3,17,4,16,4]
+      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [6,2,7,2,7,3,8,3,8,4,7,4,7,5,6,5]},
+      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [9,2,10,2,10,4,11,4,11,5,9,5]},
+      {X: 0, Y: 0, assetLocation:'assets/T-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [12,2,13,2,13,6,12,6]},
+      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [14,2,15,2,15,3,14,3]},
+      {X: 4, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: []},
+      {X: 2, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.West, collection: "Sprite", hitbox: []},
     ])
   }
   SpriteMaker(App: Pixi.Application, Space: number, sprite: Sprite[]){
@@ -104,6 +105,10 @@ export class Pieces extends Pixi.Sprite{
     for(let sprite in this.parent.children){
       if(sprite.length != this.parent.children.length){
         if(this.parent.children[sprite].name == "End"){
+          console.log(this.vertexData)
+          console.log(this)
+          console.log(typeof this.parent.children[sprite])
+          console.log(this.parent.children[sprite]._bounds)
           if(Pieces.Interaction(this.parent.children[sprite], this)){
             console.log("hit!")
           }
@@ -116,25 +121,9 @@ export class Pieces extends Pixi.Sprite{
     GameBoardComponent.turnCount++
   }
 
-  static Interaction(a: DisplayObject, b: any){
-    let aBox = a.getBounds();
+  static Interaction(a: any, b: Pixi.Sprite){
+    let aBox= a.getBounds()
     let bBox = b.getBounds();
-    console.log(aBox)
-    console.log(bBox)
-    console.log(aBox.x + aBox.width > bBox.x)
-    console.log(aBox.x + aBox.width)
-    console.log(bBox.x)
-    console.log(aBox.x < bBox.x + bBox.width)
-    console.log(aBox.x)
-    console.log(bBox.x + bBox.width)
-    console.log(aBox.y + aBox.height > bBox.y)
-    console.log(aBox.y + aBox.height)
-    console.log(bBox.y)
-    console.log(aBox.y < bBox.y + bBox.height)
-    console.log(aBox.y)
-    console.log(bBox.y + bBox.height)
-    console.log(aBox.x + aBox.width > bBox.x && aBox.x < bBox.x + bBox.width)
-    console.log(aBox.y + aBox.height > bBox.y && aBox.y < bBox.y + bBox.height)
     return aBox.x + aBox.width > bBox.x &&
       aBox.x < bBox.x + bBox.width &&
       aBox.y + aBox.height > bBox.y &&
