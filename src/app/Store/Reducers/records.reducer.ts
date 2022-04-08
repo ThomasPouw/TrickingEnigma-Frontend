@@ -10,7 +10,7 @@ export interface State {
 }
 const initialState: State = {
   trackRecords: [],
-  trackRecord: {userName: "",time: "", turns: 42},
+  trackRecord: {userName: "",time: 0, turns: 42},
   error: ""
 };
 
@@ -22,7 +22,7 @@ export function reducer(state= initialState, action: record.Actions): State {
       if(action.payload !== undefined){
         let payload: TrackRecord[] = [];
         action.payload.forEach(function(value){
-          payload.push({time: value.time, turns: value.turns, userName: value.time})
+          payload.push({time: value.time, turns: value.turns, userName: value.userName})
         })
         console.log(payload)
           return {
@@ -40,7 +40,7 @@ export function reducer(state= initialState, action: record.Actions): State {
       if(action.payload !== undefined) {
         return {
           ...state,
-          trackRecord: {time: action.payload.time, turns: action.payload.turns, userName: action.payload.time},
+          trackRecord: {time: action.payload.time, turns: action.payload.turns, userName: action.payload.userName},
           error: ""
         }
       }
@@ -79,7 +79,7 @@ export function reducer(state= initialState, action: record.Actions): State {
       if(action.payload !== undefined){
         let payload: TrackRecord[] = [];
         action.payload.forEach(function(value){
-          payload.push({time: value.time, turns: value.turns, userName: value.time})
+          payload.push({time: value.time, turns: value.turns, userName: value.userName})
         })
         return {
           ...state,
@@ -105,7 +105,7 @@ export function reducer(state= initialState, action: record.Actions): State {
       return {
         ...state,
         trackRecords: [],
-        trackRecord: {userName: "",time: "", turns: 42},
+        trackRecord: {userName: "",time: 0, turns: 42},
         error: action.payload,
       }
     }

@@ -11,23 +11,17 @@ export interface State {
 }
 const initialState: State = {
   levels: [],
-  level: {ID: "", StageName: "", Sprites: []},
+  level: {ID: "", Name: "", Sprites: []},
   error: ""
 };
 export function reducer(state= initialState, action: stage.Actions): State {
   switch (action.type) {
     case stage.LOAD_LEVEL: {
       if(action.payload !== undefined) {
-        let spritePayload: Sprite[] = [];
-        action.payload.Sprites.forEach(function(value){
-          spritePayload.push({X: value.X, Y: value.Y, assetLocation: value.assetLocation, side: value.side, collection: value.collection,})
-        })
-        if(spritePayload.length !== 0){
-          return {
-            ...state,
-            level: {ID: action.payload.ID, StageName: action.payload.StageName, Sprites: spritePayload},
-            error: ""
-          }
+        return {
+          ...state,
+          level: action.payload,
+          error: ""
         }
       }
       return state

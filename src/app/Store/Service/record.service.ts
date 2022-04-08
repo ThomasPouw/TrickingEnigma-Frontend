@@ -10,9 +10,9 @@ import {TrackRecord} from "../Model/TrackRecord";
 })
 export class RecordService {
   CHANGELATER(): TrackRecord[] {
-    return [{userName: "test", time: "1:00", nationality: "Dutch", turns: 0},
-    {userName: "test22", time: "1:20", nationality: "Dutch", turns: 3},
-    {userName: "test2", time: "1:02", nationality: "Dutch", turns: 4},
+    return [{userName: "test", time: 60, nationality: "Dutch", turns: 0},
+    {userName: "test22", time: 80, nationality: "Dutch", turns: 3},
+    {userName: "test2", time: 62, nationality: "Dutch", turns: 4},
   ]}
   constructor(private http: HttpClient) { }
   GetAllRecords(): Observable<TrackRecord[]>{

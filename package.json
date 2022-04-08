@@ -29,6 +29,7 @@
     "ngrx-store-freeze": "^0.2.4",
     "ngx-echarts": "^8.0.1",
     "pixi.js": "^6.2.2",
+    "remove": "^0.1.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
