@@ -1,8 +1,6 @@
-import * as Pixi from 'pixi.js'
-//import "pixi-plugin-bump";
+import * as Pixi from 'pixi.js';
 import {PieceDirection} from "./piece-direction";
 import {GameBoardComponent} from "../game-board.component";
-import {DisplayObject} from "pixi.js";
 
 interface Sprite {
   X: number,
@@ -10,28 +8,31 @@ interface Sprite {
   assetLocation: string,
   side: PieceDirection,
   collection: string,
-  hitbox: number[],
+  hitbox: number[]
 }
 export class Pieces extends Pixi.Sprite{
   private dragging: any;
   private data: any;
   private static space: number =0;
-  private static Endpoint = Pixi.Sprite;
+  private static InteractionManager: Pixi.InteractionManager;
   constructor(App: Pixi.Application, Space: number) {
     super()
-    this.SpriteMaker(App, Space, [
-      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End", hitbox: [0,2,1,2,1,4,2,4,2,5,0,5]},
-      {X: 3, Y: 0, assetLocation:'assets/L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [3,2,4,2,4,3,5,3,5,4,3,4]},
-      {X: 0, Y: 1, assetLocation:'assets/U-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [6,2,7,2,7,3,8,3,8,4,7,4,7,5,6,5]}, // [16,2,19,2,19,4,18,4,18,3,17,3,17,4,16,4]
-      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [6,2,7,2,7,3,8,3,8,4,7,4,7,5,6,5]},
-      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [9,2,10,2,10,4,11,4,11,5,9,5]},
-      {X: 0, Y: 0, assetLocation:'assets/T-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [12,2,13,2,13,6,12,6]},
-      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [14,2,15,2,15,3,14,3]},
-      {X: 4, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: []},
-      {X: 2, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.West, collection: "Sprite", hitbox: []},
-    ])
+    App.stage.addChild(this.SpriteMaker(App, Space, [
+      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End",hitbox: [0,0,2,0,2,2,0,2,0,0]},
+      //{X: 3, Y: 0, assetLocation:'assets/L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0,1,0,1,1,3,1,3,2,0,2,0,0]},
+      //{X: 0, Y: 1, assetLocation:'assets/U-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 1,0, 1,1, 2,1, 2,0, 3,0, 3,2, 0,2, 0,0]},
+      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 2,0, 2,2, 0,2, 0,0]},
+      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0,2,0,2,2,0,2,0,0]},
+     // {X: 0, Y: 0, assetLocation:'assets/T-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 3,0, 3,1, 2,1, 2,2, 1,2, 1,1, 0,1, 0,0]},
+      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 4,0, 4,1, 0,1, 0,0]},
+     // {X: 4, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 1,0, 1,1, 2,1, 2,2, 0,2, 0,0]},
+     // {X: 2, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.West, collection: "Sprite", hitbox: [1,0, 2,0, 2,2, 0,2, 0,1, 1,1, 1,0]},
+    ]))
+    console.log(App.stage)
+    Pieces.InteractionManager = new Pixi.InteractionManager(App.renderer)
   }
-  SpriteMaker(App: Pixi.Application, Space: number, sprite: Sprite[]){
+  SpriteMaker(App: any, Space: number, sprite: Sprite[]): Pixi.Container{
+    let Container = new Pixi.Container;
     Pieces.space = Space;
     for(let i = 0; i < sprite.length; i++){
       let shapes= Pixi.Sprite.from(sprite[i].assetLocation);
@@ -53,12 +54,12 @@ export class Pieces extends Pixi.Sprite{
           sprite[i].Y += 2
           break;
       }
-      shapes.x = Space*sprite[i].X;
-      shapes.y = Space*sprite[i].Y;
       shapes.scale.x = ((Space*2)/shapes._texture.orig.width)/100
       shapes.scale.y = ((Space*2)/shapes._texture.orig.height)/100
-      shapes.interactive = true;
-      shapes.buttonMode = true;
+      shapes.x = Space*sprite[i].X;
+      shapes.y = Space*sprite[i].Y;
+      shapes.alpha = 1
+      //shapes.anchor.set(0.5)
       shapes.name = sprite[i].collection;
       switch(sprite[i].collection){
         case("End"):
@@ -76,20 +77,22 @@ export class Pieces extends Pixi.Sprite{
             .on('mousemove', this.onDragMove)
             .on('touchmove', this.onDragMove);
       }
-      App.stage.addChild(shapes)
+      shapes.interactive = true;
+      shapes.buttonMode = true;
+      console.log(shapes)
+      Container.addChild(shapes)
     }
-
+    return Container;
   }
   onDragStart(event: any)
   {
+    console.log("click!")
     // store a reference to the data
     // the reason for this is because of multitouch
     // we want to track the movement of this particular touch
     this.data = event.data;
     this.alpha = 0.9;
     this.dragging = this.data.getLocalPosition(this.parent);
-    console.log(this)
-    //console.log(this.data)
   }
 
   onDragEnd()
@@ -101,33 +104,18 @@ export class Pieces extends Pixi.Sprite{
     this.data = null;
     this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))
     this.position.y = (Pieces.space * Math.floor((this.position.y/Pieces.space)+0.5))
-    console.log(this.parent.children)
-    for(let sprite in this.parent.children){
-      if(sprite.length != this.parent.children.length){
-        if(this.parent.children[sprite].name == "End"){
-          console.log(this.vertexData)
-          console.log(this)
-          console.log(typeof this.parent.children[sprite])
-          console.log(this.parent.children[sprite]._bounds)
-          if(Pieces.Interaction(this.parent.children[sprite], this)){
-            console.log("hit!")
-          }
-          else{
-          console.log("Miss!")
-          }
-        }
-      }
-    }
+    console.log("------------------------------------")
     GameBoardComponent.turnCount++
   }
 
-  static Interaction(a: any, b: Pixi.Sprite){
-    let aBox= a.getBounds()
-    let bBox = b.getBounds();
-    return aBox.x + aBox.width > bBox.x &&
-      aBox.x < bBox.x + bBox.width &&
-      aBox.y + aBox.height > bBox.y &&
-      aBox.y <bBox.y + bBox.height;
+  static Interaction(a: Pixi.Sprite, b: any){
+    let aBox = a.getBounds()
+    let bBox = b.getBounds()
+    return  aBox.x + aBox.width > bBox.x &&
+            aBox.x < bBox.x + bBox.width &&
+            aBox.y + aBox.height > bBox.y &&
+            aBox.y < bBox.y + bBox.height;
+
 
   }
   onDragMove()
@@ -135,10 +123,31 @@ export class Pieces extends Pixi.Sprite{
     if (this.dragging)
     {
       let newPosition = this.data.getLocalPosition(this.parent);
+      let oldX = this.position.x;
+      let oldY =this.position.y;
       this.position.x += (newPosition.x - this.dragging.x);
       this.position.y += (newPosition.y - this.dragging.y);
+      //console.log("Dragging X:"+ oldX+ " Dragging y:"+ oldY);
+     // console.log("new position X:"+ newPosition.x+ " new position y:"+ newPosition.y);
+      for(let sprite in this.parent.children){
+        if(sprite.length != this.parent.children.length){
+          if(this !== this.parent.children[sprite]){
+            if(Pieces.Interaction(this, this.parent.children[sprite])){
+              console.log("hit!");
+              this.position.x = oldX;
+              this.position.y = oldY;
+              console.log(newPosition.x - Pieces.space > oldX)
+              console.log(newPosition.x  + Pieces.space < oldX)
+              console.log(newPosition.y - Pieces.space > oldY)
+              console.log(newPosition.y  + Pieces.space < oldY)
+              //if(newPosition.x - Pieces.space > oldX && newPosition.x  + Pieces.space < oldX && newPosition.y - Pieces.space > oldY && newPosition.y  + Pieces.space < oldY){
+              //  this.onDragEnd();
+              //}
+            }
+          }
+        }
+      }
       this.dragging = newPosition;
-      //let b = new PIXI.extras.Bump();
     }
   }
 }

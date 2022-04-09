@@ -18,14 +18,18 @@ export class TableComponent implements OnInit {
       TrackRecord => this.record$ = TrackRecord
     )
     this.displayedColumns = ColumnNames(this.record$[0])
-    console.log(this.displayedColumns)
-    console.log(this.record$)
   }
   ngOnInit() {
 
   }
+  timeConvert(time: number | string){
+    if(typeof time == "string"){
+      return time;
+    }
+    return (Math.floor(time/60)) +":"+ ('0' + (time % 60)).slice(-2)
+  }
 }
-function ColumnNames(recordFile: TrackRecord): string[]{
+function ColumnNames(recordFile: object): string[]{
   let Names: string[] = []
   for(let key in recordFile){
     Names.push(key)
