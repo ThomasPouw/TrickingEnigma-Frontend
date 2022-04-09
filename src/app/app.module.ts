@@ -10,6 +10,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {NgxEchartsModule} from "ngx-echarts";
+import { AuthModule } from '@auth0/auth0-angular';
 import * as echarts from 'echarts';
 
 //Components
@@ -76,7 +77,11 @@ import {reducer} from "./Store/Reducers";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule.forRoot({
+      domain: 'dev-yw9oh5an.us.auth0.com',
+      clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
+    }),
   ],
   exports: [
     MatInputModule,
