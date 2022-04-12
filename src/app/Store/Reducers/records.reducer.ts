@@ -1,15 +1,8 @@
 import * as record from "../Actions/records.actions";
 import {createFeatureSelector} from "@ngrx/store";
 import {State as AllState} from "../Reducers"
+import {TrackRecord} from "../Model/TrackRecord";
 
-export interface TrackRecord{
-  position?: number;
-  courseName?: string;
-  userName: string;
-  time: string;
-  turns: number;
-  nationality?: string;
-}
 export interface State {
   trackRecords: TrackRecord[];
   trackRecord: TrackRecord;
@@ -17,7 +10,7 @@ export interface State {
 }
 const initialState: State = {
   trackRecords: [],
-  trackRecord: {userName: "",time: "", turns: 42},
+  trackRecord: {userName: "",time: 0, turns: 42},
   error: ""
 };
 
@@ -26,20 +19,32 @@ export function reducer(state= initialState, action: record.Actions): State {
     case record.LOAD_WORLDRECORDS: {
       console.log(state)
       console.log(action.payload)
-      return {
-        ...state,
-        trackRecords: action.payload,
-        error: ""
+      if(action.payload !== undefined){
+        let payload: TrackRecord[] = [];
+        action.payload.forEach(function(value){
+          payload.push({time: value.time, turns: value.turns, userName: value.userName})
+        })
+        console.log(payload)
+          return {
+            ...state,
+            trackRecords: payload,
+            error: ""
+        }
+
       }
+      return {...state};
     }
     case record.LOAD_USER_RECORD: {
       console.log(state)
       console.log(action.payload)
-      return {
-        ...state,
-        trackRecord: action.payload,
-        error: ""
+      if(action.payload !== undefined) {
+        return {
+          ...state,
+          trackRecord: {time: action.payload.time, turns: action.payload.turns, userName: action.payload.userName},
+          error: ""
+        }
       }
+      return state
     }
     case record.LOAD_USER_RECORDS: {
       console.log(state)
@@ -71,11 +76,19 @@ export function reducer(state= initialState, action: record.Actions): State {
     case record.RECORDS_SUCCESS: {
       console.log(state)
       console.log(action.payload)
-      return {
-        ...state,
-        trackRecords: action.payload,
-        error: ""
+      if(action.payload !== undefined){
+        let payload: TrackRecord[] = [];
+        action.payload.forEach(function(value){
+          payload.push({time: value.time, turns: value.turns, userName: value.userName})
+        })
+        return {
+          ...state,
+          trackRecords: payload,
+          error: ""
+        }
+
       }
+      return {...state};
     }
     case record.RECORD_SUCCESS: {
       console.log(state)
@@ -88,10 +101,11 @@ export function reducer(state= initialState, action: record.Actions): State {
     }
     case record.RECORD_FAIL: {
       console.log(initialState);
+      console.log(state)
       return {
         ...state,
         trackRecords: [],
-        trackRecord: {userName: "",time: "", turns: 42},
+        trackRecord: {userName: "",time: 0, turns: 42},
         error: action.payload,
       }
     }

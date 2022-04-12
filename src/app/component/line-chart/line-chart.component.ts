@@ -1,5 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {connect, EChartsOption, getInstanceByDom} from "echarts";
+import {Store} from "@ngrx/store";
+import * as fromRoot from "../../Store/Reducers";
 
 @Component({
   selector: 'app-line-chart',
@@ -44,7 +46,7 @@ export class LineChartComponent implements AfterViewInit {
       },
     ],
   };
-  constructor() {}
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngAfterViewInit() {
     setTimeout(() => {
