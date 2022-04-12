@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {destinations} from "../../Route/router-destinations";
 import {Located} from "../../Route/located";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-Header',
@@ -10,7 +11,7 @@ import {Located} from "../../Route/located";
 export class HeaderComponent implements OnInit {
   Destinations = destinations;
   Located = Located;
-  constructor() {}
+  constructor(@Inject(DOCUMENT) public document: Document) {}
 
   ngOnInit(): void {
   }
