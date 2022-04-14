@@ -1,4 +1,13 @@
 <div class="header">
+  <ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+    <button (click)="auth.logout({ returnTo: document.location.origin })">
+      Log out
+    </button>
+  </ng-container>
+
+  <ng-template #loggedOut>
+    <button (click)="auth.loginWithRedirect()">Log in</button>
+  </ng-template>
   <div *ngFor="let location of Destinations">
     <div *ngIf="location.Located === Located.Top || Located.Both">
         <a routerLink={{location.Path}}>

@@ -38,6 +38,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {reducer} from "./Store/Reducers";
+import {AuthModule} from "@auth0/auth0-angular";
 
 //
 
@@ -76,7 +77,11 @@ import {reducer} from "./Store/Reducers";
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    HttpClientModule
+    HttpClientModule,
+    AuthModule.forRoot({
+      domain: 'dev-yw9oh5an.us.auth0.com',
+      clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm'
+    }),
   ],
   exports: [
     MatInputModule,
