@@ -7,8 +7,7 @@ interface Sprite {
   Y: number,
   assetLocation: string,
   side: PieceDirection,
-  collection: string,
-  hitbox: number[]
+  collection: string
 }
 export class Pieces extends Pixi.Sprite{
   private dragging: any;
@@ -18,15 +17,10 @@ export class Pieces extends Pixi.Sprite{
   constructor(App: Pixi.Application, Space: number) {
     super()
     App.stage.addChild(this.SpriteMaker(App, Space, [
-      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End",hitbox: [0,0,2,0,2,2,0,2,0,0]},
-      //{X: 3, Y: 0, assetLocation:'assets/L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0,1,0,1,1,3,1,3,2,0,2,0,0]},
-      //{X: 0, Y: 1, assetLocation:'assets/U-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 1,0, 1,1, 2,1, 2,0, 3,0, 3,2, 0,2, 0,0]},
-      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 2,0, 2,2, 0,2, 0,0]},
-      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0,2,0,2,2,0,2,0,0]},
-     // {X: 0, Y: 0, assetLocation:'assets/T-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 3,0, 3,1, 2,1, 2,2, 1,2, 1,1, 0,1, 0,0]},
-      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 4,0, 4,1, 0,1, 0,0]},
-     // {X: 4, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.North, collection: "Sprite", hitbox: [0,0, 1,0, 1,1, 2,1, 2,2, 0,2, 0,0]},
-     // {X: 2, Y: 2, assetLocation:'assets/short_L-vorm.png', side: PieceDirection.West, collection: "Sprite", hitbox: [1,0, 2,0, 2,2, 0,2, 0,1, 1,1, 1,0]},
+      {X: 6, Y: 3, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "End"},
+      {X: 6, Y: 1, assetLocation:'assets/Big_Block-vorm.png', side: PieceDirection.North, collection: "Sprite"},
+      {X: 5, Y: 2, assetLocation:'assets/Block-vorm.png', side: PieceDirection.North, collection: "Sprite"},
+      {X: 4, Y: 0, assetLocation:'assets/Plank-vorm.png', side: PieceDirection.North, collection: "Sprite"},
     ]))
     console.log(App.stage)
     Pieces.InteractionManager = new Pixi.InteractionManager(App.renderer)
@@ -86,10 +80,6 @@ export class Pieces extends Pixi.Sprite{
   }
   onDragStart(event: any)
   {
-    console.log("click!")
-    // store a reference to the data
-    // the reason for this is because of multitouch
-    // we want to track the movement of this particular touch
     this.data = event.data;
     this.alpha = 0.9;
     this.dragging = this.data.getLocalPosition(this.parent);
@@ -104,7 +94,6 @@ export class Pieces extends Pixi.Sprite{
     this.data = null;
     this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))
     this.position.y = (Pieces.space * Math.floor((this.position.y/Pieces.space)+0.5))
-    console.log("------------------------------------")
     GameBoardComponent.turnCount++
   }
 
@@ -127,19 +116,12 @@ export class Pieces extends Pixi.Sprite{
       let oldY =this.position.y;
       this.position.x += (newPosition.x - this.dragging.x);
       this.position.y += (newPosition.y - this.dragging.y);
-      //console.log("Dragging X:"+ oldX+ " Dragging y:"+ oldY);
-     // console.log("new position X:"+ newPosition.x+ " new position y:"+ newPosition.y);
       for(let sprite in this.parent.children){
         if(sprite.length != this.parent.children.length){
           if(this !== this.parent.children[sprite]){
             if(Pieces.Interaction(this, this.parent.children[sprite])){
-              console.log("hit!");
               this.position.x = oldX;
               this.position.y = oldY;
-              console.log(newPosition.x - Pieces.space > oldX)
-              console.log(newPosition.x  + Pieces.space < oldX)
-              console.log(newPosition.y - Pieces.space > oldY)
-              console.log(newPosition.y  + Pieces.space < oldY)
               //if(newPosition.x - Pieces.space > oldX && newPosition.x  + Pieces.space < oldX && newPosition.y - Pieces.space > oldY && newPosition.y  + Pieces.space < oldY){
               //  this.onDragEnd();
               //}

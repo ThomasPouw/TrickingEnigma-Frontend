@@ -29,7 +29,7 @@ export class GameBoardComponent implements OnInit {
         backgroundColor: 0x1099bb
       });
     console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
-      screen.appendChild(app.view)
+      screen.appendChild(app.view);
       new Pieces(app, (screen.offsetWidth/ horizonalAmount))
       app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
     }
