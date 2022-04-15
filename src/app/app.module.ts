@@ -39,7 +39,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {reducer} from "./Store/Reducers";
-import {AuthModule} from "@auth0/auth0-angular";
 
 //
 
