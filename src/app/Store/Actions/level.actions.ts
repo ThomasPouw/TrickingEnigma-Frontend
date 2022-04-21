@@ -11,14 +11,10 @@ export const Level_FAIL =     '[Game Page] Level failed to deliver';
 export const Load_Level = createAction(LOAD_LEVEL, props<{id: string}>())
 export class Load_LevelsAction implements Action {
   readonly type = LOAD_LEVELS;
-
-
   constructor(public payload: Level[]) {}
 }
 export class Load_LevelAction implements Action {
   readonly type = LOAD_LEVEL;
-
-
   constructor(public payload: string) {
   }
 }

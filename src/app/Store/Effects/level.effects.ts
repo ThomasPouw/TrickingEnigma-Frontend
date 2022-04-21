@@ -7,10 +7,10 @@ import {LevelService} from "../Service/level.service";
 
 @Injectable()
 export class LevelEffects{
-  loadLevels$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(LevelActions.LOAD_LEVELS),
-      exhaustMap(() =>
+  loadLevels$ = createEffect(() => this.actions$.pipe(
+      ofType(LevelActions.Load_Level),
+      exhaustMap(action =>
+
         this.levelService.GetLevels().pipe(
           map(levels => new LevelActions.Level_SuccessAction(levels)),
           catchError((error) => of(new LevelActions.Level_FailAction(error)))
@@ -22,7 +22,7 @@ export class LevelEffects{
     ofType(LevelActions.Load_Level),
     exhaustMap(action =>
 
-      this.levelService.GetLevelByID(action.payload).pipe(
+      this.levelService.GetLevelByID(action.id).pipe(
         map(levels => new LevelActions.Level_SuccessAction(levels)),
         catchError((error) => of(new LevelActions.Level_FailAction(error)))
       )

@@ -22,13 +22,13 @@ export class GameBoardComponent implements OnInit {
   LevelName: string = "";
   constructor(private store: Store<fromRoot.State>) {
     console.log("test")
-    store.dispatch({type: LevelActions.LOAD_LEVEL, payload: "9948f878-9970-4cdf-ab76-4c0f95faaebe"});
+    store.dispatch({type: LevelActions.LOAD_LEVEL, id: "9948f878-9970-4cdf-ab76-4c0f95faaebe"});
     store.select<Level>(getLevelByID).subscribe(
       level => {
         console.log(level)
         this.LevelName = level.name
-        let horizonalAmount: number = 20
-        let VerticalAmount: number = 10
+        let horizonalAmount: number = 20//level.horizon_tile
+        let VerticalAmount: number = 10//level.vertical_tile
         //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
         let screen = document.getElementById("board");
 
