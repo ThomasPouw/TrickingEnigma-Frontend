@@ -8,23 +8,54 @@ export interface State {
   levels: Level[];
   level: Level;
   error: any;
+  id: string;
 }
 const initialState: State = {
   levels: [],
-  level: {ID: "", Name: "", Sprites: []},
-  error: ""
+  level: {iD: "", name: "", levelSprite: []},
+  error: "",
+  id: ""
 };
 export function reducer(state= initialState, action: stage.Actions): State {
   switch (action.type) {
-    case stage.LOAD_LEVEL: {
-      if(action.payload !== undefined) {
+    case stage.LOAD_LEVEL:
+    {
+      if(action.payload !== undefined && typeof action.payload == "string") {
+        const id = action.payload;
         return {
           ...state,
-          level: action.payload,
-          error: ""
+          error: "",
+          id
         }
       }
       return state
+    }
+    case stage.LOAD_LEVELS: {
+      if(action.payload !== undefined) {
+        return <State>{
+          ...state,
+          error: "",
+          id: action.payload
+        }
+      }
+      return state
+    }
+    case stage.LEVEL_SUCCESS:{
+      if(action.payload !== undefined){
+        if(Array.isArray(action.payload))
+        return {
+          ...state,
+          levels: action.payload,
+          error: ""
+        }
+        else
+          return {
+            ...state,
+            level: action.payload,
+            error: ""
+          }
+      }
+      return state;
     }
     default: {
       return state;

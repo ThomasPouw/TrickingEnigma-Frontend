@@ -8,19 +8,9 @@ export class Pieces extends Pixi.Sprite{
   private data: any;
   private static space: number =0;
   private static InteractionManager: Pixi.InteractionManager;
-  constructor(App: Pixi.Application, Space: number) {
+  constructor(App: Pixi.Application, Space: number, Sprites: LevelSprite[]) { //{X: 6, Y: 3, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Block-vorm.png', rotation: PieceDirection.North}, tile_name: "End"}
     super()
-    App.stage.addChild(this.SpriteMaker(App, Space, [
-      {X: 9, Y: 2, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Plank-vorm.png', rotation: PieceDirection.North}, collection: "End"},
-      {X: 6, Y: 3, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Block-vorm.png', rotation: PieceDirection.North}, collection: "End"},
-      {X: 6, Y: 1, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Big_Block-vorm.png', rotation: PieceDirection.North}, collection: "Sprite"},
-      {X: 4, Y: 0, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Plank-vorm.png', rotation: PieceDirection.North}, collection: "Sprite"},
-      {X: 5, Y: 2, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Block-vorm.png', rotation: PieceDirection.North}, collection: "Cargo"},
-      {X: 9, Y: 0, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Plank-vorm.png', rotation: PieceDirection.North}, collection: "Cargo"},
-      {X: 9, Y: 2, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Plank-vorm.png', rotation: PieceDirection.East}, collection: "Cargo"},
-
-    ]))
-    console.log(App.stage)
+    App.stage.addChild(this.SpriteMaker(App, Space, Sprites))
     Pieces.InteractionManager = new Pixi.InteractionManager(App.renderer)
   }
   SpriteMaker(App: any, Space: number, sprite: LevelSprite[]): Pixi.Container{
@@ -34,26 +24,26 @@ export class Pieces extends Pixi.Sprite{
           break;
         case PieceDirection.East:
           shapes.angle = 90
-          sprite[i].X += 2
+          sprite[i].x += 2
           break;
         case PieceDirection.South:
           shapes.angle = 180
-          sprite[i].X += 2
-          sprite[i].Y += 2
+          sprite[i].x += 2
+          sprite[i].y += 2
           break;
         case PieceDirection.West:
           shapes.angle = 270
-          sprite[i].Y += 2
+          sprite[i].y += 2
           break;
       }
       shapes.scale.x = ((Space*2)/shapes._texture.orig.width)/100
       shapes.scale.y = ((Space*2)/shapes._texture.orig.height)/100
-      shapes.x = Space*sprite[i].X;
-      shapes.y = Space*sprite[i].Y;
+      shapes.x = Space*sprite[i].x;
+      shapes.y = Space*sprite[i].y;
       shapes.alpha = 1
       //shapes.anchor.set(0.5)
-      shapes.name = sprite[i].collection;
-      switch(sprite[i].collection){
+      shapes.name = sprite[i].tile_name;
+      switch(sprite[i].tile_name){
         case("End"):
           shapes.tint=0x475325;
           break;
@@ -84,7 +74,6 @@ export class Pieces extends Pixi.Sprite{
       }
       shapes.interactive = true;
       shapes.buttonMode = true;
-      console.log(shapes)
       Container.addChild(shapes)
     }
     return Container;
@@ -122,7 +111,7 @@ export class Pieces extends Pixi.Sprite{
                   console.log("right thing!")
                 }
                 else
-                console.log("right thing, but wromg size")
+                console.log("right thing, but wrong size")
               }
 
               else

@@ -6,9 +6,9 @@ export interface Sprite {
   id: string
 }
 export interface LevelSprite{
-  X: number,
-  Y: number,
-  collection: string,
+  x: number,
+  y: number,
+  tile_name: string,
   id: string,
   sprite: Sprite
 }

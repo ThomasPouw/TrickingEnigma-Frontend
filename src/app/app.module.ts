@@ -39,6 +39,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {reducer} from "./Store/Reducers";
+import {LevelEffects} from "./Store/Effects/level.effects";
 
 //
 
@@ -70,7 +71,7 @@ import {reducer} from "./Store/Reducers";
     NgxEchartsModule.forRoot({
       echarts}),
     StoreModule.forRoot({reducer}),
-    EffectsModule.forRoot([RecordEffects]),
+    EffectsModule.forRoot([RecordEffects, LevelEffects]),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
