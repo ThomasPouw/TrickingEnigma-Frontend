@@ -23,6 +23,6 @@ export class RecordService {
     return new Observable(subscriber => subscriber.next(this.CHANGELATER()));
   }
   GetUserRecord(): Observable<TrackRecord>{
-    return this.http.get<TrackRecord>("http://localhost:8080/Records/User/")
+    return this.http.get<TrackRecord>("http://localhost:8080/Records/")
   }
 }

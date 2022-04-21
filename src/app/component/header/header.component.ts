@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {destinations} from "../../Route/router-destinations";
 import {Located} from "../../Route/located";
-import { DOCUMENT } from '@angular/common';
 import {AuthService} from "@auth0/auth0-angular";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-Header',

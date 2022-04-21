@@ -1,10 +1,14 @@
 import {PieceDirection} from "../../component/game-board/Sprites/piece-direction";
 
 export interface Sprite {
-  X: number,
-  Y: number,
   assetLocation: string,
-  side: PieceDirection,
-  collection: string,
-  hitbox?: number[],
+  rotation: PieceDirection,
+  id: string
+}
+export interface LevelSprite{
+  x: number,
+  y: number,
+  tile_name: string,
+  id: string,
+  sprite: Sprite
 }

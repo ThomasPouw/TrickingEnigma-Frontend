@@ -1,8 +1,8 @@
-import {Sprite} from "./Sprite";
+import {LevelSprite} from "./Sprite";
 
 export interface Level {
-  ID: string;
-  Name: string;
-  Sprites: Sprite[]
+  iD: string;
+  name: string;
+  levelSprite: LevelSprite[]
 }
 

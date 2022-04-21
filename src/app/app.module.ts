@@ -10,6 +10,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {NgxEchartsModule} from "ngx-echarts";
+import { AuthModule } from '@auth0/auth0-angular';
 import * as echarts from 'echarts';
 
 //Components
@@ -38,7 +39,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {reducer} from "./Store/Reducers";
-import {AuthModule} from "@auth0/auth0-angular";
+import {LevelEffects} from "./Store/Effects/level.effects";
 
 //
 
@@ -70,7 +71,7 @@ import {AuthModule} from "@auth0/auth0-angular";
     NgxEchartsModule.forRoot({
       echarts}),
     StoreModule.forRoot({reducer}),
-    EffectsModule.forRoot([RecordEffects]),
+    EffectsModule.forRoot([RecordEffects, LevelEffects]),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -80,7 +81,7 @@ import {AuthModule} from "@auth0/auth0-angular";
     HttpClientModule,
     AuthModule.forRoot({
       domain: 'dev-yw9oh5an.us.auth0.com',
-      clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm'
+      clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
     }),
   ],
   exports: [

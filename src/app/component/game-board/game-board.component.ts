@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import * as PIXI from 'pixi.js'
 import {backGround} from "./background/background";
 import {Pieces} from "./Sprites/Pieces";
+import {Store} from "@ngrx/store";
+import * as fromRoot from "../../Store/Reducers";
+import * as LevelActions from "../../Store/Actions/level.actions"
+import {getLevelByID} from "../../Store/Selector/Level.selector";
+import {Level} from "../../Store/Model/Level";
 
 @Component({
   selector: 'app-game-board',
@@ -14,25 +19,35 @@ export class GameBoardComponent implements OnInit {
   interval: any;
   start: boolean = false;
   TimeCounter: string= "0:00";
-  constructor() { }
+  LevelName: string = "";
+  constructor(private store: Store<fromRoot.State>) {
+    console.log("test")
+    store.dispatch({type: LevelActions.LOAD_LEVEL, payload: "9948f878-9970-4cdf-ab76-4c0f95faaebe"});
+    store.select<Level>(getLevelByID).subscribe(
+      level => {
+        console.log(level)
+        this.LevelName = level.name
+        let horizonalAmount: number = 20
+        let VerticalAmount: number = 10
+        //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
+        let screen = document.getElementById("board");
+
+        if(screen !== null){
+          const app: PIXI.Application= new PIXI.Application({
+            width: screen.offsetWidth,
+            height: (screen.offsetWidth/ horizonalAmount)* VerticalAmount,
+            backgroundColor: 0x1099bb
+          });
+          console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
+          screen.appendChild(app.view);
+          new Pieces(app, (screen.offsetWidth/ horizonalAmount), level.levelSprite)
+          app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
+        }
+      }
+    )
+  }
 
   ngOnInit(): void {
-    let horizonalAmount: number = 20
-    let VerticalAmount: number = 10
-    //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
-    let screen = document.getElementById("board");
-
-    if(screen !== null){
-    const app: PIXI.Application= new PIXI.Application({
-        width: screen.offsetWidth,
-        height: (screen.offsetWidth/ horizonalAmount)* VerticalAmount,
-        backgroundColor: 0x1099bb
-      });
-    console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
-      screen.appendChild(app.view);
-      new Pieces(app, (screen.offsetWidth/ horizonalAmount))
-      app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
-    }
   }
 counter(start: boolean): void{
     if(start){
