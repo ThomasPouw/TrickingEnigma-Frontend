@@ -5,7 +5,7 @@ import {Pieces} from "./Sprites/Pieces";
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
 import * as LevelActions from "../../Store/Actions/level.actions"
-import {getLevelByID} from "../../Store/Selector/Level.selector";
+import {getLevel} from "../../Store/Selector/Level.selector";
 import {Level} from "../../Store/Model/Level";
 
 @Component({
@@ -23,7 +23,7 @@ export class GameBoardComponent implements OnInit {
   constructor(private store: Store<fromRoot.State>) {
     console.log("test")
     store.dispatch({type: LevelActions.LOAD_LEVEL, id: "9948f878-9970-4cdf-ab76-4c0f95faaebe"});
-    store.select<Level>(getLevelByID).subscribe(
+    store.select<Level>(getLevel).subscribe(
       level => {
         console.log(level)
         this.LevelName = level.name

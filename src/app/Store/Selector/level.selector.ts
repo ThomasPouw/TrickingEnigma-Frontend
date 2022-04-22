@@ -3,4 +3,4 @@ import {State} from "../Reducers";
 import {getLevelFeatureState} from "../Reducers/level.reducer";
 
 export const getAllLevel = createSelector(getLevelFeatureState, (state: State) => state.levels.levels);
-export const getLevelByID = createSelector(getLevelFeatureState, (state: State) => state.levels.level)
+export const getLevel = createSelector(getLevelFeatureState, (state: State) => state.levels.level)

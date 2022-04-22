@@ -4,8 +4,6 @@ import {of} from "rxjs";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {RecordService} from "../Service/record.service";
 import * as RecordActions from "../Actions/records.actions";
-import * as LevelActions from "../Actions/level.actions";
-import {Load_NationalRecord, Load_UserRecord} from "../Actions/records.actions";
 @Injectable()
 export class RecordEffects{
   /*loadRecords$ = createEffect(() =>

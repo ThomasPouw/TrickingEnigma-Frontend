@@ -20,16 +20,16 @@ export class LevelEffects{
     )
   );
   loadLevelByID$ = createEffect(() => this.actions$.pipe(
-    ofType(LevelActions.Load_Level),
-    exhaustMap(action =>
+      ofType(LevelActions.Load_Level),
+      exhaustMap(action =>
 
-      this.levelService.GetLevelByID(action.id).pipe(
-        map(level =>  ({ type: LevelActions.LEVEL_SUCCESS, level: level })),
-        catchError((error) => of({type: LevelActions.LEVEL_FAIL, error: error}))
+        this.levelService.GetLevelByID(action.id).pipe(
+          map(level =>  ({ type: LevelActions.LEVEL_SUCCESS, level: level })),
+          catchError((error) => of({type: LevelActions.LEVEL_FAIL, error: error}))
+        )
       )
     )
-  )
-  )
+  );
   constructor(
     private actions$: Actions,
     private levelService: LevelService
