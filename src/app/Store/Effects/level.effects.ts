@@ -4,6 +4,7 @@ import * as LevelActions from "../Actions/level.actions";
 import {catchError, exhaustMap, map, tap} from "rxjs/operators";
 import {of} from "rxjs";
 import {LevelService} from "../Service/level.service";
+import * as RecordActions from "../Actions/records.actions";
 
 @Injectable()
 export class LevelEffects{
@@ -12,8 +13,8 @@ export class LevelEffects{
       exhaustMap(action =>
 
         this.levelService.GetLevels().pipe(
-          map(levels => new LevelActions.Level_SuccessAction(levels)),
-          catchError((error) => of(new LevelActions.Level_FailAction(error)))
+          map(level =>  ({ type: LevelActions.LEVEL_SUCCESS, level: level })),
+          catchError((error) => of({type: LevelActions.LEVEL_FAIL, error: error}))
         )
       )
     )
@@ -23,31 +24,11 @@ export class LevelEffects{
     exhaustMap(action =>
 
       this.levelService.GetLevelByID(action.id).pipe(
-        map(levels => new LevelActions.Level_SuccessAction(levels)),
-        catchError((error) => of(new LevelActions.Level_FailAction(error)))
+        map(level =>  ({ type: LevelActions.LEVEL_SUCCESS, level: level })),
+        catchError((error) => of({type: LevelActions.LEVEL_FAIL, error: error}))
       )
     )
   )
-
-    //Observable<Action> = this.actions$.pipe(
-  //     ofType(LevelActions.LOAD_LEVEL),
-  //     debounceTime(300),
-  //     exhaustMap(id => {
-  //       console.log(id)
-  //       if(id=== ""){
-  //         return empty();
-  //       }
-  //       return this.levelService.GetLevelByID(id).pipe(map(level => new LevelActions.Level_SuccessAction(level)),
-  //         catchError((error) => of(new LevelActions.Level_FailAction(error))))
-  //     })
-    /*switchMap(id => {
-      console.log(id)
-      if(id=== ""){
-        return empty();
-      }
-      return this.levelService.GetLevelByID(id).pipe(map(level => new LevelActions.Level_SuccessAction(level)),
-      catchError((error) => of(new LevelActions.Level_FailAction(error))))
-    })*/
   )
   constructor(
     private actions$: Actions,

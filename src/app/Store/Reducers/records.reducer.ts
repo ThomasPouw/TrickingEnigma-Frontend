@@ -1,124 +1,50 @@
 import * as record from "../Actions/records.actions";
-import {createFeatureSelector} from "@ngrx/store";
+import {createFeatureSelector, createReducer, on} from "@ngrx/store";
 import {State as AllState} from "../Reducers"
-import {TrackRecord} from "../Model/TrackRecord";
+import {Record} from "../Model/Record";
+import * as level from "../Actions/level.actions";
 
 export interface State {
-  trackRecords: TrackRecord[];
-  trackRecord: TrackRecord;
+  records: Record[];
+  record: Record;
   error: any;
 }
 const initialState: State = {
-  trackRecords: [],
-  trackRecord: {userName: "",time: 0, turns: 42},
+  records: [],
+  record: {time: 0, turns: 42},
   error: ""
 };
-
-export function reducer(state= initialState, action: record.Actions): State {
-  switch (action.type) {
-    case record.LOAD_WORLDRECORDS: {
-      console.log(state)
-      console.log(action.payload)
-      if(action.payload !== undefined){
-        let payload: TrackRecord[] = [];
-        action.payload.forEach(function(value){
-          payload.push({time: value.time, turns: value.turns, userName: value.userName})
-        })
-        console.log(payload)
-          return {
-            ...state,
-            trackRecords: payload,
-            error: ""
-        }
-
-      }
-      return {...state};
-    }
-    case record.LOAD_USER_RECORD: {
-      console.log(state)
-      console.log(action.payload)
-      if(action.payload !== undefined) {
+export const reducer = createReducer(
+  initialState,
+  on(record.Record_Success, (state, action) => {
+    if(action.record !== undefined){
+      if(Array.isArray(action.record)){
         return {
           ...state,
-          trackRecord: {time: action.payload.time, turns: action.payload.turns, userName: action.payload.userName},
+          records: action.record,
           error: ""
         }
       }
-      return state
-    }
-    case record.LOAD_USER_RECORDS: {
-      console.log(state)
-      console.log(action.payload)
-      return {
-        ...state,
-        trackRecords: action.payload,
-        error: ""
-      }
-    }
-    case record.LOAD_PUZZLERECORDS: {
-      console.log(state)
-      console.log(action.payload)
-      return {
-        ...state,
-        trackRecords: action.payload,
-        error: ""
-      }
-    }
-    case record.LOAD_NATIONALRECORD: {
-      console.log(state)
-      console.log(action.payload)
-      return {
-        ...state,
-        trackRecords: action.payload,
-        error: ""
-      }
-    }
-    case record.RECORDS_SUCCESS: {
-      console.log(state)
-      console.log(action.payload)
-      if(action.payload !== undefined){
-        let payload: TrackRecord[] = [];
-        action.payload.forEach(function(value){
-          payload.push({time: value.time, turns: value.turns, userName: value.userName})
-        })
-        return {
-          ...state,
-          trackRecords: payload,
-          error: ""
-        }
 
-      }
-      return {...state};
-    }
-    case record.RECORD_SUCCESS: {
-      console.log(state)
-      console.log(action.payload)
       return {
         ...state,
-        trackRecord: action.payload,
+        record: action.record,
         error: ""
       }
     }
-    case record.RECORD_FAIL: {
-      console.log(initialState);
-      console.log(state)
-      return {
-        ...state,
-        trackRecords: [],
-        trackRecord: {userName: "",time: 0, turns: 42},
-        error: action.payload,
-      }
+    return {...state};
+  }),
+  on(record.Record_Fail, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     }
-    default: {
-      return state;
-    }
-  }
-  return state;
-}
-export const recordFeatureKey = 'TrackRecord';
+  })
+)
+export const recordFeatureKey = 'Record';
 
-export const getRecords= (state: State) => state.trackRecords;
-export const getRecord= (state: State) => state.trackRecord;
+export const getRecords= (state: State) => state.records;
+export const getRecord= (state: State) => state.record;
 export const getError= (state: State) => state.error;
 
 export const getRecordFeatureState = createFeatureSelector<AllState>('reducer')

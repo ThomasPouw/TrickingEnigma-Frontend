@@ -1,8 +1,9 @@
 import {Level} from "../Model/Level";
-import * as stage from "../Actions/level.actions";
+import * as level from "../Actions/level.actions";
 import {Sprite} from "../Model/Sprite";
-import {createFeatureSelector} from "@ngrx/store";
+import {createFeatureSelector, createReducer, on} from "@ngrx/store";
 import {State as AllState} from "./index";
+import * as record from "../Actions/records.actions";
 
 export interface State {
   levels: Level[];
@@ -16,52 +17,34 @@ const initialState: State = {
   error: "",
   id: ""
 };
-export function reducer(state= initialState, action: stage.Actions): State {
-  switch (action.type) {
-    case stage.LOAD_LEVEL:
-    {
-      if(action.payload !== undefined && typeof action.payload == "string") {
-        const id = action.payload;
+export const reducer = createReducer(
+  initialState,
+  on(level.Level_Success, (state, action) => {
+    if(action.level !== undefined){
+      if(Array.isArray(action.level)){
         return {
           ...state,
-          error: "",
-          id
-        }
-      }
-      return state
-    }
-    case stage.LOAD_LEVELS: {
-      if(action.payload !== undefined) {
-        return <State>{
-          ...state,
-          error: "",
-          id: action.payload
-        }
-      }
-      return state
-    }
-    case stage.LEVEL_SUCCESS:{
-      if(action.payload !== undefined){
-        if(Array.isArray(action.payload))
-        return {
-          ...state,
-          levels: action.payload,
+          levels: action.level,
           error: ""
         }
-        else
-          return {
-            ...state,
-            level: action.payload,
-            error: ""
-          }
       }
-      return state;
+
+      return {
+        ...state,
+        level: action.level,
+        error: ""
+      }
     }
-    default: {
-      return state;
+    return {...state};
+  }),
+  on(level.Level_Fail, (state, action) => {
+    return {
+      ...state,
+      error: action.error
     }
-  }
-}
+  })
+
+)
 export const getLevels= (state: State) => state.levels;
 export const getLevel= (state: State) => state.level;
 export const getError= (state: State) => state.error;

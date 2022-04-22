@@ -1,8 +1,10 @@
-export interface TrackRecord{
-  position?: number;
+import {User} from "./User";
+
+export interface Record{
   courseName?: string;
-  userName: string;
   time: number | string;
   turns: number;
   nationality?: string;
+  userID?: string;
+  user?: User
 }

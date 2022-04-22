@@ -3,7 +3,7 @@ import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
 import {getUserRecord} from "../../Store/Selector/records.selector";
 import * as fromRecord from "../../Store/Actions/records.actions";
-import {TrackRecord} from "../../Store/Model/TrackRecord";
+import {Record} from "../../Store/Model/Record";
 @Component({
   selector: 'app-records',
   templateUrl: './records.component.html',
@@ -11,20 +11,23 @@ import {TrackRecord} from "../../Store/Model/TrackRecord";
 })
 export class RecordsComponent implements OnInit {
   Showrecord: boolean;
-  PB: TrackRecord = {userName: "", turns: 42, time: 0};
+  PB: Record = {turns: 42, time: 0};
+
   constructor(private store: Store<fromRoot.State>) {
     this.Showrecord = false
     store.dispatch({type: fromRecord.LOAD_USER_RECORD})
-    store.select<TrackRecord>(getUserRecord).subscribe(
-      TrackRecord => this.PB = this.Record(TrackRecord)
+    store.select<Record>(getUserRecord).subscribe(
+      //TrackRecord => //this.PB = //this.Record(TrackRecord)
     )
   }
+
   ngOnInit(): void {
   }
-  Record(record: TrackRecord): TrackRecord{
+
+  /*Record(record: Record): Record{
     if(typeof record.time == "number"){
       return {
-        userName: record.userName,
+        record.user?.userName: record.user?.userName,
         time: (Math.floor(record.time/60)) +":"+ ('0' + (record.time % 60)).slice(-2),
         turns: record.turns,
       }
@@ -33,7 +36,6 @@ export class RecordsComponent implements OnInit {
       userName: record.userName,
       time: record.time,
       turns: record.turns,
-    }
-
-  }
+    }*/
+  //}
 }

@@ -2,27 +2,37 @@ import { Injectable } from '@angular/core';
 
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {map} from "rxjs/operators";
-import {TrackRecord} from "../Model/TrackRecord";
+import {Record} from "../Model/Record";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecordService {
-  CHANGELATER(): TrackRecord[] {
-    return [{userName: "test", time: 60, nationality: "Dutch", turns: 0},
-    {userName: "test22", time: 80, nationality: "Dutch", turns: 3},
-    {userName: "test2", time: 62, nationality: "Dutch", turns: 4},
-  ]}
-  constructor(private http: HttpClient) { }
-  GetAllRecords(): Observable<TrackRecord[]>{
-    console.log("test")
-    return this.http.get<TrackRecord[]>("http://localhost:8080/Records/")
+  constructor(private http: HttpClient, private userService: UserService) { }
+  GetAllRecords(): Observable<Record[]>{
+    return this.http.get<Record[]>("http://localhost:8040/Records/")
   }
-  GetUserRecords(): Observable<TrackRecord[]>{
-    return new Observable(subscriber => subscriber.next(this.CHANGELATER()));
+  GetUserRecords(userID: string): Observable<Record[]>{
+    return new Observable(subscriber => subscriber.next());
   }
-  GetUserRecord(): Observable<TrackRecord>{
-    return this.http.get<TrackRecord>("http://localhost:8080/Records/")
+  // @ts-ignore
+  GetUserRecord(userID: string, levelID: string): Observable<Record>{
+    try{
+      this.http.get<Record>("http://localhost:8040/Records/").subscribe(record => {
+        if(typeof record.userID == "string"){
+          this.userService.GetUserByID(record.userID).subscribe(user => record.user = user)
+          record.userID = undefined;
+        }
+        console.log(record)
+        return new Observable<Record>(sub => sub.next(record))
+      })
+    }
+    catch(E){
+      console.error(E)
+    }
+  }
+  GetRecordsByNationality(levelID: string, nationality_id: string): Observable<Record[]>{
+    return new Observable(subscriber => subscriber.next());
   }
 }
