@@ -1,0 +1,19 @@
+<div style="width: 100%; background-color: aqua; z-index: 10">
+  <div>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Enter NickName</mat-label>
+      <input matInput #nickName>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Your Country</mat-label>
+      <mat-select [(value)]="nationality">
+        <mat-option *ngFor="let country of nationalities" [value]="country.id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button (click)="SignIn(nickName.value)" mat-raised-button color="primary">Primary</button>
+</div>
