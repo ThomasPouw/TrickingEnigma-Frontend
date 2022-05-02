@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {Record} from "../Model/Record";
 import {UserService} from "./user.service";
+import {User} from "../Model/User";
 
 @Injectable({
   providedIn: 'root'
@@ -19,14 +20,7 @@ export class RecordService {
   // @ts-ignore
   GetUserRecord(userID: string, levelID: string): Observable<Record>{
     try{
-      this.http.get<Record>("http://localhost:8040/Records/").subscribe(record => {
-        if(typeof record.userID == "string"){
-          this.userService.GetUserByID(record.userID).subscribe(user => record.user = user)
-          record.userID = undefined;
-        }
-        console.log(record)
-        return new Observable<Record>(sub => sub.next(record))
-      })
+      return this.http.get<Record>("http://localhost:8040/Records/")
     }
     catch(E){
       console.error(E)
@@ -34,5 +28,8 @@ export class RecordService {
   }
   GetRecordsByNationality(levelID: string, nationality_id: string): Observable<Record[]>{
     return new Observable(subscriber => subscriber.next());
+  }
+  PostRecord(record: Record): Observable<Record>{
+    return this.http.post<Record>("http://localhost:8040/Records/", record)
   }
 }

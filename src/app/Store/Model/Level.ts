@@ -4,7 +4,7 @@ export interface Level {
   iD: string;
   name: string;
   levelSprite: LevelSprite[];
-  horizon_tile: number;
-  vertical_tile: number;
+  x_length: number;
+  y_length: number;
 }
 

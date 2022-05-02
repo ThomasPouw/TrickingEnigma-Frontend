@@ -2,6 +2,10 @@ import * as Pixi from 'pixi.js';
 import {PieceDirection} from "./piece-direction";
 import {GameBoardComponent} from "../game-board.component";
 import {Sprite, LevelSprite} from "../../../Store/Model/Sprite";
+import {Store} from "@ngrx/store";
+import * as fromRoot from "../../../Store/Reducers";
+import * as RecordActions from "../../../Store/Actions/records.actions"
+import {ADD_RECORD} from "../../../Store/Actions/records.actions";
 
 export class Pieces extends Pixi.Sprite{
   private dragging: any;
@@ -19,12 +23,13 @@ export class Pieces extends Pixi.Sprite{
     for(let i = 0; i < sprite.length; i++){
       let shapes= Pixi.Sprite.from(sprite[i].sprite.assetLocation);
       shapes.anchor.set(0,0)
-      switch(sprite[i].sprite.rotation){
+      switch(sprite[i].rotation){
         case PieceDirection.North:
           break;
         case PieceDirection.East:
           shapes.angle = 90
-          sprite[i].x += 2
+          console.log(sprite[i])
+          sprite[i].x = sprite[i].x +2
           break;
         case PieceDirection.South:
           shapes.angle = 180
@@ -41,13 +46,14 @@ export class Pieces extends Pixi.Sprite{
       shapes.x = Space*sprite[i].x;
       shapes.y = Space*sprite[i].y;
       shapes.alpha = 1
-      //shapes.anchor.set(0.5)
       shapes.name = sprite[i].tile_name;
       switch(sprite[i].tile_name){
         case("End"):
           shapes.tint=0x475325;
+          shapes.zIndex = 0;
           break;
         case("Sprite"):
+          shapes.zIndex = 1;
           shapes.on('mousedown', this.onDragStart)
             .on('touchstart', this.onDragStart)
             // events for drag end
@@ -60,6 +66,7 @@ export class Pieces extends Pixi.Sprite{
             .on('touchmove', this.onDragMove);
           break;
         case("Cargo"):
+          shapes.zIndex = 1;
           shapes.tint=0xA75325;
           shapes.on('mousedown', this.onDragStart)
             .on('touchstart', this.onDragStart)
@@ -80,6 +87,10 @@ export class Pieces extends Pixi.Sprite{
   }
   onDragStart(event: any)
   {
+    if(!GameBoardComponent.start){
+      console.log(!GameBoardComponent.start)
+        GameBoardComponent.counter(!GameBoardComponent.start)
+    }
     this.data = event.data;
     this.alpha = 0.9;
     this.dragging = this.data.getLocalPosition(this.parent);
@@ -109,6 +120,12 @@ export class Pieces extends Pixi.Sprite{
                   sprite1.y + sprite1.height == sprite2.y + sprite2.height &&
                   sprite1.y == sprite2.y){
                   console.log("right thing!")
+                  console.log(GameBoardComponent.start)
+                  GameBoardComponent.counter(!GameBoardComponent.start)
+                  for(let sprite of this.parent.children){
+                    sprite.removeAllListeners()
+                  }
+                  GameBoardComponent.recordStore()
                 }
                 else
                 console.log("right thing, but wrong size")
@@ -133,8 +150,6 @@ export class Pieces extends Pixi.Sprite{
             aBox.x < bBox.x + bBox.width &&
             aBox.y + aBox.height > bBox.y &&
             aBox.y < bBox.y + bBox.height;
-
-
   }
   onDragMove()
   {
@@ -153,9 +168,6 @@ export class Pieces extends Pixi.Sprite{
                 this.position.x = oldX;
                 this.position.y = oldY;
               }
-              //if(newPosition.x - Pieces.space > oldX && newPosition.x  + Pieces.space < oldX && newPosition.y - Pieces.space > oldY && newPosition.y  + Pieces.space < oldY){
-              //  this.onDragEnd();
-              //}
             }
           }
         }

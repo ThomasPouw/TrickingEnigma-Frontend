@@ -17,7 +17,7 @@ export class RecordsComponent implements OnInit {
     this.Showrecord = false
     store.dispatch({type: fromRecord.LOAD_USER_RECORD})
     store.select<Record>(getUserRecord).subscribe(
-      //TrackRecord => //this.PB = //this.Record(TrackRecord)
+      //TrackRecord => this.PB = this.Record(TrackRecord)
     )
   }
 

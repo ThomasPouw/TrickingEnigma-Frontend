@@ -40,6 +40,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import {reducer} from "./Store/Reducers";
 import {LevelEffects} from "./Store/Effects/level.effects";
+import {UserEffects} from "./Store/Effects/user.effects";
+import {NationalityEffects} from "./Store/Effects/nationality.effects";
+import { LoginComponent } from './view/login/login.component';
+import {MatSelectModule} from "@angular/material/select";
 
 //
 
@@ -56,6 +60,7 @@ import {LevelEffects} from "./Store/Effects/level.effects";
     SideBarComponent,
     LineChartComponent,
     FooterComponent,
+    LoginComponent,
   ],
   imports: [
 
@@ -69,9 +74,10 @@ import {LevelEffects} from "./Store/Effects/level.effects";
     MatFormFieldModule,
     MatInputModule,
     NgxEchartsModule.forRoot({
-      echarts}),
+      echarts
+    }),
     StoreModule.forRoot({reducer}),
-    EffectsModule.forRoot([RecordEffects, LevelEffects]),
+    EffectsModule.forRoot([RecordEffects, LevelEffects, UserEffects, NationalityEffects]),
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -83,12 +89,13 @@ import {LevelEffects} from "./Store/Effects/level.effects";
       domain: 'dev-yw9oh5an.us.auth0.com',
       clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
     }),
+    MatSelectModule,
   ],
   exports: [
     MatInputModule,
     MatFormFieldModule
   ],
   providers: [],
-  bootstrap: [AppComponent, SideBarComponent, HeaderComponent, FooterComponent]
+  bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })
 export class AppModule { }

@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
-import {map, catchError, exhaustMap} from 'rxjs/operators';
+import {map, catchError, exhaustMap, tap} from 'rxjs/operators';
 import {of} from "rxjs";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {RecordService} from "../Service/record.service";
 import * as RecordActions from "../Actions/records.actions";
+import * as UserActions from "../Actions/user.actions";
 @Injectable()
 export class RecordEffects{
   /*loadRecords$ = createEffect(() =>
@@ -47,6 +48,16 @@ export class RecordEffects{
       )
     )
   )
+  PostRecord$ = createEffect(() => this.actions$.pipe(
+    ofType(RecordActions.Add_Record),
+    tap(action => console.log(action)),
+    exhaustMap(action =>
+      this.recordService.PostRecord(action.record).pipe(
+        tap(record => console.log(record)),
+        map(record => ({type: RecordActions.RECORD_SUCCESS, record: record})),
+        catchError((error) => of({type: RecordActions.RECORD_FAIL, error: error}))
+      ))
+  ))
   constructor(
     private actions$: Actions,
     private recordService: RecordService
