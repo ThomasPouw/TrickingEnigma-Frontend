@@ -6,7 +6,13 @@
   &_button{
     background-color: gray;
     height: 50%;
-    width: 10%;
+    width: 5%;
     float: right;
+    border-radius: 5%;
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-color: #929292;
+    border-style: solid;
   }
 }

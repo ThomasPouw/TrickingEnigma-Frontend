@@ -10,7 +10,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {NgxEchartsModule} from "ngx-echarts";
-import { AuthModule } from '@auth0/auth0-angular';
+import {AuthModule} from '@auth0/auth0-angular';
+import {MatSelectModule} from "@angular/material/select";
 import * as echarts from 'echarts';
 
 //Components
@@ -25,8 +26,7 @@ import { GameBoardComponent } from './component/game-board/game-board.component'
 import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { LineChartComponent } from './component/line-chart/line-chart.component';
 import { FooterComponent } from './component/footer/footer.component';
-import {StoreModule} from "@ngrx/store";
-import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './view/login/login.component';
 
 
 //NGRX store
@@ -42,8 +42,8 @@ import {reducer} from "./Store/Reducers";
 import {LevelEffects} from "./Store/Effects/level.effects";
 import {UserEffects} from "./Store/Effects/user.effects";
 import {NationalityEffects} from "./Store/Effects/nationality.effects";
-import { LoginComponent } from './view/login/login.component';
-import {MatSelectModule} from "@angular/material/select";
+import {StoreModule} from "@ngrx/store";
+import { HttpClientModule} from '@angular/common/http';
 
 //
 
@@ -60,10 +60,9 @@ import {MatSelectModule} from "@angular/material/select";
     SideBarComponent,
     LineChartComponent,
     FooterComponent,
-    LoginComponent,
+    LoginComponent
   ],
   imports: [
-
     BrowserModule,
     MatTabsModule,
     BrowserAnimationsModule,

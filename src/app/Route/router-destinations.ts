@@ -19,6 +19,6 @@ export const destinations: routePlan[] = [
     {Path: "Game", ShowName: "Game", Component: GamePageComponent, Located: Located.Top,Permission: []},
     {Path: "Admin", ShowName: "Admin", Component: AdminPageComponent, Located: Located.Top, Permission: []},
     {Path: "User", ShowName: "User", Component: UserPageComponent, Located: Located.Top, Permission: []},
-  {Path: "Login", ShowName: "Login", Component: LoginComponent, Located: Located.Both, Permission: []}
+  {Path: "Login", ShowName: "Login", Component: LoginComponent, Located: Located.Neither, Permission: []}
   ]
 

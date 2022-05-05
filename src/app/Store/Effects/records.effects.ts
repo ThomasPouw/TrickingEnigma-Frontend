@@ -54,7 +54,7 @@ export class RecordEffects{
     exhaustMap(action =>
       this.recordService.PostRecord(action.record).pipe(
         tap(record => console.log(record)),
-        map(record => ({type: RecordActions.RECORD_SUCCESS, record: record})),
+        map(record => ({type: RecordActions.RECORD_SUCCESS, record: record})), //({type: RecordActions.RECORD_SUCCESS, record: record})
         catchError((error) => of({type: RecordActions.RECORD_FAIL, error: error}))
       ))
   ))

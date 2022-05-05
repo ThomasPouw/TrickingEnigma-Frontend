@@ -12,30 +12,22 @@ import {Record} from "../../Store/Model/Record";
 export class RecordsComponent implements OnInit {
   Showrecord: boolean;
   PB: Record = {turns: 42, time: 0};
+  PB_Time: string = "0:00";
+  PB_Turns: number = 0;
 
   constructor(private store: Store<fromRoot.State>) {
     this.Showrecord = false
     store.dispatch({type: fromRecord.LOAD_USER_RECORD})
     store.select<Record>(getUserRecord).subscribe(
-      //TrackRecord => this.PB = this.Record(TrackRecord)
+      TrackRecord => this.PB = TrackRecord
     )
   }
 
   ngOnInit(): void {
   }
 
-  /*Record(record: Record): Record{
-    if(typeof record.time == "number"){
-      return {
-        record.user?.userName: record.user?.userName,
-        time: (Math.floor(record.time/60)) +":"+ ('0' + (record.time % 60)).slice(-2),
-        turns: record.turns,
-      }
-    }
-    return {
-      userName: record.userName,
-      time: record.time,
-      turns: record.turns,
-    }*/
-  //}
+  Record(record: Record): void {
+    this.PB_Time = (Math.floor(record.time / 60)) + ":" + ('0' + (record.time % 60)).slice(-2);
+    this.PB_Turns = record.time;
+  }
 }

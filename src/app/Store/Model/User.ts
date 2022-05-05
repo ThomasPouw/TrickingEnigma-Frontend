@@ -2,7 +2,7 @@ import {Nationality} from "./Nationality";
 
 export interface User{
   id?: string;
-  userName: string;
+  name: string;
   secret?: string
   nationality: Nationality;
 }

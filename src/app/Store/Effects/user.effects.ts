@@ -4,6 +4,7 @@ import {UserService} from "../Service/user.service";
 import * as UserActions from "../Actions/user.actions";
 import {of} from "rxjs";
 import {map, catchError, exhaustMap, tap} from 'rxjs/operators';
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserEffects{
@@ -14,6 +15,15 @@ export class UserEffects{
       map(user => ({type: UserActions.USER_SUCCESS, user: user})),
       catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
     ))
+  ))
+  loadUserBySecret$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.Load_User_Login),
+    exhaustMap(action =>
+      this.userService.GetUserLogin(action.secret).pipe(
+        tap(user => {if(user == undefined){this.router.navigate(['Login']);}}),
+        map(user => ({type: UserActions.USER_SUCCESS, user: user})),
+        catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
+      ))
   ))
   PostUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Add_User),
@@ -26,7 +36,8 @@ export class UserEffects{
   ))
   constructor(
     private actions$: Actions,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 }
 //= createEffect(() => this.actions$.pipe(

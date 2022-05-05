@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         if(user !== null && user !== undefined){
           this.store.select(getNationalityLogin(this.nationality)).subscribe(
             nationality => {
-              this.store.dispatch({type: fromUser.ADD_USER, user: {userName: nickName, nationality: nationality, secret: user.sub?.replace("|", "_")}})
+              this.store.dispatch({type: fromUser.ADD_USER, user: {name: nickName, nationality: nationality, secret: user.sub?.replace("|", "_")}})
             }
           )
         }

@@ -2,17 +2,12 @@ import * as Pixi from 'pixi.js';
 import {PieceDirection} from "./piece-direction";
 import {GameBoardComponent} from "../game-board.component";
 import {Sprite, LevelSprite} from "../../../Store/Model/Sprite";
-import {Store} from "@ngrx/store";
-import * as fromRoot from "../../../Store/Reducers";
-import * as RecordActions from "../../../Store/Actions/records.actions"
-import {ADD_RECORD} from "../../../Store/Actions/records.actions";
-
 export class Pieces extends Pixi.Sprite{
   private dragging: any;
   private data: any;
   private static space: number =0;
   private static InteractionManager: Pixi.InteractionManager;
-  constructor(App: Pixi.Application, Space: number, Sprites: LevelSprite[]) { //{X: 6, Y: 3, id: "gghfrgg", sprite: {id: "dhfhdfhffhe", assetLocation:'assets/Block-vorm.png', rotation: PieceDirection.North}, tile_name: "End"}
+  constructor(App: Pixi.Application, Space: number, Sprites: LevelSprite[]) {
     super()
     App.stage.addChild(this.SpriteMaker(App, Space, Sprites))
     Pieces.InteractionManager = new Pixi.InteractionManager(App.renderer)
@@ -119,8 +114,6 @@ export class Pieces extends Pixi.Sprite{
                   sprite1.x == sprite2.x &&
                   sprite1.y + sprite1.height == sprite2.y + sprite2.height &&
                   sprite1.y == sprite2.y){
-                  console.log("right thing!")
-                  console.log(GameBoardComponent.start)
                   GameBoardComponent.counter(!GameBoardComponent.start)
                   for(let sprite of this.parent.children){
                     sprite.removeAllListeners()
