@@ -4,11 +4,11 @@ import {backGround} from "./background/background";
 import {Pieces} from "./Sprites/Pieces";
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
-import * as LevelActions from "../../Store/Actions/level.actions"
-import * as RecordActions from "../../Store/Actions/records.actions"
-import {getLevel} from "../../Store/Selector/Level.selector";
-import {Level} from "../../Store/Model/Level";
-import {getUser} from "../../Store/Selector/user.selector";
+import * as LevelActions from "../../Store/Actions/level.actions.js"
+import * as RecordActions from "../../Store/Actions/records.actions.js"
+import {getLevel} from "../../Store/Selector/Level.selector.js";
+import {Level} from "../../Store/Model/Level.js";
+import {getUser} from "../../Store/Selector/user.selector.js";
 
 @Component({
   selector: 'app-game-board',
@@ -32,21 +32,20 @@ export class GameBoardComponent implements OnInit {
         let level = stage;
         console.log(level)
         GameBoardComponent.LevelName = level.name
-        let horizonalAmount: number = level.x_length//level.horizon_tile
+        let horizontalAmount: number = level.x_length//level.horizon_tile
         let VerticalAmount: number = level.y_length//level.vertical_tile
-        //https://medium.com/codex/create-a-multiplayer-game-using-angular-and-pixi-js-part-1-7fafccc2c996
         let screen = document.getElementById("board");
 
         if(screen !== null){
           const app: PIXI.Application= new PIXI.Application({
             width: screen.offsetWidth,
-            height: (screen.offsetWidth/ horizonalAmount)* VerticalAmount,
+            height: (screen.offsetWidth/ horizontalAmount)* VerticalAmount,
             backgroundColor: 0x1099bb
           });
           console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
           screen.appendChild(app.view);
-          new Pieces(app, (screen.offsetWidth/ horizonalAmount), level.levelSprite)
-          app.stage.addChild(new backGround(screen.offsetWidth/ horizonalAmount))
+          new Pieces(app, (screen.offsetWidth/ horizontalAmount), level.levelSprite)
+          app.stage.addChild(new backGround(screen.offsetWidth/ horizontalAmount))
         }
       }
     )
