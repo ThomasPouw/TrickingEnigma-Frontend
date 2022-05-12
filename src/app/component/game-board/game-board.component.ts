@@ -4,11 +4,11 @@ import {backGround} from "./background/background";
 import {Pieces} from "./Sprites/Pieces";
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
-import * as LevelActions from "../../Store/Actions/level.actions.js"
-import * as RecordActions from "../../Store/Actions/records.actions.js"
-import {getLevel} from "../../Store/Selector/Level.selector.js";
-import {Level} from "../../Store/Model/Level.js";
-import {getUser} from "../../Store/Selector/user.selector.js";
+import * as LevelActions from "../../Store/Actions/level.actions"
+import * as RecordActions from "../../Store/Actions/records.actions"
+import {getLevel} from "../../Store/Selector/Level.selector";
+import {Level} from "../../Store/Model/Level";
+import {getUser} from "../../Store/Selector/user.selector";
 
 @Component({
   selector: 'app-game-board',
