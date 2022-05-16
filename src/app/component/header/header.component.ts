@@ -10,7 +10,7 @@ import * as fromUser from "../../Store/Actions/user.actions";
 import {getUser} from "../../Store/Selector/user.selector";
 (window as any).global = window;
 @Component({
-  selector: 'app-Header',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })

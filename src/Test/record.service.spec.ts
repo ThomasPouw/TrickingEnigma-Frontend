@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RecordService } from './record.service';
+import { RecordService } from '../app/Store/Service/record.service';
 
 describe('RecordService', () => {
   let service: RecordService;
@@ -9,10 +9,8 @@ describe('RecordService', () => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(RecordService);
   });
+  it("Should work", () => {
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  })
+})
 
-  it("Should")
-});

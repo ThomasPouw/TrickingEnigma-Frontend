@@ -36,7 +36,6 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
     "allowSyntheticDefaultImports": true,
-    "enableIvy": true,
-    "forceConsistentCasingInFileNames": true
+    "enableIvy": true
   }
 }

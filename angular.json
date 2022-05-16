@@ -19,7 +19,8 @@
           "options": {
             "outputPath": "dist/trickling-enigma",
             "allowedCommonJsDependencies": [
-              "@pixi", "url"
+              "@pixi",
+              "url"
             ],
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -40,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "20mb",
+                  "maximumError": "25mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -103,9 +104,21 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "Trickling-Enigma"
+  "defaultProject": "Trickling-Enigma",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
