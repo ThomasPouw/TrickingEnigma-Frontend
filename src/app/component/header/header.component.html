@@ -12,7 +12,7 @@
     </a>
   </ng-template>
   <div *ngFor="let location of Destinations">
-    <div *ngIf="location.Located === Located.Top || Located.Both">
+    <div *ngIf="location.Located === Located.Top || location.Located ===Located.Both">
         <a routerLink={{location.Path}}>
           <div class="header_button">
             {{location.ShowName}}

@@ -13,7 +13,7 @@ export interface State {
 }
 const initialState: State = {
   levels: [],
-  level: {iD: "", name: "", levelSprite: [], x_length: 0, y_length: 0},
+  level: {id: "", name: "", levelSprite: [], x_length: 0, y_length: 0},
   error: "",
   id: ""
 };

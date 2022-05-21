@@ -7,9 +7,11 @@ export class Pieces extends Pixi.Sprite{
   private data: any;
   private static space: number =0;
   private static InteractionManager: Pixi.InteractionManager;
+  private static App: Pixi.Application
   constructor(App: Pixi.Application, Space: number, Sprites: LevelSprite[]) {
     super()
     App.stage.addChild(this.SpriteMaker(App, Space, Sprites))
+    Pieces.App= App;
     Pieces.InteractionManager = new Pixi.InteractionManager(App.renderer)
   }
   SpriteMaker(App: any, Space: number, sprite: LevelSprite[]): Pixi.Container{
@@ -93,20 +95,18 @@ export class Pieces extends Pixi.Sprite{
 
   onDragEnd()
   {
+    console.log(this)
     this.alpha = 1;
-
     this.dragging = false;
     // set the interaction data to null
     this.data = null;
     this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))
     this.position.y = (Pieces.space * Math.floor((this.position.y/Pieces.space)+0.5))
-    GameBoardComponent.turnCount++
     for(let sprite in this.parent.children){
       if(sprite.length != this.parent.children.length){
         if(this !== this.parent.children[sprite]){
           if(this.parent.children[sprite].name == "End"){
             if(Pieces.Interaction(this, this.parent.children[sprite])){
-              let endBlock = this.parent.children[sprite]
               if(this.name == "Cargo"){
                 let sprite1 = this.getBounds();
                 let sprite2 = this.parent.children[sprite].getBounds()
@@ -157,7 +157,7 @@ export class Pieces extends Pixi.Sprite{
         if(sprite.length != this.parent.children.length){
           if(this !== this.parent.children[sprite]){
             if(this.parent.children[sprite].name != "End"){
-              if(Pieces.Interaction(this, this.parent.children[sprite])){
+              if(Pieces.Interaction(this, this.parent.children[sprite]) || this.x <= 0 || this.y <= 0 || this.x >= Pieces.App.view.width- this.width||  this.y >= Pieces.App.view.height- this.height){
                 this.position.x = oldX;
                 this.position.y = oldY;
               }

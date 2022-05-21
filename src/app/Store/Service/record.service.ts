@@ -14,17 +14,14 @@ export class RecordService {
   GetAllRecords(): Observable<Record[]>{
     return this.http.get<Record[]>("http://localhost:8040/Records/")
   }
+  GetRecordsByLevel(levelID: string): Observable<Record[]>{
+    return this.http.get<Record[]>("http://localhost:8040/Records/Level", {params: {Level_ID: levelID}})
+  }
   GetUserRecords(userID: string): Observable<Record[]>{
     return new Observable(subscriber => subscriber.next());
   }
-  // @ts-ignore
   GetUserRecord(userID: string, levelID: string): Observable<Record>{
-    try{
-      return this.http.get<Record>("http://localhost:8040/Records/")
-    }
-    catch(E){
-      console.error(E)
-    }
+    return this.http.get<Record>("http://localhost:8040/Records/Level/User", {params: {Level_ID: levelID, User_ID: userID}})
   }
   GetRecordsByNationality(levelID: string, nationality_id: string): Observable<Record[]>{
     return new Observable(subscriber => subscriber.next());

@@ -1,7 +1,7 @@
 <div style="background-color: blueviolet; width: 15%; height: auto; padding: 0.1%;margin: 1%; ">
   <h5>Personal Record:</h5>
-  Time: {{PB_Time}} <br>
-  Turns: {{PB_Turns}}
+  Time: {{this.time}} <br>
+  Turns: {{this.PB.turns}}
 </div>
 <div class="record-button" (click)="Showrecord = !Showrecord">Records</div>
 <div *ngIf="Showrecord">
@@ -15,17 +15,14 @@
       <mat-tab label="Record of the Week">
         <div class="table">
           <app-table></app-table>
-          <app-line-chart></app-line-chart>
         </div>
       </mat-tab>
       <mat-tab label="National Record">
         <div class="table">
           <app-table></app-table>
-          <app-line-chart></app-line-chart>
         </div>
         <div class="line">
           <app-table></app-table>
-          <app-line-chart></app-line-chart>
         </div>
       </mat-tab>
     </mat-tab-group>

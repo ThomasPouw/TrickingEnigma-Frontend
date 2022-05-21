@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../Model/User";
 
@@ -17,6 +17,9 @@ export class UserService {
   }
   GetUserByID(id: string): Observable<User>{
     return this.http.get<User>("http://localhost:8060/User/"+id,{headers: {'Access-Control-Allow-Origin' : "http://localhost:4200"}})
+  }
+  GetUsersByID(id: string[]): Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8060/User/Level?user_IDs="+id,{headers: {'Access-Control-Allow-Origin' : "http://localhost:4200"}})
   }
   PostUser(user: User): Observable<User>{
     console.log(user)

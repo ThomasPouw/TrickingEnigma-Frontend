@@ -1,7 +1,7 @@
 import {LevelSprite} from "./Sprite";
 
 export interface Level {
-  iD: string;
+  id: string;
   name: string;
   levelSprite: LevelSprite[];
   x_length: number;

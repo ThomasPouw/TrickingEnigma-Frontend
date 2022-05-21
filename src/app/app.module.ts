@@ -24,7 +24,6 @@ import { HeaderComponent } from './component/header/header.component';
 import { RecordsComponent } from './component/records/records.component';
 import { GameBoardComponent } from './component/game-board/game-board.component';
 import { SideBarComponent } from './component/side-bar/side-bar.component';
-import { LineChartComponent } from './component/line-chart/line-chart.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { LoginComponent } from './view/login/login.component';
 
@@ -44,6 +43,7 @@ import {UserEffects} from "./Store/Effects/user.effects";
 import {NationalityEffects} from "./Store/Effects/nationality.effects";
 import {StoreModule} from "@ngrx/store";
 import { HttpClientModule} from '@angular/common/http';
+import { GameSelectComponent } from './view/game-select/game-select.component';
 
 //
 
@@ -58,9 +58,9 @@ import { HttpClientModule} from '@angular/common/http';
     RecordsComponent,
     GameBoardComponent,
     SideBarComponent,
-    LineChartComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    GameSelectComponent
   ],
   imports: [
     BrowserModule,

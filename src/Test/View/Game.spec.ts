@@ -21,7 +21,7 @@ describe("Game Page", () =>{
   it('should create The Game Page', () => {
     expect(component).toBeTruthy();
   })
-  it('should display a levle when given an levelid', () => {
+  it('should display a level when given an levelid', () => {
     expect(component).toBeTruthy();
   })
 })

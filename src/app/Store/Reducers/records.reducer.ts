@@ -11,7 +11,7 @@ export interface State {
 }
 const initialState: State = {
   records: [],
-  record: {time: 0, turns: 42},
+  record: {time: 0, turns: 42, userID: ""},
   error: ""
 };
 export const reducer = createReducer(

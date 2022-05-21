@@ -9,7 +9,7 @@ import * as RecordActions from "../Actions/records.actions";
 @Injectable()
 export class LevelEffects{
   loadLevels$ = createEffect(() => this.actions$.pipe(
-      ofType(LevelActions.Load_Level),
+      ofType(LevelActions.Load_Levels),
       exhaustMap(action =>
 
         this.levelService.GetLevels().pipe(

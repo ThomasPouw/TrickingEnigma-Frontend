@@ -20,6 +20,7 @@ const initialState: State = {
 export const reducer = createReducer(
   initialState,
   on(user.User_Success, (state, action) => {
+    console.log(action.user)
     if(action.user !== undefined){
       if(Array.isArray(action.user)){
         return {

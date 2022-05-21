@@ -16,6 +16,17 @@ export class UserEffects{
       catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
     ))
   ))
+  loadUsersByID$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.Load_Users),
+    tap(a => console.log(a)),
+    tap(a => console.log(a.UserIDs)),
+    exhaustMap(action =>
+      this.userService.GetUsersByID(action.UserIDs).pipe(
+        tap(user => console.log(user)),
+        map(user => ({type: UserActions.USER_SUCCESS, user: user})),
+        catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
+      ))
+  ))
   loadUserBySecret$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Load_User_Login),
     exhaustMap(action =>

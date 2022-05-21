@@ -7,17 +7,17 @@ import * as RecordActions from "../Actions/records.actions";
 import * as UserActions from "../Actions/user.actions";
 @Injectable()
 export class RecordEffects{
-  /*loadRecords$ = createEffect(() =>
+  loadRecords$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RecordActions.LOAD_WORLDRECORDS),
-      exhaustMap(() =>
-        this.recordService.GetAllRecords().pipe(
-          map(records => new RecordActions.Records_SuccessAction(records)),
-          catchError((error) => of(new RecordActions.Record_FailAction(error)))
+      ofType(RecordActions.Load_WorldRecord),
+      exhaustMap(action =>
+        this.recordService.GetRecordsByLevel(action.id).pipe(
+          map(records => ({ type: RecordActions.RECORD_SUCCESS, record: records })),
+          catchError((error) => of({ type: RecordActions.RECORD_FAIL, error: error }))
         )
       )
     )
-  );*/
+  );
   loadUserRecord$ = createEffect(() => this.actions$.pipe(
       ofType(RecordActions.Load_UserRecord),
       exhaustMap(action =>
@@ -53,7 +53,6 @@ export class RecordEffects{
     tap(action => console.log(action)),
     exhaustMap(action =>
       this.recordService.PostRecord(action.record).pipe(
-        tap(record => console.log(record)),
         map(record => ({type: RecordActions.RECORD_SUCCESS, record: record})), //({type: RecordActions.RECORD_SUCCESS, record: record})
         catchError((error) => of({type: RecordActions.RECORD_FAIL, error: error}))
       ))
