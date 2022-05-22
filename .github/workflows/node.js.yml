@@ -42,7 +42,6 @@ jobs:
       - name: Build
         run: |
           npm run build 
-      - name: Test
       - name: Conventional Changelog Action
         id: changelog
         uses: TriPSs/conventional-changelog-action@v3
