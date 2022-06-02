@@ -6,15 +6,13 @@ import {State as AllState} from "./index";
 
 export interface State {
   users: User[];
-  user?: User;
+  user: User;
   error: any;
-  id: string;
 }
 const initialState: State = {
   users: [],
-  user: undefined,
+  user: {name: "", nationality: {id: "",icon: "", name: ""}},
   error: "",
-  id: ""
 };
 
 export const reducer = createReducer(

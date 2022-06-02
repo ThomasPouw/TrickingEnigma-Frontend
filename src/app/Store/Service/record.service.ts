@@ -18,7 +18,7 @@ export class RecordService {
     return this.http.get<Record[]>("http://localhost:8040/Records/Level", {params: {Level_ID: levelID}})
   }
   GetUserRecords(userID: string): Observable<Record[]>{
-    return new Observable(subscriber => subscriber.next());
+    return this.http.get<Record[]>("http://localhost:8040/Records/User", {params: {User_ID: userID}})
   }
   GetUserRecord(userID: string, levelID: string): Observable<Record>{
     return this.http.get<Record>("http://localhost:8040/Records/Level/User", {params: {Level_ID: levelID, User_ID: userID}})

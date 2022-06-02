@@ -11,24 +11,28 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./records.component.scss']
 })
 export class RecordsComponent implements OnInit {
-  Showrecord: boolean = false;
-  PB: Record = {turns: 42, time: 0, userID: ""};
+  showRecord: boolean = false;
+  PB: Record = {recordCreated: "", turns: 42, time: 0, userID: "", levelID: ""};
   time: string = "";
+  turns: boolean = false;
 
   constructor(private store: Store<fromRoot.State>, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    console.log(this.route.params)
+    console.log(sessionStorage.getItem("userID"))
     this.route.params
       .subscribe(params => {
-        this.store.dispatch({type: fromRecord.LOAD_USER_RECORD, userID: "33fe0ee2-3b94-4e9d-82ab-434d08650967", levelID: params["id"]})
-        this.store.select<Record>(getUserRecord).subscribe(
-          Record => {if(Record){this.PB = Record}}
-        )
-        this.store.select<Record>(getUserRecord).subscribe(
-          Record => this.time = (Math.floor(Record.time / 60)) + ":" + ('0' + (Record.time % 60)).slice(-2)
-        )
+        if(sessionStorage.getItem("userID") != undefined){
+          this.store.dispatch({type: fromRecord.LOAD_USER_RECORD, userID: sessionStorage.getItem("userID"), levelID: params["id"]})
+          this.store.select<Record>(getUserRecord).subscribe(
+            Record => {if(Record){this.PB = Record}}
+          )
+          this.store.select<Record>(getUserRecord).subscribe(
+            Record => this.time = (Math.floor(Record.time / 60)) + ":" + ('0' + (Record.time % 60)).slice(-2)
+          )
+        }
+
       })
   }
 }

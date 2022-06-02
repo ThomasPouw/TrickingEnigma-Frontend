@@ -1,10 +1,19 @@
 .container {
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
   width: 90%;
   margin: 5%;
-  background-color: blue;
+  background-color: #2d5048;
   height: auto;
   border-radius: 1%;
   position: relative;
+}
+.container_single {
+  background-color: mediumaquamarine;
+  margin: 1%;
+}
+.container_buttons {
+  display: flex;
 }
 
 /*# sourceMappingURL=user-page.component.css.map */

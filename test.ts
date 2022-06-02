@@ -1,5 +1,3 @@
-// This file is required by karma.conf.js and loads recursively all the .spec and framework files
-
 import './polyfills.ts';
 
 import 'zone.js/dist/long-stack-trace-zone';
@@ -28,6 +26,7 @@ getTestBed().initTestEnvironment(
 );
 // Then we find all the tests.
 const context = require.context('./Test/', true, /\.spec\.ts$/);
+console.log(context);
 // And load the modules.
 context.keys().map(context);
 // Finally, start Karma to run the tests.

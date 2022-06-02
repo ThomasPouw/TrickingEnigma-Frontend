@@ -1,15 +1,18 @@
-<div style="background-color: blueviolet; width: 15%; height: auto; padding: 0.1%;margin: 1%; ">
+<div class="PersonalRecord">
   <h5>Personal Record:</h5>
   Time: {{this.time}} <br>
   Turns: {{this.PB.turns}}
 </div>
-<div class="record-button" (click)="Showrecord = !Showrecord">Records</div>
-<div *ngIf="Showrecord">
+<div class="record-button" (click)="showRecord = !showRecord">Records</div>
+<div *ngIf="showRecord">
   <div style="background-color: black; width: 99%; margin: .5%; height: 3px"></div>
     <mat-tab-group>
       <mat-tab label="World Record">
         <div class="table">
-          <app-table></app-table>
+          <app-table [mode]="{turns: true, objective: ''}"></app-table>
+        </div>
+        <div class="table">
+          <app-table [mode]="{turns: false, objective: ''}"></app-table>
         </div>
       </mat-tab>
       <mat-tab label="Record of the Week">
@@ -19,7 +22,7 @@
       </mat-tab>
       <mat-tab label="National Record">
         <div class="table">
-          <app-table></app-table>
+          <app-table [mode]="{turns: false, objective: 'nationality'}"></app-table>
         </div>
         <div class="line">
           <app-table></app-table>

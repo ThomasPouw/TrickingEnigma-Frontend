@@ -1,10 +1,10 @@
 import {TestBed} from "@angular/core/testing";
 import {NationalityService} from "../app/Store/Service/nationality.service";
 
-describe('RecordService', () => {
+describe('NationalityService', () => {
   let service: NationalityService;
 
-  beforeEach(() => {
+  beforeAll(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(NationalityService);
   });

@@ -98,6 +98,7 @@ export class Pieces extends Pixi.Sprite{
     console.log(this)
     this.alpha = 1;
     this.dragging = false;
+    GameBoardComponent.turnCount++
     // set the interaction data to null
     this.data = null;
     this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))

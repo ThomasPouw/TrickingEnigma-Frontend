@@ -15,4 +15,7 @@ export class LevelService {
   GetLevelByID(id: string): Observable<Level>{
     return this.http.get<Level>("http://localhost:8080/Level/Single?id="+id)
   }
+  GetLevelsByID(levelIDs: string[]): Observable<Level[]>{
+    return this.http.get<Level[]>("http://localhost:8080/Level/Record", {params: {levelIDs: levelIDs}})
+  }
 }

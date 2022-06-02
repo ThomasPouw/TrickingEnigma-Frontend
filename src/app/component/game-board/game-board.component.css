@@ -1,3 +1,24 @@
+.board {
+  background-color: #727171;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  margin-right: 12.5%;
+  margin-left: 12.5%;
+  width: 75%;
+  height: fit-content;
+  border-style: solid;
+}
 
+.counter {
+  background-color: #325750;
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  text-align: center;
+  padding: 0.01%;
+  border-style: solid;
+  border-color: #346057;
+  border-radius: 100%;
+}
 
 /*# sourceMappingURL=game-board.component.css.map */

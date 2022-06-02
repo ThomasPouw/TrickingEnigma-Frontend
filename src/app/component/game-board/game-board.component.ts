@@ -35,24 +35,23 @@ export class GameBoardComponent implements OnInit {
           GameBoardComponent.store = this.store;
           this.store.dispatch({type: LevelActions.LOAD_LEVEL, id: GameBoardComponent.id});
           this.store.select<Level>(getLevel).subscribe(
-            stage => {
-              let level = stage;
+            level => {
               console.log(level)
-              GameBoardComponent.LevelName = level.name
-
-              let screen = document.getElementById("board");
-
-              if(screen !== null){
-                if(screen.childElementCount !== 1){
-                  const app: PIXI.Application= new PIXI.Application({
-                    width: screen.offsetWidth,
-                    height: (screen.offsetWidth/ level.x_length)* level.y_length,
-                    backgroundColor: 0x1099bb
-                  });
-                  console.log(screen.offsetWidth+" and "+ screen.offsetHeight)
-                  screen.appendChild(app.view);
-                  new Pieces(app, (screen.offsetWidth/ level.x_length), level.levelSprite)
-                  app.stage.addChild(new backGround(screen.offsetWidth/ level.x_length))
+              if(level !== undefined){
+                GameBoardComponent.LevelName = level.name
+                let screen = document.getElementById("board");
+                if(screen !== null){
+                  if(screen.childElementCount !== 1){
+                    const app: PIXI.Application= new PIXI.Application({
+                      width: screen.clientWidth,
+                      height: screen.clientWidth/ (level.x_length/ level.y_length),
+                      backgroundColor: 0x979391
+                    });
+                    console.log(screen.clientWidth+" and "+ screen.clientHeight)
+                    screen.appendChild(app.view);
+                    new Pieces(app, (screen.clientWidth/ level.x_length), level.levelSprite)
+                    app.stage.addChild(new backGround(screen.clientWidth/ level.x_length))
+                  }
                 }
               }
             }
@@ -78,12 +77,8 @@ static counter(start: boolean): void{
     }
   }
 static recordStore(): void{
-    GameBoardComponent.store.select(getUser).subscribe(user => {
-      if(user !== undefined){
-        console.log({userID: user.id, courseId: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount})
-        GameBoardComponent.store.dispatch({type: RecordActions.ADD_RECORD, record: {userID: user.id, courseId: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount}})
-      }
-    })
+    console.log({userID: sessionStorage.getItem("userID"), courseId: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount})
+  GameBoardComponent.store.dispatch({type: RecordActions.ADD_RECORD, record: {userID: sessionStorage.getItem("userID"), levelID: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount}})
 }
   turnCount(): number {
     return GameBoardComponent.turnCount

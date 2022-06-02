@@ -27,8 +27,11 @@ export class HeaderComponent implements OnInit {
         store.select(getUser).subscribe(
           user => {
             if(user !== undefined){
-              signJWT(user)
-              this.router.navigate(['/User/'+user.id])
+              if(user.id != undefined){
+                sessionStorage.setItem("userID", user.id)
+                signJWT(user)
+                this.router.navigate(['/User'])
+              }
             }
           }
         )

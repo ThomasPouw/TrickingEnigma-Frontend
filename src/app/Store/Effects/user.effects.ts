@@ -18,11 +18,16 @@ export class UserEffects{
   ))
   loadUsersByID$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Load_Users),
-    tap(a => console.log(a)),
-    tap(a => console.log(a.UserIDs)),
     exhaustMap(action =>
-      this.userService.GetUsersByID(action.UserIDs).pipe(
-        tap(user => console.log(user)),
+      this.userService.GetUsersByID(action.userIDs).pipe(
+        map(user => ({type: UserActions.USER_SUCCESS, user: user})),
+        catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
+      ))
+  ))
+  loadUsersByIDAndNationality$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.Load_Users_By_Nationality),
+    exhaustMap(action =>
+      this.userService.GetUsersByIDAndNationalityID(action.userIDs, action.nationality_ID).pipe(
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))
@@ -40,7 +45,15 @@ export class UserEffects{
     ofType(UserActions.Add_User),
     exhaustMap(action =>
       this.userService.PostUser(action.user).pipe(
-        tap(user => console.log(user)),
+
+        map(user => ({type: UserActions.USER_SUCCESS, user: user})),
+        catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
+      ))
+  ))
+  EditUser$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.Edit_User),
+    exhaustMap(action =>
+      this.userService.EditUser(action.user, action.password).pipe(
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))

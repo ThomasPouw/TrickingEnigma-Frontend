@@ -16,4 +16,16 @@
   background-color: aqua;
 }
 
+.PersonalRecord {
+  background-color: #3b7568;
+  width: 15%;
+  height: auto;
+  margin: 1%;
+  text-align: center;
+  padding: 0.01%;
+  border-style: solid;
+  border-color: #346057;
+  border-radius: 10%;
+}
+
 /*# sourceMappingURL=records.component.css.map */

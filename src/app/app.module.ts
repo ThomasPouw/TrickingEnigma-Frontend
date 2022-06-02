@@ -44,6 +44,8 @@ import {NationalityEffects} from "./Store/Effects/nationality.effects";
 import {StoreModule} from "@ngrx/store";
 import { HttpClientModule} from '@angular/common/http';
 import { GameSelectComponent } from './view/game-select/game-select.component';
+import {MatSortModule} from "@angular/material/sort";
+import { UserPageRecordComponent } from './component/user-page-record/user-page-record.component';
 
 //
 
@@ -60,13 +62,15 @@ import { GameSelectComponent } from './view/game-select/game-select.component';
     SideBarComponent,
     FooterComponent,
     LoginComponent,
-    GameSelectComponent
+    GameSelectComponent,
+    UserPageRecordComponent
   ],
   imports: [
     BrowserModule,
     MatTabsModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatSortModule,
     RouterModule,
     URLrouterModule,
     TextFieldModule,
