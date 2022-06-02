@@ -1,0 +1,26 @@
+.container_main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+}
+.container_record {
+  width: 40%;
+  height: auto;
+  position: relative;
+}
+.container_singleRecords {
+  width: 100%;
+  height: auto;
+  margin: 0.1%;
+  float: left;
+  background-color: #6e6e6e;
+  text-align: center;
+}
+.container_buttons {
+  width: 100%;
+  height: auto;
+  justify-content: center;
+}
+
+/*# sourceMappingURL=user-page-record.component.css.map */

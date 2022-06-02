@@ -1,0 +1,19 @@
+<div class="container_main">
+  <div class="container_buttons">
+    <button mat-raised-button (click)="sortOn('time')">Sort by Time</button>
+    <button mat-raised-button (click)="sortOn('turns')">Sort by Turns</button>
+    <button mat-raised-button (click)="sortOn('name')">Sort by Name</button>
+    <button mat-raised-button (click)="sortOn('created')">Sort by Date</button>
+  </div>
+  <div *ngFor="let record of this.Personal_Records" class="container_record">
+    <div class="container_singleRecords">
+      <h3>{{record.levelName}}</h3>
+      <div></div>
+      Turns: {{record.turns}}
+      <br/>
+      Time: {{timeConverter(record.time)}}
+      <br/>
+      Record Set: {{dateConverter(record.recordCreated)}}
+    </div>
+  </div>
+</div>

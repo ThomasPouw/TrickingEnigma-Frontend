@@ -1,0 +1,27 @@
+.container{
+  &_main{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &_record{
+    width: 40%;
+    height: auto;
+    position: relative;
+  }
+  &_singleRecords{
+    width: 100%;
+    height: auto;
+    margin: 0.1%;
+    float: left;
+    background-color: #6e6e6e;
+    text-align: center;
+  }
+  &_buttons{
+    width: 100%;
+    height: auto;
+    justify-content: center;
+  }
+}
