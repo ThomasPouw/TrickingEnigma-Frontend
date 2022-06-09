@@ -29,9 +29,6 @@
       "assert": ["node_modules/util"],
       "buffer": ["node_modules/buffer"]
     },
-    "typeRoots": [
-      "node_modules/@types"
-    ],
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
