@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class RecordsComponent implements OnInit {
   showRecord: boolean = false;
-  PB: Record = {recordCreated: "", turns: 42, time: 0, userID: "", levelID: ""};
+  PB: Record = {recordCreated: 0, turns: 42, time: 0, userID: "", levelID: ""};
   time: string = "";
   turns: boolean = false;
 
@@ -23,7 +23,7 @@ export class RecordsComponent implements OnInit {
     console.log(sessionStorage.getItem("userID"))
     this.route.params
       .subscribe(params => {
-        if(sessionStorage.getItem("userID") != undefined){
+        if(sessionStorage.getItem("userID") != undefined || null){
           this.store.dispatch({type: fromRecord.LOAD_USER_RECORD, userID: sessionStorage.getItem("userID"), levelID: params["id"]})
           this.store.select<Record>(getUserRecord).subscribe(
             Record => {if(Record){this.PB = Record}}

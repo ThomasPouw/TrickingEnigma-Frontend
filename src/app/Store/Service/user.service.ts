@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../Model/User";
 import {ObservablePoint} from "pixi.js";
+import {Token} from "../../Util/API_Token";
 
 @Injectable({
   providedIn: 'root'
@@ -30,13 +31,10 @@ export class UserService {
     return this.http.post<User>("http://localhost:8060/User", user)
   }
   EditUser(user: User, password: string): Observable<User>{
-    this.http.put("https://dev-yw9oh5an.us.auth0.com/api/v2/users/"+ user.secret, {password: password, nickname: user.name})
-    this.http.put("http://localhost:8060/User", user)
-    if(user.id !== undefined)
-    return this.GetUserByID(user.id);
-    else{
-      return new Observable(user => user);
-    }
-
+    this.http.put("https://dev-yw9oh5an.us.auth0.com/api/v2/users/"+user.secret?.replace("|", "_"), {
+      "content-type": "application/json",
+      'cache-control': 'no-cache',
+      "user_metadata": {password: password, nickname: user.name}}) //Still have to fix
+    return this.http.put<User>("http://localhost:8060/User", user)
   }
 }

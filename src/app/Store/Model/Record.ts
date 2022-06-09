@@ -1,7 +1,7 @@
 import {User} from "./User";
 
 export interface Record{
-  recordCreated: string;
+  recordCreated: number;
   levelName?: string;
   levelID: string;
   time: number;

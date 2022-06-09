@@ -18,7 +18,7 @@
     <br/>
     <mat-form-field appearance="fill">
       <mat-label>Select Your Country</mat-label>
-      <mat-select [(value)]="user.nationality.id">
+      <mat-select [(value)]="nationality">
         <mat-option *ngFor="let country of nationalities" [value]="country.id">
           {{country.name}}
         </mat-option>

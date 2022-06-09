@@ -9,6 +9,8 @@ import * as fromRoot from "../../Store/Reducers";
 import * as fromUser from "../../Store/Actions/user.actions";
 import {getUser} from "../../Store/Selector/user.selector";
 import {Router} from "@angular/router";
+import {Token} from "../../Util/API_Token";
+import {HttpClient} from "@angular/common/http";
 (window as any).global = window;
 @Component({
   selector: 'app-header',
@@ -19,7 +21,7 @@ export class HeaderComponent implements OnInit {
 
   Destinations = destinations;
   Located = Located;
-  constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService, private store: Store<fromRoot.State>, private router: Router) {
+  constructor(@Inject(DOCUMENT) public document: Document, public auth: AuthService, private store: Store<fromRoot.State>, private router: Router, private http: HttpClient) {
     auth.user$.subscribe((authUser) => {
       console.log(authUser)
       if(authUser !== undefined && authUser !== null) {
@@ -29,7 +31,7 @@ export class HeaderComponent implements OnInit {
             if(user !== undefined){
               if(user.id != undefined){
                 sessionStorage.setItem("userID", user.id)
-                signJWT(user)
+                new Token(http).API_Token()
                 this.router.navigate(['/User'])
               }
             }

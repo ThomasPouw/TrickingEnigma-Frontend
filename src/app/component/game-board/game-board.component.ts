@@ -26,6 +26,9 @@ export class GameBoardComponent implements OnInit {
   private static LevelName: string = "";
   private static store: Store<fromRoot.State>;
   constructor(private store: Store<fromRoot.State>, private route: ActivatedRoute) {
+  }
+
+  ngOnInit(): void {
     this.route.params
       .subscribe(params => {
           console.log(params); // { orderby: "price" }
@@ -39,6 +42,7 @@ export class GameBoardComponent implements OnInit {
               console.log(level)
               if(level !== undefined){
                 GameBoardComponent.LevelName = level.name
+                console.log(document.getElementById("board"))
                 let screen = document.getElementById("board");
                 if(screen !== null){
                   if(screen.childElementCount !== 1){
@@ -58,10 +62,6 @@ export class GameBoardComponent implements OnInit {
           )
         }
       );
-  }
-
-  ngOnInit(): void {
-
   }
 static counter(start: boolean): void{
     if(start){

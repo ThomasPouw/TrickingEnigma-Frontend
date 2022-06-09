@@ -9,13 +9,11 @@ export interface State {
   levels: Level[];
   level: Level;
   error: any;
-  id: string;
 }
 const initialState: State = {
   levels: [],
   level: {id: "", name: "", levelSprite: [], x_length: 0, y_length: 0},
   error: "",
-  id: ""
 };
 export const reducer = createReducer(
   initialState,

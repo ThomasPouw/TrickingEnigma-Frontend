@@ -2,7 +2,7 @@ import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import * as fromNationality from "../../Store/Actions/nationality.actions";
 import * as fromUser from "../../Store/Actions/user.actions";
-import {getAllNationalities} from "../../Store/Selector/nationality.selector";
+import {getAllNationalities, getNationalityLogin} from "../../Store/Selector/nationality.selector";
 import {Nationality} from "../../Store/Model/Nationality";
 import {Store} from "@ngrx/store";
 import * as fromRoot from "../../Store/Reducers";
@@ -17,6 +17,7 @@ import {User} from "../../Store/Model/User";
 })
 export class UserPageComponent implements OnInit{
   nationalities: Nationality[] = [];
+  nationality: any;
   user: User = {name: "", nationality: {id: "",icon: "", name: ""}};
   constructor(private _ngZone: NgZone, private store: Store<fromRoot.State>,private route: ActivatedRoute) {
     this.store.dispatch({type: fromNationality.LOAD_All_NATIONALITY})
@@ -43,9 +44,23 @@ export class UserPageComponent implements OnInit{
   editUser(nickName: string, password: string){
     this.route.params
       .subscribe(params => {
+        console.log(nickName)
         this.store.dispatch({type: fromUser.LOAD_USER, userID: sessionStorage.getItem("userID")});
-        this.store.select(getUser).subscribe(
-
+        this.store.select<User>(getUser).subscribe(
+          user => {
+            if(user !== undefined){
+              this.store.select(getNationalityLogin(this.nationality)).subscribe(
+                nationality => {
+                  let newUser = user;
+                  console.log(user.name)
+                  newUser.name = nickName.toString();
+                  newUser.nationality = nationality;
+                  console.log(newUser)
+                  this.store.dispatch({type: fromUser.EDIT_USER, user: newUser, password: password});
+                }
+              )
+            }
+          }
         )
       })
   }

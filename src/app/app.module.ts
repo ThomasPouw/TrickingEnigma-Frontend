@@ -1,5 +1,5 @@
 //Modules
-import { NgModule } from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
@@ -26,7 +26,8 @@ import { GameBoardComponent } from './component/game-board/game-board.component'
 import { SideBarComponent } from './component/side-bar/side-bar.component';
 import { FooterComponent } from './component/footer/footer.component';
 import { LoginComponent } from './view/login/login.component';
-
+import { UserPageRecordComponent } from './component/user-page-record/user-page-record.component';
+import { GameSelectComponent } from './view/game-select/game-select.component';
 
 //NGRX store
 import {EffectsModule} from "@ngrx/effects";
@@ -43,13 +44,16 @@ import {UserEffects} from "./Store/Effects/user.effects";
 import {NationalityEffects} from "./Store/Effects/nationality.effects";
 import {StoreModule} from "@ngrx/store";
 import { HttpClientModule} from '@angular/common/http';
-import { GameSelectComponent } from './view/game-select/game-select.component';
 import {MatSortModule} from "@angular/material/sort";
-import { UserPageRecordComponent } from './component/user-page-record/user-page-record.component';
 
+//provider
+import {Token} from "./Util/API_Token";
 //
 
 @NgModule({
+  schemas:[
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
   declarations: [
     AppComponent,
     GamePageComponent,
@@ -63,7 +67,8 @@ import { UserPageRecordComponent } from './component/user-page-record/user-page-
     FooterComponent,
     LoginComponent,
     GameSelectComponent,
-    UserPageRecordComponent
+    UserPageRecordComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -93,6 +98,7 @@ import { UserPageRecordComponent } from './component/user-page-record/user-page-
       clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
     }),
     MatSelectModule,
+
   ],
   exports: [
     MatInputModule,

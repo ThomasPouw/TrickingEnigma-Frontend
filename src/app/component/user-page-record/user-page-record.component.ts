@@ -44,10 +44,10 @@ export class UserPageRecordComponent implements OnInit {
   timeConverter(time: number): string{
     return (Math.floor(time/60)) +":"+ ('0' + (time % 60)).slice(-2)
   }
-  dateConverter(time: string): string{
+  dateConverter(time: number): string{
 
     let date = new Date();
-    date.setTime(parseInt(time));
+    date.setTime(time);
     console.log(date)
     return date.toLocaleDateString() +"  "+ date.toLocaleTimeString()
   }

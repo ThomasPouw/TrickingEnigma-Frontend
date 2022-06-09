@@ -1,6 +1,17 @@
 <div class="container">
   <p>Test :)</p>
   <div class="container" style="background-color: aqua">
-    <app-table ></app-table>
+    <mat-label>Select Your Country</mat-label>
+    <mat-select >//[(value)]=""
+      <mat-option *ngFor="let role of this.role_List" [value]="role.id">
+        {{role.name}}
+      </mat-option>
+    </mat-select>
+    <mat-label>Select Your Person</mat-label>
+    <mat-select >
+      <mat-option *ngFor="let person of this.people_List" [value]="person.sub">
+        {{person.name}}
+      </mat-option>
+    </mat-select>
   </div>
 </div>
