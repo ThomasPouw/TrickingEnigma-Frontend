@@ -4,7 +4,7 @@ import {destinations} from "../router-destinations";
 
 const routes: Routes = [];
 
-function route(): Routes {
+export function route(): Routes {
   destinations.forEach(value => {
     routes.push({path: value.Path, component: value.Component})
   })

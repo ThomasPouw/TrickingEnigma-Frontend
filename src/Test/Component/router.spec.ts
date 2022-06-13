@@ -141,8 +141,6 @@ describe("Router", () => {
   }));
   it('navigate to "/Login"', fakeAsync(() => {
     sessionStorage.setItem("userID", '33fe0ee2-3b94-4e9d-82ab-434d08650967');
-    let effects = TestBed.get(NationalityEffects);
-    let nationalityServiceTest = TestBed.get(NationalityService);
     router.navigate(['/Login']);
     tick(15000);
     expect(location.path()).toBe('/Login');

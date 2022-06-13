@@ -28,11 +28,28 @@ import * as fromLevels from "../../app/Store/Reducers/level.reducer";
 import {getRecords} from "../../app/Store/Reducers/records.reducer";
 import {records} from "../Dummy_Data/record";
 import {getAllRecords} from "../../app/Store/Selector/records.selector";
+import {MatTabsModule} from "@angular/material/tabs";
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatIconModule} from "@angular/material/icon";
+import {MatListModule} from "@angular/material/list";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {BrowserModule, By} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe("Game Page", () =>{
   let actions: Observable<any>;
   let component: GamePageComponent;
   let fixture: ComponentFixture<GamePageComponent>;
+  let component2: RecordsComponent;
+  let fixture2: ComponentFixture<RecordsComponent>;
+  let component3: GameBoardComponent;
+  let fixture3: ComponentFixture<GameBoardComponent>;
   let de: DebugElement
   let router: Router;
   let location: Location;
@@ -51,8 +68,22 @@ const initialState = {
         URLrouterModule,
         StoreModule.forRoot({reducer}),
         EffectsModule.forRoot([RecordEffects, LevelEffects, UserEffects, NationalityEffects]),
-        HttpClientModule
+        HttpClientModule,
+        MatTabsModule,
+        MatTableModule,
+        MatSortModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatInputModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        BrowserModule,
+        BrowserAnimationsModule,
       ],
+
       providers: [
         {
           provide: ActivatedRoute,
@@ -63,7 +94,7 @@ const initialState = {
           }
         },
         provideMockStore(),
-      ]
+      ],
 
     }).compileComponents();
     store = TestBed.inject(MockStore);
@@ -80,7 +111,15 @@ const initialState = {
     store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(GamePageComponent);
     component = fixture.componentInstance;
+    component.ngOnInit()
+    fixture2 = TestBed.createComponent(RecordsComponent);
+    component2 = fixture2.componentInstance;
+    fixture3 = TestBed.createComponent(GameBoardComponent);
+    component3 = fixture3.componentInstance;
+    component3.ngOnInit()
     fixture.detectChanges();
+    fixture2.detectChanges();
+    fixture3.detectChanges();
 
     spyOn(store, 'dispatch').and.callFake(() => {});
   });
@@ -100,11 +139,14 @@ const initialState = {
 
   }))//https://christianlydemann.com/the-complete-guide-to-ngrx-testing/
   it('should display a board for the game', fakeAsync(() => {
-    const compiled = fixture.debugElement.nativeElement;
-    console.log(compiled)
-    console.log(compiled.querySelector("div.board").children)
-    tick(3000)
-    expect(compiled.querySelector("div.board").children).toBeDefined();
+    component3.ngOnInit()
+    const compiled = fixture3.debugElement.queryAll(By.css('.board'))[0];
+    expect(compiled.nativeNode.innerHTML).not.toBeNull();
+  }))
+  it('should be able to click the record button to see all record of level', fakeAsync(() => {
+    let recordbtn =(fixture2.debugElement.nativeElement.querySelector("div.record-button"))
+    recordbtn.click()
+    expect(component2.showRecord).toBe(true);
   }))
 })
 
