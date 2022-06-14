@@ -18,7 +18,7 @@ import {User} from "../../Store/Model/User";
 export class UserPageComponent implements OnInit{
   nationalities: Nationality[] = [];
   nationality: any;
-  user: User = {name: "", nationality: {id: "",icon: "", name: ""}};
+  user: User = {name: "", nationality: {id: "", name: ""}};
   constructor(private _ngZone: NgZone, private store: Store<fromRoot.State>,private route: ActivatedRoute) {
     this.store.dispatch({type: fromNationality.LOAD_All_NATIONALITY})
     this.store.select(getAllNationalities).subscribe(
@@ -41,10 +41,9 @@ export class UserPageComponent implements OnInit{
       //this._ngZone.onStable.pipe(take(1)).subscribe(() => this.autosize.resizeToFitContent(true));
     }
   }
-  editUser(nickName: string, password: string){
+  editUser(nickName: string){
     this.route.params
       .subscribe(params => {
-        console.log(nickName)
         this.store.dispatch({type: fromUser.LOAD_USER, userID: sessionStorage.getItem("userID")});
         this.store.select<User>(getUser).subscribe(
           user => {
@@ -56,7 +55,7 @@ export class UserPageComponent implements OnInit{
                   newUser.name = nickName.toString();
                   newUser.nationality = nationality;
                   console.log(newUser)
-                  this.store.dispatch({type: fromUser.EDIT_USER, user: newUser, password: password});
+                  this.store.dispatch({type: fromUser.EDIT_USER, user: newUser});
                 }
               )
             }

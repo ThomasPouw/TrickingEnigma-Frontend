@@ -30,11 +30,7 @@ export class UserService {
   PostUser(user: User): Observable<User>{
     return this.http.post<User>("http://localhost:8060/User", user)
   }
-  EditUser(user: User, password: string): Observable<User>{
-    this.http.put("https://dev-yw9oh5an.us.auth0.com/api/v2/users/"+user.secret?.replace("|", "_"), {
-      "content-type": "application/json",
-      'cache-control': 'no-cache',
-      "user_metadata": {password: password, nickname: user.name}}) //Still have to fix
+  EditUser(user: User): Observable<User>{
     return this.http.put<User>("http://localhost:8060/User", user)
   }
 }

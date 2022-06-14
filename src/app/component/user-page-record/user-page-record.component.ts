@@ -21,11 +21,6 @@ export class UserPageRecordComponent implements OnInit {
       this.store.select<Record[]>(getAllRecords).subscribe(
         records => this.getCompleteRecords(records)
       )
-      //  Record => {if(Record){this.PB = Record}}
-     // )
-     // this.store.select<Record>(getUserRecord).subscribe(
-      //  Record => this.time = (Math.floor(Record.time / 60)) + ":" + ('0' + (Record.time % 60)).slice(-2)
-     // )
     }
   }
   getCompleteRecords(records: Record[]): void{
@@ -45,10 +40,8 @@ export class UserPageRecordComponent implements OnInit {
     return (Math.floor(time/60)) +":"+ ('0' + (time % 60)).slice(-2)
   }
   dateConverter(time: number): string{
-
     let date = new Date();
     date.setTime(time);
-    console.log(date)
     return date.toLocaleDateString() +"  "+ date.toLocaleTimeString()
   }
   sortOn(sortedBy: string){

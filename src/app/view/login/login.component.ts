@@ -8,9 +8,6 @@ import {getNationalityLogin,getAllNationalities} from "../../Store/Selector/nati
 import {Nationality} from "../../Store/Model/Nationality";
 import {Router} from "@angular/router";
 import {getUser} from "../../Store/Selector/user.selector";
-import signJWT from "../../Util/JWT/signJWT";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Token} from "../../Util/API_Token";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +18,7 @@ export class LoginComponent implements OnInit {
   nationalities: Nationality[] = [];
   nationality: any;
 
-  constructor(public auth: AuthService, private store: Store<fromRoot.State>, private router: Router, private http: HttpClient) {
+  constructor(public auth: AuthService, private store: Store<fromRoot.State>, private router: Router) {
     this.store.dispatch({type: fromNationality.LOAD_All_NATIONALITY})
     this.store.select(getAllNationalities).subscribe(
       nationalities => this.nationalities = nationalities
@@ -31,8 +28,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   SignIn(nickName: string){
-    console.log(this.nationality)
-    console.log(nickName)
     this.auth.user$.subscribe(user =>{
         if(user !== null && user !== undefined){
           this.store.select(getNationalityLogin(this.nationality)).subscribe(
@@ -43,11 +38,6 @@ export class LoginComponent implements OnInit {
                   if(user !== undefined){
                     if(user.id != undefined){
                       sessionStorage.setItem("userID", user.id)
-                     new Token(this.http).API_Token()
-                      this.http.post('https://dev-yw9oh5an.us.auth0.com/api/v2/users/'+user.secret+'/roles', {"content-type": "application/json",
-                        authorization: 'Bearer MGMT_API_ACCESS_TOKEN',
-                        'cache-control': 'no-cache',
-                        roles: ['rol_HQ221j6Lx6ZNFqWc']},)
                       this.router.navigate(['/User'])
                     }
                   }

@@ -11,7 +11,7 @@ export interface State {
 }
 const initialState: State = {
   nationalities: [],
-  nationality: {id: "", name: "", icon: ""},
+  nationality: {id: "", name: ""},
   error: "",
   id: ""
 };

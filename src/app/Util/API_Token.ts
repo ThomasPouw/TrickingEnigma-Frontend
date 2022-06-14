@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 export class Token{
   constructor(private http: HttpClient) {}
   API_Token(){
-    let Token = ""
     this.http.post('https://dev-yw9oh5an.us.auth0.com/oauth/token',
       {
         grant_type: 'client_credentials',
@@ -12,9 +11,7 @@ export class Token{
         audience: 'https://dev-yw9oh5an.us.auth0.com/api/v2/'
       },
       {headers: {
-          'content-type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Headers': ['access-control-allow-origin'],
-          'access-control-allow-origin': "http://localhost:4200/"
+          'content-type': 'application/x-www-form-urlencoded'
         }
       }
     ).subscribe((token: any) => {

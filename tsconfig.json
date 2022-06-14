@@ -28,7 +28,7 @@
       "stream":["node_modules/stream-browserify"],
       "assert": ["node_modules/util"],
       "buffer": ["node_modules/buffer"]
-    },
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

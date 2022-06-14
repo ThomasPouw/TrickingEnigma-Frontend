@@ -6,14 +6,6 @@
       <textarea matInput
         cdkTextareaAutosize #nickName [value]="user.name">
       </textarea>
-    </mat-form-field><br/>
-    Password:
-    <mat-form-field [style.fontSize]="12" appearance="fill">
-      <mat-label>Password</mat-label>
-      <textarea
-        matInput
-        cdkTextareaAutosize #password>
-      </textarea>
     </mat-form-field>
     <br/>
     <mat-form-field appearance="fill">
@@ -24,7 +16,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button mat-raised-button (click)="editUser(nickName.value, password.value)">Edit User</button>
+    <button mat-raised-button (click)="editUser(nickName.value)">Edit User</button>
   </div>
   <div class="container_single">
     <div>

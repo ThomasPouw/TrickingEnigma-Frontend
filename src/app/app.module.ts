@@ -10,7 +10,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {TextFieldModule} from "@angular/cdk/text-field";
 import {MatInputModule} from "@angular/material/input";
 import {NgxEchartsModule} from "ngx-echarts";
-import {AuthModule} from '@auth0/auth0-angular';
+import {AuthHttpInterceptor, AuthModule} from '@auth0/auth0-angular';
 import {MatSelectModule} from "@angular/material/select";
 import * as echarts from 'echarts';
 
@@ -43,7 +43,7 @@ import {LevelEffects} from "./Store/Effects/level.effects";
 import {UserEffects} from "./Store/Effects/user.effects";
 import {NationalityEffects} from "./Store/Effects/nationality.effects";
 import {StoreModule} from "@ngrx/store";
-import { HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {MatSortModule} from "@angular/material/sort";
 
 //provider
@@ -96,6 +96,26 @@ import {Token} from "./Util/API_Token";
     AuthModule.forRoot({
       domain: 'dev-yw9oh5an.us.auth0.com',
       clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
+      httpInterceptor: {
+        allowedList: [
+          {
+            // Match any request that starts 'https://dev-yw9oh5an.us.auth0.com/api/v2/' (note the asterisk)
+            uri: 'https://dev-yw9oh5an.us.auth0.com/api/v2/*',
+            tokenOptions: {
+              // The attached token should target this audience
+              audience: 'https://dev-yw9oh5an.us.auth0.com/api/v2/',
+
+            }
+          },
+          {
+            uri: 'https://dev-yw9oh5an.us.auth0.com/api/v2/roles',
+            tokenOptions: {
+              audience: 'https://dev-yw9oh5an.us.auth0.com/api/v2/',
+              scope: 'read:roles',
+            },
+          }
+        ]
+      }
     }),
     MatSelectModule,
 
@@ -104,7 +124,7 @@ import {Token} from "./Util/API_Token";
     MatInputModule,
     MatFormFieldModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },],
   bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })
 export class AppModule { }

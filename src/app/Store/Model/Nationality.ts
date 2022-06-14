@@ -1,5 +1,4 @@
 export interface Nationality{
-  id: string;
-  icon: string;
+  id?: string;
   name: string;
 }

@@ -31,6 +31,23 @@ export class NationalityEffects{
         catchError((error) => of({type: NationalityActions.NATIONALITY_FAIL, error: error}))
       ))
   ))
+  postNationality$ = createEffect(() => this.actions$.pipe(
+    ofType(NationalityActions.Post_Nationality),
+    exhaustMap(action =>
+      this.nationalityService.AddNationality(action.nationality).pipe(
+        map(nationality => ({type: NationalityActions.NATIONALITY_SUCCESS, nationality: nationality})),
+        catchError((error) => of({type: NationalityActions.NATIONALITY_FAIL, error: error}))
+      ))
+  ))
+  editNationality$ = createEffect(() => this.actions$.pipe(
+    ofType(NationalityActions.Edit_Nationality),
+    tap(a => console.log(a)),
+    exhaustMap(action =>
+      this.nationalityService.EditNationality(action.nationality).pipe(
+        map(nationality => ({type: NationalityActions.NATIONALITY_SUCCESS, nationality: nationality})),
+        catchError((error) => of({type: NationalityActions.NATIONALITY_FAIL, error: error}))
+      ))
+  ))
   constructor(
     private actions$: Actions,
     private nationalityService: NationalityService

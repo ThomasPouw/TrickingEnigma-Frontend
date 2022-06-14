@@ -37,6 +37,16 @@ export class RecordEffects{
       )
     )
   )
+  loadRecords$ = createEffect(() => this.actions$.pipe(
+      ofType(RecordActions.Load_Records),
+      exhaustMap(action =>
+        this.recordService.GetRecords().pipe(
+          map(records => ({ type: RecordActions.RECORD_SUCCESS, record: records })),
+          catchError((error) => of({ type: RecordActions.RECORD_FAIL, error: error }))
+        )
+      )
+    )
+  )
   loadUserRecordsByNationality$ = createEffect(() => this.actions$.pipe(
       ofType(RecordActions.Load_NationalRecord),
       exhaustMap(action =>

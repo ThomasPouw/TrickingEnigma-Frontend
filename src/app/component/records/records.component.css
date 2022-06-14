@@ -28,4 +28,12 @@
   border-radius: 10%;
 }
 
+.container {
+  width: 90%;
+  margin: 5%;
+  background-color: #2d5048;
+  height: 100%;
+  border-radius: 1%;
+}
+
 /*# sourceMappingURL=records.component.css.map */

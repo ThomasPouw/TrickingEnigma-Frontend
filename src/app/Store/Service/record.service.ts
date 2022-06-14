@@ -29,4 +29,7 @@ export class RecordService {
   PostRecord(record: Record): Observable<Record>{
     return this.http.post<Record>("http://localhost:8040/Records/", record)
   }
+  GetRecords(): Observable<Record[]>{
+    return this.http.get<Record[]>("http://localhost:8040/Records/")
+  }
 }

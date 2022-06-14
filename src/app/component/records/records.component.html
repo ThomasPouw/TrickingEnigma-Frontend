@@ -5,28 +5,12 @@
 </div>
 <div class="record-button" (click)="showRecord = !showRecord">Records</div>
 <div *ngIf="showRecord">
-  <div style="background-color: black; width: 99%; margin: .5%; height: 3px"></div>
-    <mat-tab-group>
-      <mat-tab label="World Record">
-        <div class="table">
-          <app-table [mode]="{turns: true, objective: ''}"></app-table>
-        </div>
-        <div class="table">
-          <app-table [mode]="{turns: false, objective: ''}"></app-table>
-        </div>
-      </mat-tab>
-      <mat-tab label="Record of the Week">
-        <div class="table">
-          <app-table></app-table>
-        </div>
-      </mat-tab>
-      <mat-tab label="National Record">
-        <div class="table">
-          <app-table [mode]="{turns: false, objective: 'nationality'}"></app-table>
-        </div>
-        <div class="line">
-          <app-table></app-table>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+  <div class="container">
+    <div class="table">
+      <app-table [mode]="{turns: true, objective: '', admin: false}"></app-table>
+    </div>
+    <div class="table">
+      <app-table [mode]="{turns: false, objective: '', admin: false}"></app-table>
+    </div>
+  </div>
 </div>

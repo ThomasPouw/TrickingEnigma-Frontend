@@ -25,43 +25,50 @@ export class GameBoardComponent implements OnInit {
   public static TimeCounter: string= "0:00";
   private static LevelName: string = "";
   private static store: Store<fromRoot.State>;
+  private screen: any;
+  private app: any;
   constructor(private store: Store<fromRoot.State>, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.params
       .subscribe(params => {
-          console.log(params); // { orderby: "price" }
           GameBoardComponent.id = params['id'];
-          console.log(GameBoardComponent.id)
           // price
           GameBoardComponent.store = this.store;
-          this.store.dispatch({type: LevelActions.LOAD_LEVEL, id: GameBoardComponent.id});
-          this.store.select<Level>(getLevel).subscribe(
-            level => {
-              console.log(level)
-              if(level !== undefined){
-                GameBoardComponent.LevelName = level.name
-                console.log(document.getElementById("board"))
-                let screen = document.getElementById("board");
-                if(screen !== null){
-                  if(screen.childElementCount !== 1){
-                    const app: PIXI.Application= new PIXI.Application({
-                      width: screen.clientWidth,
-                      height: screen.clientWidth/ (level.x_length/ level.y_length),
-                      backgroundColor: 0x979391
-                    });
-                    console.log(screen.clientWidth+" and "+ screen.clientHeight)
-                    screen.appendChild(app.view);
-                    new Pieces(app, (screen.clientWidth/ level.x_length), level.levelSprite)
-                    app.stage.addChild(new backGround(screen.clientWidth/ level.x_length))
+          console.log(this.screen)
+          console.log(document.getElementById("board"))
+        if( this.screen === undefined) {
+          this.screen = document.getElementById("board");
+
+          if (this.screen?.childElementCount !== 1) {
+            this.store.dispatch({type: LevelActions.LOAD_LEVEL, id: GameBoardComponent.id});
+            this.store.select<Level>(getLevel).subscribe(
+              level => {
+                if(level !== undefined){
+                  GameBoardComponent.LevelName = level.name
+                  if(this.screen !== null){
+                    if(this.screen.childElementCount !== 1){
+                      if(this.app == undefined){
+                        this.app= new PIXI.Application({
+                          width: this.screen.clientWidth,
+                          height: this.screen.clientWidth/ (level.x_length/ level.y_length),
+                          backgroundColor: 0x979391
+                        });
+                      }
+                      console.log(this.screen.clientWidth+" and "+ this.screen.clientHeight)
+                      this.screen.appendChild(this.app.view);
+                      new Pieces(this.app, (this.screen.clientWidth/ level.x_length), level.levelSprite)
+                      this.app.stage.addChild(new backGround(this.screen.clientWidth,  level.x_length, level.y_length))
+                    }
                   }
                 }
               }
-            }
-          )
+            )
+          }
         }
-      );
+        }
+        );
   }
 static counter(start: boolean): void{
     if(start){

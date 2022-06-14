@@ -17,31 +17,33 @@ export class Pieces extends Pixi.Sprite{
   SpriteMaker(App: any, Space: number, sprite: LevelSprite[]): Pixi.Container{
     let Container = new Pixi.Container;
     Pieces.space = Space;
+
     for(let i = 0; i < sprite.length; i++){
       let shapes= Pixi.Sprite.from(sprite[i].sprite.assetLocation);
       shapes.anchor.set(0,0)
+      shapes.scale.x = ((Space*2)/shapes._texture.orig.width)/100
+      shapes.scale.y = ((Space*2)/shapes._texture.orig.height)/100
       switch(sprite[i].rotation){
         case PieceDirection.North:
+          shapes.x = Space*sprite[i].x;
+          shapes.y = Space*sprite[i].y;
           break;
         case PieceDirection.East:
           shapes.angle = 90
-          console.log(sprite[i])
-          sprite[i].x = sprite[i].x +2
+          shapes.x = Space*sprite[i].x+2;
+          shapes.y = Space*sprite[i].y;
           break;
         case PieceDirection.South:
           shapes.angle = 180
-          sprite[i].x += 2
-          sprite[i].y += 2
+          shapes.x = Space*sprite[i].x+2;
+          shapes.y = Space*sprite[i].y+2;
           break;
         case PieceDirection.West:
           shapes.angle = 270
-          sprite[i].y += 2
+          shapes.x = Space*sprite[i].x;
+          shapes.y = Space*sprite[i].y+2;
           break;
       }
-      shapes.scale.x = ((Space*2)/shapes._texture.orig.width)/100
-      shapes.scale.y = ((Space*2)/shapes._texture.orig.height)/100
-      shapes.x = Space*sprite[i].x;
-      shapes.y = Space*sprite[i].y;
       shapes.alpha = 1
       shapes.name = sprite[i].tile_name;
       switch(sprite[i].tile_name){
@@ -75,6 +77,11 @@ export class Pieces extends Pixi.Sprite{
             // events for drag move
             .on('mousemove', this.onDragMove)
             .on('touchmove', this.onDragMove);
+          break;
+        case("Wall"):
+          shapes.zIndex = 1;
+          shapes.tint=0x808080;
+          break;
       }
       shapes.interactive = true;
       shapes.buttonMode = true;
@@ -95,7 +102,6 @@ export class Pieces extends Pixi.Sprite{
 
   onDragEnd()
   {
-    console.log(this)
     this.alpha = 1;
     this.dragging = false;
     GameBoardComponent.turnCount++
@@ -121,12 +127,7 @@ export class Pieces extends Pixi.Sprite{
                   }
                   GameBoardComponent.recordStore()
                 }
-                else
-                console.log("right thing, but wrong size")
               }
-
-              else
-                console.log("wrong thing!")
             }
             }
             //if(newPosition.x - Pieces.space > oldX && newPosition.x  + Pieces.space < oldX && newPosition.y - Pieces.space > oldY && newPosition.y  + Pieces.space < oldY){
@@ -158,7 +159,7 @@ export class Pieces extends Pixi.Sprite{
         if(sprite.length != this.parent.children.length){
           if(this !== this.parent.children[sprite]){
             if(this.parent.children[sprite].name != "End"){
-              if(Pieces.Interaction(this, this.parent.children[sprite]) || this.x <= 0 || this.y <= 0 || this.x >= Pieces.App.view.width- this.width||  this.y >= Pieces.App.view.height- this.height){
+              if(Pieces.Interaction(this, this.parent.children[sprite]) || this.x <= 0 || this.y <= 0 || this.x >= Pieces.App.view.width||  this.y >= Pieces.App.view.height- this.height){
                 this.position.x = oldX;
                 this.position.y = oldY;
               }

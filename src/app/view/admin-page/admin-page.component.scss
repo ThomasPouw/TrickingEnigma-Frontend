@@ -1,11 +1,30 @@
 .container{
+  padding-top: 0.5%;
+  padding-bottom: 0.5%;
   width: 90%;
   margin: 5%;
   background-color: #2d5048;
-  height: 80%;
+  height: auto;
   border-radius: 1%;
   position: relative;
-}
-table {
-  width: 100%;
+  &_single{
+    background-color: mediumaquamarine;
+    margin: 1%;
+    padding: {
+      left: 1%;
+      right: 1%;
+    };
+  }
+  &_table{
+    background-color: mediumaquamarine;
+    margin: 1%;
+    max-height: 500px;
+    padding: {
+      left: 1%;
+      right: 1%;
+    };
+  }
+  &_buttons{
+    background-color: #3b8c6f;
+  }
 }

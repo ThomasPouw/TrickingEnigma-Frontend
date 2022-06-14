@@ -11,7 +11,7 @@ export const USER_SUCCESS =    '[User] User successfully delivered';
 export const USER_FAIL =     '[User] User failed to deliver';
 
 export const Add_User = createAction(ADD_USER, props<{user: User}>())
-export const Edit_User = createAction(EDIT_USER, props<{user: User, password: string}>())
+export const Edit_User = createAction(EDIT_USER, props<{user: User}>())
 export const Load_User = createAction(LOAD_USER, props<{userID: string}>())
 export const Load_Users = createAction(LOAD_USERS, props<{userIDs: string[]}>())
 export const Load_Users_By_Nationality = createAction(LOAD_USERS_BY_NATIONALITY, props<{userIDs: string[], nationality_ID: string}>())

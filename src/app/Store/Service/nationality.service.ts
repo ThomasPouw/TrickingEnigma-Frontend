@@ -16,4 +16,10 @@ export class NationalityService {
   GetNationalityByID(id: string): Observable<Nationality>{
     return this.http.get<Nationality>("http://localhost:8060/Nationality/");
   }
+  AddNationality(nationality: Nationality): Observable<Nationality>{
+    return this.http.post<Nationality>("http://localhost:8060/Nationality/", nationality);
+  }
+  EditNationality(nationality: Nationality): Observable<Nationality>{
+    return this.http.put<Nationality>("http://localhost:8060/Nationality/", nationality);
+  }
 }

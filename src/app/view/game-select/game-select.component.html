@@ -1,8 +1,8 @@
-<div class="container_main">
-  <div *ngFor="let level of this.levels">
-    <div class="container_level">
-      <a routerLink="/Game/{{level.id}}">
-        {{level.name}}</a>
+<div class="container_main" *ngIf="this.levels.length !== 0">
+    <div *ngFor="let level of this.levels">
+      <div class="container_level" *ngIf="level.id !== ''">
+        <a routerLink="/Game/{{level.id}}">
+          {{level.name}}</a>
+      </div>
     </div>
-  </div>
 </div>

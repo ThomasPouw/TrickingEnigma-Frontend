@@ -1,17 +1,23 @@
 <div class="container">
-  <p>Test :)</p>
-  <div class="container" style="background-color: aqua">
-    <mat-label>Select Your Country</mat-label>
-    <mat-select >//[(value)]=""
-      <mat-option *ngFor="let role of this.role_List" [value]="role.id">
-        {{role.name}}
-      </mat-option>
-    </mat-select>
-    <mat-label>Select Your Person</mat-label>
-    <mat-select >
-      <mat-option *ngFor="let person of this.people_List" [value]="person.sub">
-        {{person.name}}
-      </mat-option>
-    </mat-select>
+  <div class="container_single" >
+    <mat-form-field appearance="fill">
+      <mat-label>Select Your Country</mat-label>
+      <mat-select [(value)]="nationalityID">
+        <mat-option *ngFor="let country of nationalities" [value]="country.id">
+          {{country.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Country</mat-label>
+      <input matInput #country>
+    </mat-form-field>
+    <button (click)="Add_Nationality(country.value)" mat-raised-button class="container_buttons">Add Country</button>
+    <button (click)="Edit_Nationality(country.value)" mat-raised-button class="container_buttons">Edit Country</button>
+  </div>
+  <div class="container_single" >
+    <div class="table">
+      <app-table [mode]="{turns: false, objective: '', admin: true}"></app-table>
+    </div>
   </div>
 </div>

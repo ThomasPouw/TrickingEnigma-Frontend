@@ -5,6 +5,8 @@ import * as UserActions from "../Actions/user.actions";
 import {of} from "rxjs";
 import {map, catchError, exhaustMap, tap} from 'rxjs/operators';
 import {Router} from "@angular/router";
+import {AuthService} from "@auth0/auth0-angular";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class UserEffects{
@@ -36,7 +38,14 @@ export class UserEffects{
     ofType(UserActions.Load_User_Login),
     exhaustMap(action =>
       this.userService.GetUserLogin(action.secret).pipe(
-        tap(user => {if(user == undefined){this.router.navigate(['Login']);}}),
+        tap(user => {if(user == undefined){this.router.navigate(['Login']);}
+        else
+        {
+          if(user.id != undefined){
+            sessionStorage.setItem("userID", user.id)
+            this.router.navigate(['/User'])
+          }
+        }}),
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))
@@ -53,7 +62,7 @@ export class UserEffects{
   EditUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Edit_User),
     exhaustMap(action =>
-      this.userService.EditUser(action.user, action.password).pipe(
+      this.userService.EditUser(action.user).pipe(
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))
@@ -61,7 +70,9 @@ export class UserEffects{
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService,
+    private http: HttpClient
   ) {}
 }
 //= createEffect(() => this.actions$.pipe(
