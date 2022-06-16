@@ -19,7 +19,6 @@
           "options": {
             "outputPath": "dist/trickling-enigma",
             "allowedCommonJsDependencies": [
-              "@pixi",
               "url"
             ],
             "index": "src/index.html",
