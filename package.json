@@ -37,7 +37,7 @@
     "next-tick": "^1.1.0",
     "ngrx-store-freeze": "^0.2.4",
     "ngx-echarts": "^8.0.1",
-    "pixi.js": "^5.3.12",
+    "pixi.js": "^6.3.2",
     "remove": "^0.1.5",
     "rxjs": "~7.5.0",
     "stream-browserify": "^3.0.0",
