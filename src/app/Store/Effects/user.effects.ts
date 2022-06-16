@@ -5,8 +5,6 @@ import * as UserActions from "../Actions/user.actions";
 import {of} from "rxjs";
 import {map, catchError, exhaustMap, tap} from 'rxjs/operators';
 import {Router} from "@angular/router";
-import {AuthService} from "@auth0/auth0-angular";
-import {HttpClient} from "@angular/common/http";
 
 @Injectable()
 export class UserEffects{
@@ -52,9 +50,10 @@ export class UserEffects{
   ))
   PostUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Add_User),
+    tap(a => console.log(a)),
     exhaustMap(action =>
       this.userService.PostUser(action.user).pipe(
-
+      tap(a => console.log(a)),
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))
@@ -63,6 +62,7 @@ export class UserEffects{
     ofType(UserActions.Edit_User),
     exhaustMap(action =>
       this.userService.EditUser(action.user).pipe(
+        tap(a => console.log(a)),
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))

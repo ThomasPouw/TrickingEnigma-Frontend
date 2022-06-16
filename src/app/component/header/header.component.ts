@@ -24,7 +24,12 @@ export class HeaderComponent implements OnInit {
       }
     })
   }
-
+sessionStore(): string{
+  let session = sessionStorage.getItem("userID")
+  if(typeof session == "string")
+    return session
+  else return "";
+}
   ngOnInit(): void {
   }
 

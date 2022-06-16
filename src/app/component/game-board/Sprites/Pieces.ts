@@ -159,7 +159,7 @@ export class Pieces extends Pixi.Sprite{
         if(sprite.length != this.parent.children.length){
           if(this !== this.parent.children[sprite]){
             if(this.parent.children[sprite].name != "End"){
-                switch (this.angle){
+                switch (this.angle){ //Needs to be checked because the x and y values are calculated from a different points.
                   case(90):
                     if(Pieces.Interaction(this, this.parent.children[sprite])||this.x <= 0 + this.width|| this.y <= 0 || this.x >= Pieces.App.view.width||  this.y >= Pieces.App.view.height- this.height){
                       this.position.x = oldX;

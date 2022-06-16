@@ -28,6 +28,7 @@ export class UserService {
     return this.http.get<User[]>("http://localhost:8060/User/Level?user_IDs="+user_IDs+"?nationality_ID="+ nationality_ID,{headers: {'Access-Control-Allow-Origin' : "http://localhost:4200"}})
   }
   PostUser(user: User): Observable<User>{
+    console.log(user)
     return this.http.post<User>("http://localhost:8060/User", user)
   }
   EditUser(user: User): Observable<User>{
