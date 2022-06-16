@@ -13,10 +13,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
-      - name: Use Node.js 13.10
+      - name: Use Node.js 18.3.0
         uses: actions/setup-node@v1
         with:
-          node-version: '13.10'
+          node-version: '18.3.0'
       - run: npm ci
       - run: npm run build
       - name: Build and push Docker image
