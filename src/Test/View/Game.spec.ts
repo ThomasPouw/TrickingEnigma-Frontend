@@ -15,17 +15,9 @@ import {UserEffects} from "../../app/Store/Effects/user.effects";
 import {NationalityEffects} from "../../app/Store/Effects/nationality.effects";
 import {HttpClientModule} from "@angular/common/http";
 import {Observable, of} from "rxjs";
-import {provideMockActions} from "@ngrx/effects/testing";
-import {RecordService} from "../../app/Store/Service/record.service";
-import {LevelService} from "../../app/Store/Service/level.service";
-import {hot} from "jasmine-marbles";
 import {levels} from "../Dummy_Data/level";
-import {Level} from "../../app/Store/Model/Level";
 import {getLevel} from "../../app/Store/Selector/level.selector";
-import {Record} from "../../app/Store/Model/Record";
 import {MockStore, provideMockStore} from "@ngrx/store/testing";
-import * as fromLevels from "../../app/Store/Reducers/level.reducer";
-import {getRecords} from "../../app/Store/Reducers/records.reducer";
 import {records} from "../Dummy_Data/record";
 import {getAllRecords} from "../../app/Store/Selector/records.selector";
 import {MatTabsModule} from "@angular/material/tabs";
@@ -41,6 +33,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {BrowserModule, By} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import * as fromReducer from "../../app/Store/Reducers";
+import {nationalities} from "../Dummy_Data/nationality";
+import {users} from "../Dummy_Data/user";
 
 describe("Game Page", () =>{
   let actions: Observable<any>;
@@ -54,13 +49,11 @@ describe("Game Page", () =>{
   let router: Router;
   let location: Location;
   let store: MockStore<State>;
-const initialState = {
-  levels: {
-    levels: levels,
-    level: levels[0]
-  }
-}
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       declarations: [GamePageComponent, RecordsComponent, GameBoardComponent],
       imports: [
@@ -106,6 +99,14 @@ const initialState = {
     mockStore.overrideSelector(getAllRecords, records);
     mockStore.refreshState();
     sessionStorage.setItem("userID", '33fe0ee2-3b94-4e9d-82ab-434d08650967')
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   })
   beforeEach(() => {
     store = TestBed.inject(MockStore);

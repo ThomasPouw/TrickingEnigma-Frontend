@@ -34,10 +34,7 @@ export class GameBoardComponent implements OnInit {
     this.route.params
       .subscribe(params => {
           GameBoardComponent.id = params['id'];
-          // price
           GameBoardComponent.store = this.store;
-          console.log(this.screen)
-          console.log(document.getElementById("board"))
         if( this.screen === undefined) {
           this.screen = document.getElementById("board");
 
@@ -47,20 +44,18 @@ export class GameBoardComponent implements OnInit {
               level => {
                 if(level !== undefined){
                   GameBoardComponent.LevelName = level.name
-                  if(this.screen !== null){
-                    if(this.screen.childElementCount !== 1){
-                      if(this.app == undefined){
+                  if(this.screen.children.length !== null){
+                    if(this.app !== undefined){
+                      this.screen.removeChild(this.app.view)
+                    }
                         this.app= new PIXI.Application({
                           width: this.screen.clientWidth,
                           height: this.screen.clientWidth/ (level.x_length/ level.y_length),
                           backgroundColor: 0x979391
                         });
-                      }
-                      console.log(this.screen.clientWidth+" and "+ this.screen.clientHeight)
                       this.screen.appendChild(this.app.view);
                       new Pieces(this.app, (this.screen.clientWidth/ level.x_length), level.levelSprite)
                       this.app.stage.addChild(new backGround(this.screen.clientWidth,  level.x_length, level.y_length))
-                    }
                   }
                 }
               }

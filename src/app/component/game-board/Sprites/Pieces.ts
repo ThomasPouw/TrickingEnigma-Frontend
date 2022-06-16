@@ -8,6 +8,7 @@ export class Pieces extends Pixi.Sprite{
   private static space: number =0;
   private static InteractionManager: Pixi.InteractionManager;
   private static App: Pixi.Application
+  private static active: boolean = false;
   constructor(App: Pixi.Application, Space: number, Sprites: LevelSprite[]) {
     super()
     App.stage.addChild(this.SpriteMaker(App, Space, Sprites))
@@ -17,12 +18,11 @@ export class Pieces extends Pixi.Sprite{
   SpriteMaker(App: any, Space: number, sprite: LevelSprite[]): Pixi.Container{
     let Container = new Pixi.Container;
     Pieces.space = Space;
-
     for(let i = 0; i < sprite.length; i++){
       let shapes= Pixi.Sprite.from(sprite[i].sprite.assetLocation);
       shapes.anchor.set(0,0)
-      shapes.scale.x = ((Space*2)/shapes._texture.orig.width)/100
-      shapes.scale.y = ((Space*2)/shapes._texture.orig.height)/100
+      shapes.scale.x = (Space*2)/100
+      shapes.scale.y = (Space*2)/100
       switch(sprite[i].rotation){
         case PieceDirection.North:
           shapes.x = Space*sprite[i].x;
@@ -92,50 +92,50 @@ export class Pieces extends Pixi.Sprite{
   onDragStart(event: any)
   {
     if(!GameBoardComponent.start){
-      console.log(!GameBoardComponent.start)
         GameBoardComponent.counter(!GameBoardComponent.start)
     }
     this.data = event.data;
     this.alpha = 0.9;
     this.dragging = this.data.getLocalPosition(this.parent);
+    Pieces.active = true;
   }
 
   onDragEnd()
   {
-    this.alpha = 1;
-    this.dragging = false;
-    GameBoardComponent.turnCount++
-    // set the interaction data to null
-    this.data = null;
-    this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))
-    this.position.y = (Pieces.space * Math.floor((this.position.y/Pieces.space)+0.5))
-    for(let sprite in this.parent.children){
-      if(sprite.length != this.parent.children.length){
-        if(this !== this.parent.children[sprite]){
-          if(this.parent.children[sprite].name == "End"){
-            if(Pieces.Interaction(this, this.parent.children[sprite])){
-              if(this.name == "Cargo"){
-                let sprite1 = this.getBounds();
-                let sprite2 = this.parent.children[sprite].getBounds()
-                if(sprite1.x + sprite1.width == sprite2.x + sprite2.width &&
-                  sprite1.x == sprite2.x &&
-                  sprite1.y + sprite1.height == sprite2.y + sprite2.height &&
-                  sprite1.y == sprite2.y){
-                  GameBoardComponent.counter(!GameBoardComponent.start)
-                  for(let sprite of this.parent.children){
-                    sprite.removeAllListeners()
+    if(Pieces.active){
+      this.alpha = 1;
+      this.dragging = false;
+      GameBoardComponent.turnCount++
+      // set the interaction data to null
+      this.data = null;
+      this.position.x = (Pieces.space * Math.floor((this.position.x/ Pieces.space)+0.5))
+      this.position.y = (Pieces.space * Math.floor((this.position.y/Pieces.space)+0.5))
+      Pieces.active = false;
+      for(let sprite in this.parent.children){
+        if(sprite.length != this.parent.children.length){
+          if(this !== this.parent.children[sprite]){
+            if(this.parent.children[sprite].name == "End"){
+              if(Pieces.Interaction(this, this.parent.children[sprite])){
+                if(this.name == "Cargo"){
+                  let sprite1 = this.getBounds();
+                  let sprite2 = this.parent.children[sprite].getBounds()
+                  if(sprite1.x + sprite1.width == sprite2.x + sprite2.width &&
+                    sprite1.x == sprite2.x &&
+                    sprite1.y + sprite1.height == sprite2.y + sprite2.height &&
+                    sprite1.y == sprite2.y){
+                    GameBoardComponent.counter(!GameBoardComponent.start)
+                    for(let sprite of this.parent.children){
+                      sprite.removeAllListeners()
+                    }
+                    GameBoardComponent.recordStore()
                   }
-                  GameBoardComponent.recordStore()
                 }
               }
             }
-            }
-            //if(newPosition.x - Pieces.space > oldX && newPosition.x  + Pieces.space < oldX && newPosition.y - Pieces.space > oldY && newPosition.y  + Pieces.space < oldY){
-            //  this.onDragEnd();
-            //}
           }
         }
       }
+    }
   }
 
   static Interaction(a: Pixi.Sprite, b: any){
@@ -159,10 +159,32 @@ export class Pieces extends Pixi.Sprite{
         if(sprite.length != this.parent.children.length){
           if(this !== this.parent.children[sprite]){
             if(this.parent.children[sprite].name != "End"){
-              if(Pieces.Interaction(this, this.parent.children[sprite]) || this.x <= 0 || this.y <= 0 || this.x >= Pieces.App.view.width||  this.y >= Pieces.App.view.height- this.height){
-                this.position.x = oldX;
-                this.position.y = oldY;
-              }
+                switch (this.angle){
+                  case(90):
+                    if(Pieces.Interaction(this, this.parent.children[sprite])||this.x <= 0 + this.width|| this.y <= 0 || this.x >= Pieces.App.view.width||  this.y >= Pieces.App.view.height- this.height){
+                      this.position.x = oldX;
+                      this.position.y = oldY;
+                    }
+                    break;
+                  case(180):
+                    if(Pieces.Interaction(this, this.parent.children[sprite])||this.x <= 0 + this.width|| this.y <= 0 + this.height|| this.x >= Pieces.App.view.width||  this.y >= Pieces.App.view.height){
+                      this.position.x = oldX;
+                      this.position.y = oldY;
+                    }
+                    break;
+                  case(270):
+                    if(Pieces.Interaction(this, this.parent.children[sprite])||this.x <= 0 || this.y <= 0+ this.height || this.x >= Pieces.App.view.width - this.width||  this.y >= Pieces.App.view.height){
+                      this.position.x = oldX;
+                      this.position.y = oldY;
+                    }
+                    break;
+                  default:
+                    if(Pieces.Interaction(this, this.parent.children[sprite])||this.x <= 0 || this.y <= 0|| this.x >= Pieces.App.view.width- this.width||  this.y >= Pieces.App.view.height- this.height){
+                      this.position.x = oldX;
+                      this.position.y = oldY;
+                    }
+                    break;
+                }
             }
           }
         }

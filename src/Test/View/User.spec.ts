@@ -37,6 +37,9 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {BrowserModule} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {nationalities} from "../Dummy_Data/nationality";
+import {users} from "../Dummy_Data/user";
+import * as fromReducer from "../../app/Store/Reducers";
 
 describe("User Page", () => {
   let actions: Observable<any>;
@@ -46,13 +49,11 @@ describe("User Page", () => {
   let router: Router;
   let location: Location;
   let store: MockStore<State>;
-  const initialState = {
-    levels: {
-      levels: levels,
-      level: levels[0]
-    }
-  }
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       declarations: [UserPageComponent, UserPageRecordComponent],
       imports: [
@@ -110,6 +111,14 @@ describe("User Page", () => {
     mockStore.overrideSelector(getAllBestUserRecords, [records[2],records[3], records[4], records[6], records[7], records[8], records[9], records[10]]);
     mockStore.refreshState();
     sessionStorage.setItem("userID", '33fe0ee2-3b94-4e9d-82ab-434d08650967')
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   })
   beforeEach(() => {
     store = TestBed.inject(MockStore);

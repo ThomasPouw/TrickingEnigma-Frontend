@@ -24,6 +24,7 @@ export class LevelEffects{
       exhaustMap(action =>
 
         this.levelService.GetLevelByID(action.id).pipe(
+          tap(level => console.log(level)),
           map(level =>  ({ type: LevelActions.LEVEL_SUCCESS, level: level })),
           catchError((error) => of({type: LevelActions.LEVEL_FAIL, error: error}))
         )

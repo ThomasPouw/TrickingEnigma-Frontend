@@ -35,6 +35,9 @@ import {getAllRecords} from "../../app/Store/Selector/records.selector";
 import {records} from "../Dummy_Data/record";
 import {GameSelectComponent} from "../../app/view/game-select/game-select.component";
 import {RouterTestingModule} from "@angular/router/testing";
+import {nationalities} from "../Dummy_Data/nationality";
+import {users} from "../Dummy_Data/user";
+import * as fromReducer from "../../app/Store/Reducers";
 
 describe("GameSelect Page", () => {
   let actions: Observable<any>;
@@ -44,13 +47,11 @@ describe("GameSelect Page", () => {
   let router: Router;
   let location: Location;
   let store: MockStore<State>;
-  const initialState = {
-    levels: {
-      levels: levels,
-      level: levels[0]
-    }
-  }
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       declarations: [GameSelectComponent],
       imports: [
@@ -94,6 +95,14 @@ describe("GameSelect Page", () => {
     mockStore.overrideSelector(getLevels, levels);
     mockStore.refreshState();
     sessionStorage.setItem("userID", '33fe0ee2-3b94-4e9d-82ab-434d08650967')
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   })
   beforeEach(() => {
     store = TestBed.inject(MockStore);

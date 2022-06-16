@@ -15,13 +15,20 @@ import {cold, hot} from "jasmine-marbles";
 import {Level_Success, Load_Level, Load_Levels, Load_Levels_By_IDs} from "../../../app/Store/Actions/level.actions";
 import {Level} from "../../../app/Store/Model/Level";
 import {levels} from "../../Dummy_Data/level";
+import * as fromReducer from "../../../app/Store/Reducers";
+import {nationalities} from "../../Dummy_Data/nationality";
+import {records} from "../../Dummy_Data/record";
+import {users} from "../../Dummy_Data/user";
 
 describe("Level Effects", () => {
   let actions: Observable<any>;
   let effects: LevelEffects;
   let levelService: jasmine.SpyObj<LevelService>;
-
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       providers: [
         LevelEffects,
@@ -39,6 +46,14 @@ describe("Level Effects", () => {
 
     effects = TestBed.inject(LevelEffects);
     levelService = TestBed.get(LevelService);
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   });
   it('Should return all Levels when called', () =>{
     const action = Load_Levels();

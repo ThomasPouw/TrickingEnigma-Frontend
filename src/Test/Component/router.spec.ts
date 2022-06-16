@@ -47,12 +47,21 @@ import {NationalityService} from "../../app/Store/Service/nationality.service";
 import {Observable} from "rxjs";
 import {provideMockStore} from "@ngrx/store/testing";
 import {provideMockActions} from "@ngrx/effects/testing";
+import * as fromReducer from "../../app/Store/Reducers";
+import {nationalities} from "../Dummy_Data/nationality";
+import {records} from "../Dummy_Data/record";
+import {users} from "../Dummy_Data/user";
+import {levels} from "../Dummy_Data/level";
 describe("Router", () => {
   let location: Location;
   let router: Router;
   let fixture;
   let actions: Observable<any>;
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       schemas:[
         CUSTOM_ELEMENTS_SCHEMA
@@ -115,6 +124,15 @@ describe("Router", () => {
     router = TestBed.get(Router);
     location = TestBed.get(Location);
     router.initialNavigation();
+    //The thing that produces 950 errors without
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   })
   it('navigate to "/GameSelect"', fakeAsync(() => {
     router.navigate(['/GameSelect']);

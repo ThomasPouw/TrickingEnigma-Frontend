@@ -96,26 +96,6 @@ import {Token} from "./Util/API_Token";
     AuthModule.forRoot({
       domain: 'dev-yw9oh5an.us.auth0.com',
       clientId: 'GHQa52igJs2ccnZJj3SeDGbrG2gVilPm',
-      httpInterceptor: {
-        allowedList: [
-          {
-            // Match any request that starts 'https://dev-yw9oh5an.us.auth0.com/api/v2/' (note the asterisk)
-            uri: 'https://dev-yw9oh5an.us.auth0.com/api/v2/*',
-            tokenOptions: {
-              // The attached token should target this audience
-              audience: 'https://dev-yw9oh5an.us.auth0.com/api/v2/',
-
-            }
-          },
-          {
-            uri: 'https://dev-yw9oh5an.us.auth0.com/api/v2/roles',
-            tokenOptions: {
-              audience: 'https://dev-yw9oh5an.us.auth0.com/api/v2/',
-              scope: 'read:roles',
-            },
-          }
-        ]
-      }
     }),
     MatSelectModule,
 
@@ -124,7 +104,7 @@ import {Token} from "./Util/API_Token";
     MatInputModule,
     MatFormFieldModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },],
+  providers: [],
   bootstrap: [AppComponent, HeaderComponent, FooterComponent]
 })
 export class AppModule { }

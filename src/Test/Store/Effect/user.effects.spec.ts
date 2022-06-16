@@ -16,13 +16,19 @@ import {
 import {users} from "../../Dummy_Data/user";
 import {RouterModule} from "@angular/router";
 import {URLrouterModule} from "../../../app/Route/router-module/URLrouter.module";
+import * as fromReducer from "../../../app/Store/Reducers";
+import {records} from "../../Dummy_Data/record";
+import {levels} from "../../Dummy_Data/level";
 
 describe("User Effects", () => {
   let actions: Observable<any>;
   let effects: UserEffects;
   let userService: jasmine.SpyObj<UserService>;
-
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       imports: [
         RouterModule,
@@ -47,6 +53,14 @@ describe("User Effects", () => {
 
     effects = TestBed.inject(UserEffects);
     userService = TestBed.get(UserService);
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   });
   it('Should return User when called by Secret', () =>{
     const action = Load_User_Login({secret: users[0].secret});

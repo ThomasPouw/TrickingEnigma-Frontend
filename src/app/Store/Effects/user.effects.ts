@@ -70,9 +70,7 @@ export class UserEffects{
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private router: Router,
-    private auth: AuthService,
-    private http: HttpClient
+    private router: Router
   ) {}
 }
 //= createEffect(() => this.actions$.pipe(

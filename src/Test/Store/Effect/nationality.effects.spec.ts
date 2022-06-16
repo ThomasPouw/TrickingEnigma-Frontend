@@ -11,13 +11,20 @@ import {
 } from "../../../app/Store/Actions/nationality.actions";
 import {cold, hot} from "jasmine-marbles";
 import {nationalities} from "../../Dummy_Data/nationality";
+import * as fromReducer from "../../../app/Store/Reducers";
+import {records} from "../../Dummy_Data/record";
+import {users} from "../../Dummy_Data/user";
+import {levels} from "../../Dummy_Data/level";
 
 describe("Nationality Effects", () => {
   let actions: Observable<any>;
   let effects: NationalityEffects;
   let nationalityService: jasmine.SpyObj<NationalityService>;
-
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       providers: [
         NationalityEffects,
@@ -34,6 +41,14 @@ describe("Nationality Effects", () => {
 
     effects = TestBed.inject(NationalityEffects);
     nationalityService = TestBed.get(NationalityService);
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   });
   it('Should return all nationalities when called', () =>{;
     const action = Load_All_Nationality();

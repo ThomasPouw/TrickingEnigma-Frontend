@@ -16,13 +16,19 @@ import {
   Record_Success
 } from "../../../app/Store/Actions/records.actions";
 import {records} from "../../Dummy_Data/record";
+import * as fromReducer from "../../../app/Store/Reducers";
+import {nationalities} from "../../Dummy_Data/nationality";
+import {users} from "../../Dummy_Data/user";
 
 describe("Record Effects", () => {
   let actions: Observable<any>;
   let effects: RecordEffects;
   let recordService: jasmine.SpyObj<RecordService>;
-
+  let initialState: any;
   beforeEach(() => {
+    actions = new Observable<any>()
+    actions.subscribe(test => test = {type: "Test"})
+    initialState = fromReducer.reducer(fromReducer, actions);
     TestBed.configureTestingModule({
       providers: [
         RecordEffects,
@@ -43,6 +49,14 @@ describe("Record Effects", () => {
 
     effects = TestBed.inject(RecordEffects);
     recordService = TestBed.get(RecordService);
+    initialState.nationalities.nationalities = nationalities;
+    initialState.nationalities.nationality = nationalities[0];
+    initialState.records.records = records;
+    initialState.records.record = records[0];
+    initialState.users.users = users;
+    initialState.users.user = users[0];
+    initialState.levels.levels = levels;
+    initialState.levels.level = levels[0];
   });
   it('Should return all WorldRecords when called', () =>{
     const action = Load_WorldRecord({id: records[0].levelID});
