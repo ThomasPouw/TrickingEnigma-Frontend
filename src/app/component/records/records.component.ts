@@ -20,7 +20,6 @@ export class RecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(sessionStorage.getItem("userID"))
     this.route.params
       .subscribe(params => {
         if(sessionStorage.getItem("userID") != undefined || null){
