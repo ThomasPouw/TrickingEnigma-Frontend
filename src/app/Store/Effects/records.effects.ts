@@ -59,7 +59,6 @@ export class RecordEffects{
   )
   postRecord$ = createEffect(() => this.actions$.pipe(
     ofType(RecordActions.Add_Record),
-    tap(action => console.log(action)),
     exhaustMap(action =>
       this.recordService.PostRecord(action.record).pipe(
         map(record => ({type: RecordActions.RECORD_SUCCESS, record: record})), //({type: RecordActions.RECORD_SUCCESS, record: record})

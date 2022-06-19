@@ -28,13 +28,10 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   SignIn(nickName: string){
-    console.log("Fire!")
     this.auth.user$.subscribe(user =>{
         if(user !== null && user !== undefined){
           this.store.select(getNationalityLogin(this.nationality)).subscribe(
             nationality => {
-              console.log(this.nationality)
-              console.log(nationality)
               if(nationality.id !== ""){
                 this.store.dispatch({type: fromUser.ADD_USER, user: {name: nickName, nationality: nationality, secret: user.sub?.replace("|", "_")}})
                 this.store.select(getUser).subscribe(

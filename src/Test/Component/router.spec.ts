@@ -15,8 +15,6 @@ import {reducer} from "../../app/Store/Reducers";
 import {HeaderComponent} from "../../app/component/header/header.component";
 import {RecordsComponent} from "../../app/component/records/records.component";
 import {GameBoardComponent} from "../../app/component/game-board/game-board.component";
-import {SideBarComponent} from "../../app/component/side-bar/side-bar.component";
-import {FooterComponent} from "../../app/component/footer/footer.component";
 import {LoginComponent} from "../../app/view/login/login.component";
 import {UserPageRecordComponent} from "../../app/component/user-page-record/user-page-record.component";
 import {BrowserModule} from "@angular/platform-browser";
@@ -85,8 +83,6 @@ describe("Router", () => {
         HeaderComponent,
         RecordsComponent,
         GameBoardComponent,
-        SideBarComponent,
-        FooterComponent,
         LoginComponent,
         GameSelectComponent,
         UserPageRecordComponent
@@ -134,11 +130,6 @@ describe("Router", () => {
     initialState.levels.levels = levels;
     initialState.levels.level = levels[0];
   })
-  it('navigate to "/GameSelect"', fakeAsync(() => {
-    router.navigate(['/GameSelect']);
-    tick();
-    expect(location.path()).toBe('/GameSelect');
-  }));
   it('navigate to "/User"', fakeAsync(() => {
     sessionStorage.setItem("userID", '33fe0ee2-3b94-4e9d-82ab-434d08650967')
     router.navigate(['/User']);

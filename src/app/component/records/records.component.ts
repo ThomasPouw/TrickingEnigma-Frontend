@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class RecordsComponent implements OnInit {
   showRecord: boolean = false;
-  PB: Record = {recordCreated: 0, turns: 42, time: 0, userID: "", levelID: ""};
+  PB: Record = {recordCreated: 0, turns: 0, time: 0, userID: "", levelID: ""};
   time: string = "";
   turns: boolean = false;
 

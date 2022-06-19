@@ -17,6 +17,7 @@ export class Pieces extends Pixi.Sprite{
   }
   SpriteMaker(App: any, Space: number, sprite: LevelSprite[]): Pixi.Container{
     let Container = new Pixi.Container;
+    Container.sortableChildren = true
     Pieces.space = Space;
     for(let i = 0; i < sprite.length; i++){
       let shapes= Pixi.Sprite.from(sprite[i].sprite.assetLocation);
@@ -48,8 +49,8 @@ export class Pieces extends Pixi.Sprite{
       shapes.name = sprite[i].tile_name;
       switch(sprite[i].tile_name){
         case("End"):
-          shapes.tint=0x475325;
           shapes.zIndex = 0;
+          shapes.tint=0x475325;
           break;
         case("Sprite"):
           shapes.zIndex = 1;
@@ -65,7 +66,7 @@ export class Pieces extends Pixi.Sprite{
             .on('touchmove', this.onDragMove);
           break;
         case("Cargo"):
-          shapes.zIndex = 1;
+          shapes.zIndex = 2;
           shapes.tint=0xA75325;
           shapes.on('mousedown', this.onDragStart)
             .on('touchstart', this.onDragStart)
@@ -79,7 +80,7 @@ export class Pieces extends Pixi.Sprite{
             .on('touchmove', this.onDragMove);
           break;
         case("Wall"):
-          shapes.zIndex = 1;
+          shapes.zIndex = 4;
           shapes.tint=0x808080;
           break;
       }

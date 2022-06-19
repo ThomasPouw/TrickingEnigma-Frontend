@@ -62,10 +62,10 @@ export class GameBoardComponent implements OnInit {
             )
           }
         }
-        }
-        );
+      }
+    );
   }
-static counter(start: boolean): void{
+  static counter(start: boolean): void{
     if(start){
       GameBoardComponent.start = start;
       this.interval = setInterval(() => {
@@ -79,7 +79,6 @@ static counter(start: boolean): void{
     }
   }
 static recordStore(): void{
-    console.log({userID: sessionStorage.getItem("userID"), courseId: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount})
   GameBoardComponent.store.dispatch({type: RecordActions.ADD_RECORD, record: {userID: sessionStorage.getItem("userID"), levelID: GameBoardComponent.id, time: GameBoardComponent.time, turns: GameBoardComponent.turnCount}})
 }
   turnCount(): number {

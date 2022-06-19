@@ -50,10 +50,8 @@ export class UserEffects{
   ))
   PostUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.Add_User),
-    tap(a => console.log(a)),
     exhaustMap(action =>
       this.userService.PostUser(action.user).pipe(
-      tap(a => console.log(a)),
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))
@@ -62,7 +60,6 @@ export class UserEffects{
     ofType(UserActions.Edit_User),
     exhaustMap(action =>
       this.userService.EditUser(action.user).pipe(
-        tap(a => console.log(a)),
         map(user => ({type: UserActions.USER_SUCCESS, user: user})),
         catchError((error) => of({type: UserActions.USER_FAIL, error: error}))
       ))

@@ -5,12 +5,6 @@ import {TestBed} from "@angular/core/testing";
 import {provideMockActions} from "@ngrx/effects/testing";
 import {LevelEffects} from "../../../app/Store/Effects/level.effects";
 import {LevelService} from "../../../app/Store/Service/level.service";
-import {Nationality} from "../../../app/Store/Model/Nationality";
-import {
-  Load_All_Nationality,
-  Load_NationalityByID,
-  Nationality_Success
-} from "../../../app/Store/Actions/nationality.actions";
 import {cold, hot} from "jasmine-marbles";
 import {Level_Success, Load_Level, Load_Levels, Load_Levels_By_IDs} from "../../../app/Store/Actions/level.actions";
 import {Level} from "../../../app/Store/Model/Level";

@@ -41,7 +41,6 @@ export class NationalityEffects{
   ))
   editNationality$ = createEffect(() => this.actions$.pipe(
     ofType(NationalityActions.Edit_Nationality),
-    tap(a => console.log(a)),
     exhaustMap(action =>
       this.nationalityService.EditNationality(action.nationality).pipe(
         map(nationality => ({type: NationalityActions.NATIONALITY_SUCCESS, nationality: nationality})),

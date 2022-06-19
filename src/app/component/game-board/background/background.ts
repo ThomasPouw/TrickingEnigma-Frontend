@@ -11,7 +11,7 @@ export class backGround extends PIXI.Graphics{
     else
       for (let i = 0; i <= Y+1; i++) {
         this.drawRect(0, i * (clientWidth/X), clientWidth, 1);
-        this.drawRect(i * (clientWidth/X), 0, 1, (clientWidth/X)*Y);
+        this.drawRect(i * (clientWidth/Y), 0, 1, (clientWidth/X)*Y);
       }
     this.endFill();
   }

@@ -3,11 +3,10 @@ import {Observable} from "rxjs";
 import {NationalityService} from "../../../app/Store/Service/nationality.service";
 import {provideMockActions} from "@ngrx/effects/testing";
 import {TestBed} from "@angular/core/testing";
-import {Nationality} from "../../../app/Store/Model/Nationality";
 import {
   Load_All_Nationality,
   Load_NationalityByID,
-  Nationality_Success
+  Nationality_Success, Post_Nationality
 } from "../../../app/Store/Actions/nationality.actions";
 import {cold, hot} from "jasmine-marbles";
 import {nationalities} from "../../Dummy_Data/nationality";
@@ -15,6 +14,7 @@ import * as fromReducer from "../../../app/Store/Reducers";
 import {records} from "../../Dummy_Data/record";
 import {users} from "../../Dummy_Data/user";
 import {levels} from "../../Dummy_Data/level";
+import {Add_Record, Record_Success} from "../../../app/Store/Actions/records.actions";
 
 describe("Nationality Effects", () => {
   let actions: Observable<any>;
@@ -33,7 +33,9 @@ describe("Nationality Effects", () => {
           provide: NationalityService,
           useValue: {
             GetNationalities: jasmine.createSpy(),
-            GetNationalityByID: jasmine.createSpy()
+            GetNationalityByID: jasmine.createSpy(),
+            AddNationality: jasmine.createSpy(),
+            EditNationality: jasmine.createSpy(),
           }
         },
       ],
@@ -71,5 +73,22 @@ describe("Nationality Effects", () => {
 
     const expected = cold('--b', { b: outcome });
     expect(effects.loadNationalityByID$).toBeObservable(expected);
+  })
+  it('Should Add Nationality', () =>{
+    const action = Post_Nationality({nationality: {
+        name: "France"
+      }});
+    const outcome = Nationality_Success({nationality: {
+        name: "France"
+      }});
+
+    actions = hot('-a', { a: action });
+    const response = cold('-a|', { a: {
+      name: "France"
+    }});;
+    nationalityService.AddNationality.and.returnValue(response);
+
+    const expected = cold('--b', { b: outcome });
+    expect(effects.postNationality$).toBeObservable(expected);
   })
 })

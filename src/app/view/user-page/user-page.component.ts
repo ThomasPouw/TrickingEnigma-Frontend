@@ -51,10 +51,8 @@ export class UserPageComponent implements OnInit{
               this.store.select(getNationalityLogin(this.nationality)).subscribe(
                 nationality => {
                   let newUser = user;
-                  console.log(user.name)
                   newUser.name = nickName.toString();
                   newUser.nationality = nationality;
-                  console.log(newUser)
                   this.store.dispatch({type: fromUser.EDIT_USER, user: newUser});
                 }
               )

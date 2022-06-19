@@ -35,7 +35,6 @@ export class AdminPageComponent implements OnInit {
     )
   }
   Edit_Nationality(nationality_name: string){
-    console.log({name: nationality_name, id: this.nationalityID})
     this.store.dispatch({type: fromNationality.Edit_NATIONALITY, nationality: {name: nationality_name, id: this.nationalityID}})
     this.store.dispatch({type: fromNationality.LOAD_All_NATIONALITY})
     this.store.select(getAllNationalities).subscribe(

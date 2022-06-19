@@ -23,8 +23,6 @@ import { AdminPageComponent } from './view/admin-page/admin-page.component';
 import { HeaderComponent } from './component/header/header.component';
 import { RecordsComponent } from './component/records/records.component';
 import { GameBoardComponent } from './component/game-board/game-board.component';
-import { SideBarComponent } from './component/side-bar/side-bar.component';
-import { FooterComponent } from './component/footer/footer.component';
 import { LoginComponent } from './view/login/login.component';
 import { UserPageRecordComponent } from './component/user-page-record/user-page-record.component';
 import { GameSelectComponent } from './view/game-select/game-select.component';
@@ -63,8 +61,6 @@ import {Token} from "./Util/API_Token";
     HeaderComponent,
     RecordsComponent,
     GameBoardComponent,
-    SideBarComponent,
-    FooterComponent,
     LoginComponent,
     GameSelectComponent,
     UserPageRecordComponent,
@@ -105,6 +101,6 @@ import {Token} from "./Util/API_Token";
     MatFormFieldModule
   ],
   providers: [],
-  bootstrap: [AppComponent, HeaderComponent, FooterComponent]
+  bootstrap: [AppComponent, HeaderComponent]
 })
 export class AppModule { }

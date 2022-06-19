@@ -29,11 +29,20 @@
 }
 
 .container {
-  width: 90%;
-  margin: 5%;
+  width: 100%;
   background-color: #2d5048;
-  height: 100%;
+  height: auto;
   border-radius: 1%;
+  position: absolute;
+}
+
+.record-button {
+  margin-left: 48%;
+  border-radius: 100%;
+  text-align: center;
+  width: 3%;
+  padding: 1%;
+  background-color: #3b7568;
 }
 
 /*# sourceMappingURL=records.component.css.map */
