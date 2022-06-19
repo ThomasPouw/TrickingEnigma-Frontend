@@ -50,7 +50,7 @@ export class Pieces extends Pixi.Sprite{
       switch(sprite[i].tile_name){
         case("End"):
           shapes.zIndex = 0;
-          shapes.tint=0x475325;
+          shapes.tint=0x00FF00;
           break;
         case("Sprite"):
           shapes.zIndex = 1;
